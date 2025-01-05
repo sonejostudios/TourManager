@@ -2,7 +2,7 @@
 A tool to organize shows and events. Made for artists, musicians, bookers and event managers.
 
 
-__Description:__
+## Description:
 
 TourManager is a tool to help artists, musicians, bookers and event managers with the organization of shows and events.
 TourManager wants to be simple and powerful and it has a lot of tools to help organizing your shows efficiently. 
@@ -14,7 +14,7 @@ It has a map to show your venues, a travel costs calculator, notes, statistics, 
 ![screenshot](https://github.com/sonejostudios/TourManager/blob/main/TourManagerMap.png "TourManagerMap")
 
 
-__Main Features:__
+## Main Features:
 
 * Manage your shows
 * Manage your venues and events
@@ -34,7 +34,7 @@ __Main Features:__
 * and many many more...
   
 
-__Installation (Binaries):__
+## Installation (Binaries):
 
 **Linux:**
 Grab the newest release linux zip file, extract it, cd into folder and run
@@ -48,7 +48,7 @@ TourManager.exe
 ```
 
 
-__Installation (Python Source):__
+## Installation (Python Source):
 
 1. Clone the whole TourManager folder on your system
 ```
@@ -66,7 +66,7 @@ pip install PySide6 pandas folium ics tabulate humanize pyqtdarktheme-fork
 ```
 
 
-__Get Started:__
+## Get Started:
 
 1. First, open `config.ini` and set it up as wanted: 
 * add your homebase city and it's geo-coordinates
@@ -100,16 +100,16 @@ __Get Started:__
 * Open the `Travel Costs Calculator` and enter that distance to know the travel costs
 
 
-__Config.ini:__
+## Config.ini:
 
 
-__Working Folder:__
+## Working Folder:
 
 
-__Exports:__
+## Exports:
 
 
-__Map:__
+## Map:
 
 
 
