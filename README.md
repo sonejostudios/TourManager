@@ -4,9 +4,13 @@ A tool to organize shows and events. Made for artists, musicians, bookers and ev
 
 ## Description:
 
-TourManager is a tool to help artists, musicians, bookers and event managers with the organization of shows and events.
-TourManager wants to be simple and powerful and it has a lot of tools to help organizing your shows efficiently. 
-It has a map to show your venues, a travel costs calculator, notes, statistics, links to locate addresses and get directions, it can generate calender files for you favorite calendar application, export the upcoming shows into html, and many more useful tools. It will definitely reduce the boring tasks, making the booking processes enjoyable, and even bring multi-user cooperation!
+TourManager is a tool to help artists, musicians, bookers, and event managers with the organization of shows and events.
+
+TourManager wants to be simple and powerful, and it has a lot of tools to help organize your shows efficiently. 
+
+It has a map to show your venues, a travel costs calculator, notes, statistics, links to locate addresses and get directions, it can generate calendar files for your favorite calendar application, export the upcoming shows into html, and many more useful tools. 
+
+It will definitely reduce the boring tasks, making the booking processes enjoyable, and even bring multi-user cooperation!
 
 
 ![screenshot](https://github.com/sonejostudios/TourManager/blob/main/TourManager.png "TourManager")
