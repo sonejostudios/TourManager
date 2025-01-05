@@ -5,11 +5,8 @@ A tool to organize shows and events. Made for artists, musicians, bookers and ev
 ## Description:
 
 TourManager is a tool to help artists, musicians, bookers, and event managers with the organization of shows and events.
-
 TourManager wants to be simple and powerful, and it has a lot of tools to help organize your shows efficiently. 
-
 It has a map to show your venues, a travel costs calculator, notes, statistics, links to locate addresses and get directions, it can generate calendar files for your favorite calendar application, export the upcoming shows into html, and many more useful tools. 
-
 It will definitely reduce the boring tasks, making the booking processes enjoyable, and even bring multi-user cooperation!
 
 
@@ -150,9 +147,9 @@ map_provider = osm #gmaps
 
 ### Working Folder:
 The following files are stored into working folder:
-* The databases (shows.csv and venues.csv)
-* The show folders (Shows)
-* The notes (Notes.txt)
+* The databases (`shows.csv` and `venues.csv`)
+* The show folders (`Shows`)
+* The notes (`Notes.txt`)
 * The exported files:
 	* `UpcomingShows.html`
 	* `TourManagerShows.ics`
@@ -166,8 +163,8 @@ You can use a shared folder which is synchronized other internet to use TourMana
 The following files are stored into application folder:
 
 * All application files
-* The database backups (Backups folder)
-* config.ini
+* The database backups (`Backups` folder)
+* `config.ini`
 
 As you can see the shared files are placed in the working folder and the user's configuration files and backups in the application folder.
 
