@@ -105,16 +105,94 @@ pip install PySide6 pandas folium ics tabulate humanize pyqtdarktheme-fork
 
 
 ## Config.ini:
+```
+[defaults]
+homebase_city = Homebase City (please setup config.ini)
+homebase_geocoordinates = 0.0, 0.0
+artists = My Artist
+currency = EUR
+distance_unit = km
+travel_unit_price = 0.30
+
+[paths]
+working_directory = 
+
+[settings]
+auto_export_shows = 0
+auto_export_calendars = 0
+theme = none #auto #dark #light
+map_provider = osm #gmaps
+```
+* Defaults:
+	* homebase_city = Enter your city or where you want to start your trips
+	 * homebase_geocoordinates = It's geo-coordinates (in decimal form, e.g.: 47.994853, 7.843950 )
+	 * artists = Your default artist's name
+	 * currency = The default currency code you want to use (e.g.: EUR or USD)
+	* distance_unit = the default distance unit (e.g.: km)
+	* travel_unit_price = The default price per unit (e.g.: 0.30€/km)
+
+* Paths:
+	* working_directory = Enter the path of your working folder. If emtpy, the application's folder is used. See chapter "Working Folder".
+
+* Settings:
+	* auto_export_shows = If 1, the upcoming shows will be exported as .html on application closing
+	* auto_export_calendars = If 1, the calendars will be exported as .ics on application closing
+	* theme = Enter `dark`, `light` or `auto` (follows OS color theme) to use pyqtdarktheme. For some unknown reasons it doesn't work with the released binaries.
+	* map_provider =  Enter `gmaps` if you want to use google maps instead of open street ma
 
 
+## Working Folder vs Application Folder:
 
-## Working Folder:
+### Working Folder:
+The following files are stored into working folder:
+* The databases (shows.csv and venues.csv)
+* The show folders (Shows)
+* The notes (Notes.txt)
+* The exported files:
+	* UpcomingShows.html
+	* TourManagerShows.ics
+	* TourManagerEvents.ics
+	* TourManagerEventsForecast.ics
+
+You can use a shared folder which is synchronized other internet to use TourManager from different computers and users. It works nice with DropBox but should also work with others like NextCloud, etc. Using the working folder that way you can have access to the files from everywhere. So you can have a look to the upcoming show on your mobile phone and subscribe the calendars with your calendar application.
+
+### Working Folder:
+The following files are stored into application folder:
+
+* All application files
+* The database backups (Backups folder)
+* config.ini
+
+As you can see the shared files are placed in the working folder and the user's configuration files and backups in the application folder.
+
+
 
 
 ## Exports:
 
+In the menu `Export`, you can export the upcoming shows as .html file or the calendars as .ics files. If set up in `config.ini`, these files are automatically exported on application closing.
 
-## Map:
+**Upcoming Shows:** 
+* UpcomingShows.html: Open this file (e.g. from your mobile phone) to have a quick view on the upcoming shows. This is really handy when you are on tour without a computer with TourManager
+
+**Calendars:** 
+Subscribe these .ics files with your favorite calendar application (only tested with Thunderbird).
+* TourManagerShows.ics: A calendar with all your shows
+* TourManagerEvents.ics: A calendar with all events (all venues with start and end dates)
+* TourManagerEventsForecast.ics: A calendar with all events postponed 1 year ahead. This can be handy to guess when an event could be even if you don't have the exact date yet.
+
+**How to subscribe the calendars with Thunderbird:**
+* Select `Paths`in the Monitor (blue section)
+* Copy the path of the file you want to subscribe. E.g.:  `file:///path/to/my/workdir/TourManagerShows.ics`
+* Open Thunderbird, go to calendar
+* On the botom left, press `New Calendar...`
+* Select `On the Network` (yes, even if the file is local)
+* Copy the file path to `Location`and check `This location doesn't require credentials`
+* Press `Find Calendars`
+* If everying is works as expected, Thunderbird will find the calendar. Then press `Subscribe`
+
+
+
 
 
 
