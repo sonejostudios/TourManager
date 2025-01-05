@@ -57,7 +57,7 @@ pd.set_option('display.width', 2000)
 
 
 
-VERSION = "0.1.10"
+VERSION = "0.1.11"
 DATE = "2025-01-05"
 
 DB_SHOWS = "shows.csv"
@@ -896,13 +896,15 @@ class MainWindow(QMainWindow):
 
 
     def on_about(self):
-        text = ("TourManager helps organizing Shows and Events.\n\n"
-                "Version: " + VERSION + "\n"
-                "Date: " + DATE + "\n"
-                "Developed by Vincent Rateau\n"
-                "License: GPL v.3\n")
+        text = ("TourManager helps organizing Shows and Events.<br><br>"
+                "Version: " + VERSION + "<br>"
+                "Date: " + DATE + "<br>"
+                "Developed by Vincent Rateau<br>"
+                "License: GPL v.3<br><br>"
+                "<a href='https://github.com/sonejostudios/TourManager'>https://github.com/sonejostudios/TourManager</a><br>")
 
-        QMessageBox.about(self, "About",text)
+        about = QMessageBox.about(self, "About",text)
+
 
 
 
