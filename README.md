@@ -4,56 +4,67 @@ A tool to organize shows and events. Made for artists, musicians, bookers and ev
 
 __Description:__
 
-BookerDB is a tool to help musicians, artists and bookers with the organization of shows and everything around.
-BookerDB is based on a csv database, classified by dates. It is possible to add/delete entries and do a lot more of manipulations.
-It has a monitor to show all kind of filters around the database, like coming dates, played dates, statistics, contacts, etc... It can also export database entries into PDF (as info sheet with all important information) to take them as reminder on tour.
+TourManager is a tool to help artists, musicians, bookers and event managers with the organization of shows and events.
+TourManager wants to be simple and powerful and it has a lot of tools to help organizing your shows efficiently. 
+It has a map to show your venues, a travel costs calculator, notes, statistics, links to locate addresses and get directions, it can generate calender files for you favorite calendar application, export the upcoming shows into html, and many more useful tools. It will definitely reduce the boring tasks, making the booking processes enjoyable, and even bring multi-user cooperation!
 
 
-![screenshot](https://github.com/sonejostudios/BookerDB/blob/master/BookerDB.png "BookerDB")
 
+![screenshot](https://github.com/sonejostudios/TourManager/blob/main/TourManager.png "TourManager")
+
+![screenshot](https://github.com/sonejostudios/TourManager/blob/main/TourManagerMap.png "TourManagerMap")
 
 __Main Features:__
 
-* Add/Save/Delete Shows
-* Monitor Filters COMING, PLAYED, WAITING, CANCELLED, WORK IN PROGRESS, CONTACT ONLY, City, Country, Venue, Artist, Contacts, etc...
-* Statistics
+* Two linked databases
+* Map
+* Travel costs calculator
+* Locate addresses and get directions on OSM or Gmaps (via Web Browser)
+* Generate calendar files for calendar applications
 * Notes
-* Search
-* Filter Monitor
-* Backup and Restore
-* Sync Addresses and Contacts
-* Export Show(s) to PDF file(s)
-* Export Monitor to text file (i.e for printing)
-* Open Monitor with default Text Editor
-* View Venue location on OSM or Gmaps (via Web Browser)
-* Direct Links to Search engines, Youtube, Facebook, Soundcloud, Mails, etc 
-* Send E-Mail to Contact via default Mail Client
-* Import/Export database to Working Folder
-* Remote Working Folder (in cloud) handling (locked when imported, unlocked when exported)
-* Use your own logo
-* Open Folders from BookerDB directly (MATE, Cinnemon, GNOME, KDE only)
-* Notify actions via OS
-* Sync Addresses and Contacts
+* Statistics
+* Search shows and venues
+* Filter shows and venues
+* Monitor (according to search and filters)
+* Specific show folders
+* Tags
+* Backup
+* Working folder (can be shared with cloud applications)
 * and many many more...
   
 
-__Installation:__
+__Installation (Binaries):__
 
-1. copy the whole BookerDB folder on your system
+Linux:
+Grab the newest release linux zip file, extract it, cd into folder and run
 ```
-git clone https://github.com/sonejostudios/BookerDB.git
+./TourManager
+```
+Windows:
+Grab the newest release windows file, extract it and start
+```
+TourManager.exe
 ```
 
-2. from this folder start BookerDB with: 
+
+__Installation (Python Source):__
+
+
+1. Clone the whole TourManager folder on your system
 ```
-python3 BookerDB.py
+git clone https://github.com/sonejostudios/TourManager.git
 ```
 
-__Requirements:__
+2. Install dependencies:
+```
+pip install PySide6 pandas folium ics tabulate humanize pyqtdarktheme-fork
+```
 
-* Python3
-* Tkinter
-* GNU/Linux (with cp, sed and sort)
-* Web Browser (i.e Firefox)
-* File Manager (caja, nemo, nautilus, dolphin)
-* PDF Reader
+3. Start TourManager with: 
+```
+./TourManager.sh
+```
+
+
+
+
