@@ -34,7 +34,7 @@ It has a map to show your venues, a travel costs calculator, notes, statistics, 
 * and many many more...
   
 
-## Installation (Binaries):
+## Easy Installation (Binaries):
 
 
 **Linux:**
@@ -141,6 +141,7 @@ map_provider = osm #gmaps
 	* map_provider =  Enter `gmaps` if you want to use google maps instead of open street ma
 
 
+
 ## Working Folder vs Application Folder:
 
 ### Working Folder:
@@ -155,6 +156,7 @@ The following files are stored into working folder:
 	* TourManagerEventsForecast.ics
 
 You can use a shared folder which is synchronized other internet to use TourManager from different computers and users. It works nice with DropBox but should also work with others like NextCloud, etc. Using the working folder that way you can have access to the files from everywhere. So you can have a look to the upcoming show on your mobile phone and subscribe the calendars with your calendar application.
+
 
 ### Working Folder:
 The following files are stored into application folder:
