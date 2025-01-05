@@ -154,10 +154,10 @@ The following files are stored into working folder:
 * The show folders (Shows)
 * The notes (Notes.txt)
 * The exported files:
-	* UpcomingShows.html
-	* TourManagerShows.ics
-	* TourManagerEvents.ics
-	* TourManagerEventsForecast.ics
+	* `UpcomingShows.html`
+	* `TourManagerShows.ics`
+	* `TourManagerEvents.ics`
+	* `TourManagerEventsForecast.ics`
 
 You can use a shared folder which is synchronized other internet to use TourManager from different computers and users. It works nice with DropBox but should also work with others like NextCloud, etc. Using the working folder that way you can have access to the files from everywhere. So you can have a look to the upcoming show on your mobile phone and subscribe the calendars with your calendar application.
 
@@ -179,13 +179,13 @@ As you can see the shared files are placed in the working folder and the user's 
 In the menu `Export`, you can export the upcoming shows as .html file or the calendars as .ics files. If set up in `config.ini`, these files are automatically exported on application closing.
 
 **Upcoming Shows:** 
-* UpcomingShows.html: Open this file (e.g. from your mobile phone) to have a quick view on the upcoming shows. This is really handy when you are on tour without a computer with TourManager
+* `UpcomingShows.html`: Open this file (e.g. from your mobile phone) to have a quick view on the upcoming shows. This is really handy when you are on tour without a computer with TourManager
 
 **Calendars:** 
 Subscribe these .ics files with your favorite calendar application (only tested with Thunderbird).
-* TourManagerShows.ics: A calendar with all your shows
-* TourManagerEvents.ics: A calendar with all events (all venues with start and end dates)
-* TourManagerEventsForecast.ics: A calendar with all events postponed 1 year ahead. This can be handy to guess when an event could be even if you don't have the exact date yet.
+* `TourManagerShows.ics`: A calendar with all your shows
+* `TourManagerEvents.ics`: A calendar with all events (all venues with start and end dates)
+* `TourManagerEventsForecast.ics`: A calendar with all events postponed 1 year ahead. This can be handy to guess when an event could be even if you don't have the exact date yet.
 
 **How to subscribe the calendars with Thunderbird:**
 * Select `Paths`in the Monitor (blue section)
