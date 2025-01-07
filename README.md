@@ -1,5 +1,5 @@
 # TourManager
-A tool to organize shows and events. Made for artists, musicians, bookers and event managers.
+A tool to easily organize shows and events. Made for artists, musicians, bookers and event managers.
 
 
 ## Description:

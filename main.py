@@ -47,6 +47,7 @@ pd.set_option('display.width', 2000)
 
 # todo:
 # multi user merge (needs save only on quit)
+# delete theming since it is not working with pyinstaller?
 
 # config: startbak as option or remove it
 # add venue fields: latest booking request date?
@@ -58,7 +59,7 @@ pd.set_option('display.width', 2000)
 
 
 VERSION = "0.1.11"
-DATE = "2025-01-05"
+DATE = "2025-01-07"
 
 DB_SHOWS = "shows.csv"
 DB_VENUES = "venues.csv"
@@ -896,7 +897,7 @@ class MainWindow(QMainWindow):
 
 
     def on_about(self):
-        text = ("TourManager helps organizing Shows and Events.<br><br>"
+        text = ("A tool to easily organize shows and events.<br><br>"
                 "Version: " + VERSION + "<br>"
                 "Date: " + DATE + "<br>"
                 "Developed by Vincent Rateau<br>"
