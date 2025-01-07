@@ -192,7 +192,7 @@ Subscribe to these .ics files with your favorite calendar application (only test
 * Select `On the Network` (yes, even if the file is local)
 * Copy the file path to `Location`and check `This location doesn't require credentials`
 * Press `Find Calendars`
-* If everything is works as expected, Thunderbird will find the calendar. Then press `Subscribe`
+* If everything works as expected, Thunderbird will find the calendar. Then press `Subscribe`
 
 
 
