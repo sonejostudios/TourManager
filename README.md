@@ -28,10 +28,10 @@ It will definitely reduce the boring tasks, making the booking processes enjoyab
 * Search shows and venues
 * Filter shows and venues
 * Monitor (according to search and filters)
-* Specific show folders
+* Specific show folders for your related documents
 * Tags
 * Backup
-* Working folder (can be shared with cloud applications)
+* Dedicated working folder (can be shared with cloud applications)
 * and many many more...
   
 
