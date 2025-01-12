@@ -146,7 +146,7 @@ map_provider = osm #gmaps
 ## Working Folder vs Application Folder:
 
 ### Working Folder:
-The following files are stored into working folder:
+The following files are stored into the working folder:
 * The databases (`shows.csv` and `venues.csv`)
 * The show folders (`Shows`)
 * The notes (`Notes.txt`)
@@ -160,7 +160,7 @@ You can use a shared folder that is synchronized over internet to use TourManage
 
 
 ### Working Folder:
-The following files are stored into application folder:
+The following files are stored into the application folder:
 
 * All application files
 * The database backups (`Backups` folder)
