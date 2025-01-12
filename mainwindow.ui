@@ -506,7 +506,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>E.g. #release-tour, #nice</string>
+           <string>E.g. #release-tour, #black-list</string>
           </property>
          </widget>
         </item>
@@ -781,6 +781,12 @@ Get Information according to Searches and Filters
       </item>
       <item>
        <widget class="QPlainTextEdit" name="txt_monitor">
+        <property name="font">
+         <font>
+          <family>Ubuntu</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="toolTip">
          <string/>
         </property>

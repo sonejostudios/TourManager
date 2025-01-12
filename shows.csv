@@ -6,4 +6,5 @@ Date,City,Venue,Country,VenueID,Artists,Contact,Phone,Email,TechContact,TechPhon
 * Tagging is a great way to categorize the shows for future searches",0.0,0.0,EUR,,,,,,,,,,#my_show_tag,1,PLAYED
 2000-01-02,My Other City,My Event,My Country,2,My Artist 2,Other Contact Person,,email@other-contact.com,,,,Some information about this UPCOMING show.,0.0,0.0,EUR,,,,,,,,,,"#my_show_tag, #my_other_show_tag",0,UPCOMING
 2000-01-03,My City,My Venue,My Country,1,My Artist,Other Contact Person,,email@other-contact.com,,,,"This Show was CANCELLED (greyed out).
-It is also assigned to the first Venue.",0.0,0.0,EUR,,,,,,,,,,#my_other_show_tag,3,CANCELLED
+It is also assigned to the first Venue.",0.0,0.0,EUR,,,,,,,,,,#my_other_show_tag,4,CANCELLED
+2000-01-04,My Other City,My Event,My Country,2,My Artist 2,Other Contact Person,,email@other-contact.com,,,,Some information about this WORK IN PROGRESS show.,0.0,0.0,EUR,,,,,,,,,,"#my_show_tag, #my_other_show_tag",2,WORK IN PROGRESS

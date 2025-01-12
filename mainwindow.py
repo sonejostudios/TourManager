@@ -540,6 +540,10 @@ class Ui_MainWindow(object):
 
         self.txt_monitor = QPlainTextEdit(self.centralwidget)
         self.txt_monitor.setObjectName(u"txt_monitor")
+        font = QFont()
+        font.setFamilies([u"Ubuntu"])
+        font.setPointSize(10)
+        self.txt_monitor.setFont(font)
 
         self.verticalLayout_5.addWidget(self.txt_monitor)
 
@@ -749,9 +753,9 @@ class Ui_MainWindow(object):
         self.cb_venue_rating.setObjectName(u"cb_venue_rating")
         self.cb_venue_rating.setMinimumSize(QSize(0, 0))
         self.cb_venue_rating.setMaximumSize(QSize(16777215, 16777215))
-        font = QFont()
-        font.setPointSize(12)
-        self.cb_venue_rating.setFont(font)
+        font1 = QFont()
+        font1.setPointSize(12)
+        self.cb_venue_rating.setFont(font1)
         self.cb_venue_rating.setFrame(True)
 
         self.formLayout_2.setWidget(9, QFormLayout.FieldRole, self.cb_venue_rating)
@@ -995,7 +999,7 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.tagsLabel.setText(QCoreApplication.translate("MainWindow", u"Tags", None))
 #if QT_CONFIG(tooltip)
-        self.field_show_tags.setToolTip(QCoreApplication.translate("MainWindow", u"E.g. #release-tour, #nice", None))
+        self.field_show_tags.setToolTip(QCoreApplication.translate("MainWindow", u"E.g. #release-tour, #black-list", None))
 #endif // QT_CONFIG(tooltip)
 #if QT_CONFIG(tooltip)
         self.bt_save_show.setToolTip(QCoreApplication.translate("MainWindow", u"Save current Show", None))

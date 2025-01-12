@@ -47,7 +47,12 @@ pd.set_option('display.width', 2000)
 
 # todo:
 # multi user merge (needs save only on quit)
-# delete theming since it is not working with pyinstaller?
+# delete themes since it is not working with pyinstaller?
+# stats amount of shows/year
+# monitor nice tables (needs monofont)
+# config editor
+# movable gui walls
+# move "work in progress" after "played"
 
 # config: startbak as option or remove it
 # add venue fields: latest booking request date?
@@ -58,8 +63,8 @@ pd.set_option('display.width', 2000)
 
 
 
-VERSION = "0.1.11"
-DATE = "2025-01-07"
+VERSION = "0.1.12"
+DATE = "2025-01-09"
 
 DB_SHOWS = "shows.csv"
 DB_VENUES = "venues.csv"
@@ -67,7 +72,7 @@ CONFIG_FILE = "config.ini"
 LOCK_FILE = "LOCKED"
 
 
-STATUS = ["ALL", "UPCOMING", "PLAYED", "WAITING FOR FEE", "CANCELLED", "WORK IN PROGRESS"]
+STATUS = ["ALL", "UPCOMING", "PLAYED", "WORK IN PROGRESS", "WAITING FOR FEE", "CANCELLED"]
 SHOW_STATUS = STATUS.copy()
 SHOW_STATUS.pop(0) # remove "ALL"
 
@@ -151,8 +156,9 @@ class MainWindow(QMainWindow):
         self.search_text = ""
 
 
-        # select first show and setup everything
-        self.ui.list_show.setCurrentRow(0)
+        # select a show and setup everything
+        #self.ui.list_show.setCurrentRow(0) # select first show
+        self.ui.list_show.setCurrentRow(self.ui.list_show.count()-1) # select latest show
         self.select_show()
         self.select_venue()
         gui_actions.check_venue_is_event(self.ui)
@@ -164,6 +170,8 @@ class MainWindow(QMainWindow):
         self.ui.my_button.hide()
         self.ui.field_show_id.hide()
         self.ui.field_venue_id.hide()
+
+
 
 
 
@@ -373,7 +381,7 @@ class MainWindow(QMainWindow):
 
             # create and add item (grey out cancelled shows)
             item = QListWidgetItem(show_str)
-            if str(row["Status"]) == "3": # cancelled
+            if str(row["Status"]) == "4": # cancelled
                 item.setForeground(QBrush("#888A85"))
             self.ui.list_show.addItem(item)
 
@@ -501,7 +509,7 @@ class MainWindow(QMainWindow):
                 gui_actions.clear_show_fields(self.ui)
                 self.ui.field_show_artists.setText(self.config_artists)
                 self.ui.field_show_currency.setText(self.config_currency)
-                self.ui.cb_show_status.setCurrentIndex(4) # set status to "work in progress"
+                self.ui.cb_show_status.setCurrentIndex(2) # set status to "work in progress"
 
 
             # save show string for UPCOMING SELECTION
