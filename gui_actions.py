@@ -34,14 +34,14 @@ def fill_show_fields(ui, selected_show):
     ui.field_show_info.setPlainText(str(selected_show["Info"]))
 
     fee = selected_show["Fee"] if selected_show["Fee"] != "" else 0
-    travel_fee = selected_show["TravelFee"] if selected_show["TravelFee"] != "" else 0
-    ui.field_show_fee.setText(str(fee))
-    ui.field_show_travel_fee.setText(str(travel_fee))
-    ui.field_show_fee_sum.setText(str(fee + travel_fee))
+    travel_costs = selected_show["TravelCosts"] if selected_show["TravelCosts"] != "" else 0
+    ui.field_show_fee.setValue(float(fee))
+    ui.field_show_travel_costs.setValue(float(travel_costs))
+    ui.field_show_fee_sum.setValue(float(fee + travel_costs))
     ui.field_show_currency.setText(str(selected_show["Currency"]))
 
     ui.field_show_arrival_time.setText(str(selected_show["ArrivalTime"]))
-    ui.field_show_soundcheck_time.setText(str(selected_show["SoundcheckTime"]))
+    ui.field_show_soundcheck_time.setText(str(selected_show["TechCheckTime"]))
     ui.field_show_opening_time.setText(str(selected_show["OpeningTime"]))
     ui.field_show_show_time.setText(str(selected_show["ShowTime"]))
 
@@ -148,9 +148,9 @@ def clear_show_fields(ui):
 
     ui.field_show_info.clear()
 
-    ui.field_show_fee.clear()
-    ui.field_show_travel_fee.clear()
-    ui.field_show_fee_sum.clear()
+    ui.field_show_fee.clear() # or set to 0?
+    ui.field_show_travel_costs.clear() # or set to 0?
+    ui.field_show_fee_sum.clear() # or set to 0?
     ui.field_show_currency.clear()
 
     ui.field_show_arrival_time.clear()
@@ -233,12 +233,12 @@ def update_df_shows(ui, df_shows, show_id, copy_venue_info):
 
     df_shows.loc[show_id, "Info"] = ui.field_show_info.toPlainText()
 
-    df_shows.loc[show_id, "Fee"] = float(ui.field_show_fee.text()) if ui.field_show_fee.text() != "" else 0
-    df_shows.loc[show_id, "TravelFee"] = float(ui.field_show_travel_fee.text()) if ui.field_show_travel_fee.text() != "" else 0
+    df_shows.loc[show_id, "Fee"] = float(ui.field_show_fee.value())
+    df_shows.loc[show_id, "TravelCosts"] = float(ui.field_show_travel_costs.value())
     df_shows.loc[show_id, "Currency"] = ui.field_show_currency.text()
 
     df_shows.loc[show_id, "ArrivalTime"] = ui.field_show_arrival_time.text()
-    df_shows.loc[show_id, "SoundcheckTime"] = ui.field_show_soundcheck_time.text()
+    df_shows.loc[show_id, "TechCheckTime"] = ui.field_show_soundcheck_time.text()
     df_shows.loc[show_id, "OpeningTime"] = ui.field_show_opening_time.text()
     df_shows.loc[show_id, "ShowTime"] = ui.field_show_show_time.text()
 
@@ -328,5 +328,10 @@ def open_file_or_folder(path): # cross-platform file and folder opener
         subprocess.Popen(["open", path])
     else:
         subprocess.Popen(["xdg-open", path])
+
+
+
+def update_show_fee_sum(ui):
+    ui.field_show_fee_sum.setValue(float(ui.field_show_fee.value()) + float(ui.field_show_travel_costs.value()))
 
 

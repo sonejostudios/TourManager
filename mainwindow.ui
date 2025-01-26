@@ -6,1311 +6,1546 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1660</width>
-    <height>1006</height>
+    <width>1700</width>
+    <height>1001</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_16" stretch="2,10,2">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_16" stretch="0,10,0">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>12</number>
+    </property>
+    <property name="topMargin">
+     <number>12</number>
+    </property>
+    <property name="rightMargin">
+     <number>12</number>
+    </property>
+    <property name="bottomMargin">
+     <number>12</number>
+    </property>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,10,0">
-      <item>
-       <widget class="QLabel" name="label_34">
-        <property name="text">
-         <string>SHOWS</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QFormLayout" name="formLayout">
-        <property name="sizeConstraint">
-         <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
-        </property>
-        <property name="fieldGrowthPolicy">
-         <enum>QFormLayout::FieldGrowthPolicy::AllNonFixedFieldsGrow</enum>
-        </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>Date</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QDateEdit" name="field_show_dateedit">
-            <property name="displayFormat">
-             <string>yyyy-MM-dd</string>
-            </property>
-            <property name="calendarPopup">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="field_show_id">
-            <property name="maximumSize">
-             <size>
-              <width>36</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>ShowID</string>
-            </property>
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_29">
-          <property name="text">
-           <string>Venue</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <item>
-           <widget class="QLineEdit" name="field_venue_text">
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="field_venue_id">
-            <property name="maximumSize">
-             <size>
-              <width>36</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>VenueID</string>
-            </property>
-            <property name="statusTip">
-             <string/>
-            </property>
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-            <property name="placeholderText">
-             <string/>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_24">
-          <property name="text">
-           <string>Booking Status</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QComboBox" name="cb_show_status">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Artist(s)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLineEdit" name="field_show_artists">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="placeholderText">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_15">
-          <property name="text">
-           <string>Contact</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QLineEdit" name="field_show_contact">
-          <property name="toolTip">
-           <string>Contact person</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="label_16">
-          <property name="text">
-           <string>Phone</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="QLineEdit" name="field_show_phone"/>
-        </item>
-        <item row="6" column="0">
-         <widget class="QLabel" name="label_17">
-          <property name="text">
-           <string>Email</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="1">
-         <widget class="QLineEdit" name="field_show_email"/>
-        </item>
-        <item row="7" column="0">
-         <widget class="QLabel" name="label_18">
-          <property name="text">
-           <string>Technician</string>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="1">
-         <widget class="QLineEdit" name="field_show_tech_contact"/>
-        </item>
-        <item row="8" column="0">
-         <widget class="QLabel" name="label_19">
-          <property name="text">
-           <string>Tech Phone</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="1">
-         <widget class="QLineEdit" name="field_show_tech_phone"/>
-        </item>
-        <item row="9" column="0">
-         <widget class="QLabel" name="label_20">
-          <property name="text">
-           <string>Tech Email</string>
-          </property>
-         </widget>
-        </item>
-        <item row="9" column="1">
-         <widget class="QLineEdit" name="field_show_tech_email"/>
-        </item>
-        <item row="10" column="0">
-         <widget class="QLabel" name="label_25">
-          <property name="text">
-           <string>Show Folder</string>
-          </property>
-         </widget>
-        </item>
-        <item row="10" column="1">
-         <widget class="QPushButton" name="bt_show_folder">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>Create or open Show Folder</string>
-          </property>
-          <property name="text">
-           <string>Show Folder</string>
-          </property>
-         </widget>
-        </item>
-        <item row="11" column="0">
-         <widget class="QLabel" name="arrivalTimeLabel">
-          <property name="text">
-           <string>Schedule</string>
-          </property>
-         </widget>
-        </item>
-        <item row="11" column="1">
-         <layout class="QGridLayout" name="gridLayout">
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="field_show_arrival_time">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="label_30">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Arrival</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QLabel" name="label_22">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Soundcheck</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QLineEdit" name="field_show_soundcheck_time">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLabel" name="label_31">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Doors Opening</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLineEdit" name="field_show_opening_time">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="QLabel" name="label_26">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Show Time</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="2">
-           <widget class="QLineEdit" name="field_show_show_time">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="12" column="0">
-         <widget class="QLabel" name="label_23">
-          <property name="text">
-           <string>Info</string>
-          </property>
-         </widget>
-        </item>
-        <item row="12" column="1">
-         <widget class="QPlainTextEdit" name="field_show_info">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="13" column="0">
-         <widget class="QLabel" name="label_21">
-          <property name="text">
-           <string>Fee + Travel Costs</string>
-          </property>
-         </widget>
-        </item>
-        <item row="13" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <item>
-           <widget class="QLineEdit" name="field_show_fee">
-            <property name="toolTip">
-             <string>Fee</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string>+</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="field_show_travel_fee">
-            <property name="toolTip">
-             <string>Travel Costs</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>=</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="field_show_fee_sum">
-            <property name="toolTip">
-             <string>SUM</string>
-            </property>
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="field_show_currency">
-            <property name="maximumSize">
-             <size>
-              <width>36</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Currency</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="14" column="0">
-         <widget class="QLabel" name="accomodationLabel_2">
-          <property name="text">
-           <string>Food &amp; Drinks</string>
-          </property>
-         </widget>
-        </item>
-        <item row="14" column="1">
-         <widget class="QLineEdit" name="field_show_food_drinks"/>
-        </item>
-        <item row="15" column="0">
-         <widget class="QLabel" name="accomodationLabel">
-          <property name="text">
-           <string>Bed &amp; Breakfast</string>
-          </property>
-         </widget>
-        </item>
-        <item row="15" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout_8">
-          <item>
-           <widget class="QLineEdit" name="field_show_accomodation">
-            <property name="toolTip">
-             <string>Bed (Accomodation)</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="field_show_breakfast">
-            <property name="toolTip">
-             <string>Breakfast</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="16" column="0">
-         <widget class="QLabel" name="printLabel">
-          <property name="text">
-           <string>Print</string>
-          </property>
-         </widget>
-        </item>
-        <item row="16" column="1">
-         <widget class="QLineEdit" name="field_show_print">
-          <property name="toolTip">
-           <string>Print material to be send (posters, amount, ...)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="17" column="0">
-         <widget class="QLabel" name="addressForPrintLabel">
-          <property name="text">
-           <string>Address for Print</string>
-          </property>
-         </widget>
-        </item>
-        <item row="17" column="1">
-         <widget class="QPlainTextEdit" name="field_show_print_address">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>Address where to send print material</string>
-          </property>
-         </widget>
-        </item>
-        <item row="18" column="0">
-         <widget class="QLabel" name="tagsLabel">
-          <property name="text">
-           <string>Tags</string>
-          </property>
-         </widget>
-        </item>
-        <item row="18" column="1">
-         <widget class="QLineEdit" name="field_show_tags">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>E.g. #release-tour, #black-list</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_10">
-        <item>
-         <widget class="QPushButton" name="bt_save_show">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>41</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>Save current Show</string>
-          </property>
-          <property name="text">
-           <string>Save Show</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="bt_new_show">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>41</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>Add a new Show</string>
-          </property>
-          <property name="text">
-           <string>Add New</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="bt_duplicate_show">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>41</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>Duplicate current Show</string>
-          </property>
-          <property name="text">
-           <string>Duplicate</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="bt_delete_show">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>41</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>Delete current Show</string>
-          </property>
-          <property name="text">
-           <string>Delete</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
+     <widget class="QFrame" name="shows_fields">
+      <property name="minimumSize">
+       <size>
+        <width>430</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>430</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::NoFrame</enum>
+      </property>
+      <property name="lineWidth">
+       <number>1</number>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,10,0">
+       <property name="spacing">
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_34">
+         <property name="text">
+          <string>SHOWS</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QFormLayout" name="formLayout">
+         <property name="sizeConstraint">
+          <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+         </property>
+         <property name="fieldGrowthPolicy">
+          <enum>QFormLayout::FieldGrowthPolicy::AllNonFixedFieldsGrow</enum>
+         </property>
+         <property name="horizontalSpacing">
+          <number>6</number>
+         </property>
+         <property name="verticalSpacing">
+          <number>6</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Date</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QDateEdit" name="field_show_dateedit">
+             <property name="toolTip">
+              <string>The show's date</string>
+             </property>
+             <property name="displayFormat">
+              <string>yyyy-MM-dd</string>
+             </property>
+             <property name="calendarPopup">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="field_show_id">
+             <property name="maximumSize">
+              <size>
+               <width>36</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>ShowID</string>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_29">
+           <property name="text">
+            <string>Venue</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QLineEdit" name="field_venue_text">
+             <property name="toolTip">
+              <string>The venue's city and name
+Use the venue list to change it</string>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="field_venue_id">
+             <property name="maximumSize">
+              <size>
+               <width>36</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>VenueID</string>
+             </property>
+             <property name="statusTip">
+              <string/>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="placeholderText">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_24">
+           <property name="text">
+            <string>Booking Status</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QComboBox" name="cb_show_status">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Current booking status</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Artist(s)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="field_show_artists">
+           <property name="toolTip">
+            <string/>
+           </property>
+           <property name="placeholderText">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_15">
+           <property name="text">
+            <string>Contact</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLineEdit" name="field_show_contact">
+           <property name="toolTip">
+            <string>Contact person for this show</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="label_16">
+           <property name="text">
+            <string>Phone</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QLineEdit" name="field_show_phone">
+           <property name="toolTip">
+            <string>Phone number of the contact person</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="label_17">
+           <property name="text">
+            <string>Email</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QLineEdit" name="field_show_email">
+           <property name="toolTip">
+            <string>Email address of the contact person</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="0">
+          <widget class="QLabel" name="label_18">
+           <property name="text">
+            <string>Technician</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="1">
+          <widget class="QLineEdit" name="field_show_tech_contact">
+           <property name="toolTip">
+            <string>Name of the main technician</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="0">
+          <widget class="QLabel" name="label_19">
+           <property name="text">
+            <string>Tech Phone</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="1">
+          <widget class="QLineEdit" name="field_show_tech_phone">
+           <property name="toolTip">
+            <string>Phone of the main techncian</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="0">
+          <widget class="QLabel" name="label_20">
+           <property name="text">
+            <string>Tech Email</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="1">
+          <widget class="QLineEdit" name="field_show_tech_email">
+           <property name="toolTip">
+            <string>Email address of the main technician</string>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="0">
+          <widget class="QLabel" name="label_25">
+           <property name="text">
+            <string>Show Folder</string>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="1">
+          <widget class="QPushButton" name="bt_show_folder">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Create or open Show Folder</string>
+           </property>
+           <property name="text">
+            <string>Show Folder</string>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="0">
+          <widget class="QLabel" name="arrivalTimeLabel">
+           <property name="text">
+            <string>Schedule</string>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="1">
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="field_show_arrival_time">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>Arrival time, get in time</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_30">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Arrival</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_22">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Technical Check</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QLineEdit" name="field_show_soundcheck_time">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>Sound check time, light check time, etc</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="label_31">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Doors Opening</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="field_show_opening_time">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>Door opening time, event starting time</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QLabel" name="label_26">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Show Time</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLineEdit" name="field_show_show_time">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>Show starting time</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="12" column="0">
+          <widget class="QLabel" name="label_23">
+           <property name="text">
+            <string>Info</string>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="1">
+          <widget class="QPlainTextEdit" name="field_show_info">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="13" column="0">
+          <widget class="QLabel" name="label_21">
+           <property name="text">
+            <string>Fee + Travel Costs</string>
+           </property>
+          </widget>
+         </item>
+         <item row="13" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QDoubleSpinBox" name="field_show_fee">
+             <property name="buttonSymbols">
+              <enum>QAbstractSpinBox::ButtonSymbols::PlusMinus</enum>
+             </property>
+             <property name="maximum">
+              <double>99999.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>+</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="field_show_travel_costs">
+             <property name="buttonSymbols">
+              <enum>QAbstractSpinBox::ButtonSymbols::PlusMinus</enum>
+             </property>
+             <property name="maximum">
+              <double>99999.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_8">
+             <property name="text">
+              <string>=</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="field_show_fee_sum">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="buttonSymbols">
+              <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
+             </property>
+             <property name="maximum">
+              <double>99999.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="field_show_currency">
+             <property name="maximumSize">
+              <size>
+               <width>36</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>Currency</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="14" column="0">
+          <widget class="QLabel" name="accomodationLabel_2">
+           <property name="text">
+            <string>Food &amp; Drinks</string>
+           </property>
+          </widget>
+         </item>
+         <item row="14" column="1">
+          <widget class="QLineEdit" name="field_show_food_drinks">
+           <property name="toolTip">
+            <string>Food, drinks, meals, etc</string>
+           </property>
+          </widget>
+         </item>
+         <item row="15" column="0">
+          <widget class="QLabel" name="accomodationLabel">
+           <property name="text">
+            <string>Bed &amp; Breakfast</string>
+           </property>
+          </widget>
+         </item>
+         <item row="15" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_8">
+           <item>
+            <widget class="QLineEdit" name="field_show_accomodation">
+             <property name="toolTip">
+              <string>Bed (accomodation)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="field_show_breakfast">
+             <property name="toolTip">
+              <string>Breakfast</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="16" column="0">
+          <widget class="QLabel" name="printLabel">
+           <property name="text">
+            <string>Print</string>
+           </property>
+          </widget>
+         </item>
+         <item row="16" column="1">
+          <widget class="QLineEdit" name="field_show_print">
+           <property name="toolTip">
+            <string>Print material to be send (posters, amount, ...)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="17" column="0">
+          <widget class="QLabel" name="addressForPrintLabel">
+           <property name="text">
+            <string>Address for Print  </string>
+           </property>
+          </widget>
+         </item>
+         <item row="17" column="1">
+          <widget class="QPlainTextEdit" name="field_show_print_address">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>60</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Address where to send print material</string>
+           </property>
+          </widget>
+         </item>
+         <item row="18" column="0">
+          <widget class="QLabel" name="tagsLabel">
+           <property name="text">
+            <string>Tags</string>
+           </property>
+          </widget>
+         </item>
+         <item row="18" column="1">
+          <widget class="QLineEdit" name="field_show_tags">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>E.g. #release-tour, #black-list</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_10">
+         <item>
+          <widget class="QPushButton" name="bt_save_show">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>41</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Save current Show</string>
+           </property>
+           <property name="text">
+            <string>Save Show</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bt_new_show">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>41</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Add a new Show</string>
+           </property>
+           <property name="text">
+            <string>Add New</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bt_duplicate_show">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>41</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Duplicate current Show</string>
+           </property>
+           <property name="text">
+            <string>Duplicate</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bt_delete_show">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>41</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Delete current Show</string>
+           </property>
+           <property name="text">
+            <string>Delete</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,10,5,0">
-      <item>
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Orientation::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_15">
-        <property name="spacing">
-         <number>6</number>
-        </property>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_12">
-            <item>
-             <widget class="QLineEdit" name="lineEdit_search_shows">
-              <property name="minimumSize">
-               <size>
-                <width>160</width>
-                <height>31</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Show Search</string>
-              </property>
-              <property name="placeholderText">
-               <string>Search Shows...</string>
-              </property>
-              <property name="clearButtonEnabled">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="cb_show_status_filter">
-              <property name="minimumSize">
-               <size>
-                <width>160</width>
-                <height>31</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Show Status Filter</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_show_amount">
-              <property name="minimumSize">
-               <size>
-                <width>31</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Amount of Shows in list</string>
-              </property>
-              <property name="text">
-               <string>SHO</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing</set>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="QListWidget" name="list_show"/>
-          </item>
-          <item>
-           <widget class="QComboBox" name="cb_monitor">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>31</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Monitor Selection
+     <widget class="QFrame" name="lists_monitor">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::NoFrame</enum>
+      </property>
+      <property name="lineWidth">
+       <number>1</number>
+      </property>
+      <layout class="QVBoxLayout" name="lists_monitor_layout" stretch="0,10,0">
+       <property name="spacing">
+        <number>6</number>
+       </property>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QSplitter" name="splitter">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="handleWidth">
+          <number>6</number>
+         </property>
+         <property name="childrenCollapsible">
+          <bool>false</bool>
+         </property>
+         <widget class="QWidget" name="">
+          <layout class="QHBoxLayout" name="horizontalLayout_15">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_12">
+               <item>
+                <widget class="QLineEdit" name="lineEdit_search_shows">
+                 <property name="minimumSize">
+                  <size>
+                   <width>160</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Show Search</string>
+                 </property>
+                 <property name="frame">
+                  <bool>true</bool>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Search Shows...</string>
+                 </property>
+                 <property name="clearButtonEnabled">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="cb_show_status_filter">
+                 <property name="minimumSize">
+                  <size>
+                   <width>160</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Show Status Filter</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_show_amount">
+                 <property name="minimumSize">
+                  <size>
+                   <width>31</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Amount of Shows in list</string>
+                 </property>
+                 <property name="text">
+                  <string>SHO</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QListWidget" name="list_show"/>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_18">
+               <item>
+                <widget class="QComboBox" name="cb_monitor">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Monitor selection
 Get Information according to Searches and Filters
 (except Notes and Paths)</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_13">
-            <item>
-             <widget class="QLineEdit" name="lineEdit_search_venues">
-              <property name="minimumSize">
-               <size>
-                <width>160</width>
-                <height>31</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Venue Search</string>
-              </property>
-              <property name="placeholderText">
-               <string>Search Venues...</string>
-              </property>
-              <property name="clearButtonEnabled">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="cb_venue_filter">
-              <property name="minimumSize">
-               <size>
-                <width>160</width>
-                <height>31</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Venue Filter</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_venue_amount">
-              <property name="minimumSize">
-               <size>
-                <width>31</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Amount of Venues in list</string>
-              </property>
-              <property name="text">
-               <string>VEN</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing</set>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="QListWidget" name="list_venue"/>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_14">
-            <item>
-             <widget class="QPushButton" name="bt_map">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>31</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Open Venue Map according to Venue Filter and Venue Search</string>
-              </property>
-              <property name="text">
-               <string>Map</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="bt_calculator">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>31</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Open Travel Costs Calculator</string>
-              </property>
-              <property name="text">
-               <string>Travel Costs Calculator</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QPlainTextEdit" name="txt_monitor">
-        <property name="font">
-         <font>
-          <family>Ubuntu</family>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="toolTip">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_11">
-        <item>
-         <widget class="QTableWidget" name="table_show">
-          <property name="columnCount">
-           <number>2</number>
-          </property>
-          <attribute name="horizontalHeaderVisible">
-           <bool>false</bool>
-          </attribute>
-          <attribute name="horizontalHeaderCascadingSectionResizes">
-           <bool>true</bool>
-          </attribute>
-          <attribute name="horizontalHeaderDefaultSectionSize">
-           <number>150</number>
-          </attribute>
-          <attribute name="horizontalHeaderStretchLastSection">
-           <bool>true</bool>
-          </attribute>
-          <attribute name="verticalHeaderVisible">
-           <bool>false</bool>
-          </attribute>
-          <column/>
-          <column/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="bt_copy_monitor">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>50</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Copy Monitor content to clipboard</string>
+                 </property>
+                 <property name="text">
+                  <string>Copy</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_4">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_13">
+               <item>
+                <widget class="QLineEdit" name="lineEdit_search_venues">
+                 <property name="minimumSize">
+                  <size>
+                   <width>160</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Venue Search</string>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Search Venues...</string>
+                 </property>
+                 <property name="clearButtonEnabled">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="cb_venue_filter">
+                 <property name="minimumSize">
+                  <size>
+                   <width>160</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Venue Filter</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_venue_amount">
+                 <property name="minimumSize">
+                  <size>
+                   <width>31</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Amount of Venues in list</string>
+                 </property>
+                 <property name="text">
+                  <string>VEN</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QListWidget" name="list_venue"/>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_14">
+               <item>
+                <widget class="QPushButton" name="bt_map">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Open Venue Map according to Venue Filter and Venue Search</string>
+                 </property>
+                 <property name="text">
+                  <string>Map</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="bt_calculator">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Open Travel Costs Calculator</string>
+                 </property>
+                 <property name="text">
+                  <string>Travel Costs Calculator</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="my_button">
-          <property name="text">
-           <string>Test</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,0,0,0">
-      <item>
-       <widget class="QLabel" name="label_36">
-        <property name="text">
-         <string>VENUES &amp; EVENTS</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="lb_homebase">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>31</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Homebase
-Bla</string>
-        </property>
-        <property name="text">
-         <string>Homebase City</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QFormLayout" name="formLayout_2">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>Venue / Event</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout_7">
-          <item>
-           <widget class="QLineEdit" name="field_venue_name">
-            <property name="placeholderText">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="bt_venue_search_shows">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>12</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>60</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Search Shows with this Venue/Event
-(click again to go back to search)</string>
-            </property>
-            <property name="text">
-             <string>Shows</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>City</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="field_venue_city">
-          <property name="placeholderText">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_6">
-          <property name="text">
-           <string>Country</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="field_venue_country">
-          <property name="placeholderText">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_7">
-          <property name="text">
-           <string>Address</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <property name="sizeConstraint">
-           <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
-          </property>
-          <item>
-           <widget class="QPlainTextEdit" name="field_venue_address">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>60</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout">
-            <item>
-             <widget class="QPushButton" name="bt_venue_locate">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>60</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Locate this Address on the web</string>
-              </property>
-              <property name="text">
-               <string>Locate</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="bt_venue_route">
-              <property name="minimumSize">
-               <size>
-                <width>60</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>60</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Show Route to this Address on the web</string>
-              </property>
-              <property name="text">
-               <string>Route</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_32">
-          <property name="text">
-           <string>Geo-Coordinates</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="label_28">
-          <property name="text">
-           <string>Is an Event</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="QCheckBox" name="field_checkbox_venue_is_event">
-          <property name="toolTip">
-           <string>This is an Event (Festival, Open-Air, Congress, ...)</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="0">
-         <widget class="QLabel" name="label_14">
-          <property name="text">
-           <string>Event Dates</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout_6">
-          <item>
-           <widget class="QDateEdit" name="field_venue_start_dateedit">
-            <property name="minimumDate">
-             <date>
-              <year>1752</year>
-              <month>9</month>
-              <day>14</day>
-             </date>
-            </property>
-            <property name="displayFormat">
-             <string>yyyy-MM-dd</string>
-            </property>
-            <property name="calendarPopup">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QDateEdit" name="field_venue_end_dateedit">
-            <property name="displayFormat">
-             <string>yyyy-MM-dd</string>
-            </property>
-            <property name="calendarPopup">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="7" column="0">
-         <widget class="QLabel" name="label_9">
-          <property name="text">
-           <string>Website</string>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QLineEdit" name="field_venue_website"/>
-          </item>
-          <item>
-           <widget class="QPushButton" name="bt_website">
-            <property name="maximumSize">
-             <size>
-              <width>60</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Open this Website</string>
-            </property>
-            <property name="text">
-             <string>Open</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="8" column="0">
-         <widget class="QLabel" name="label_33">
-          <property name="text">
-           <string>Genres</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="1">
-         <widget class="QLineEdit" name="field_venue_genres"/>
-        </item>
-        <item row="9" column="0">
-         <widget class="QLabel" name="label_35">
-          <property name="text">
-           <string>Rating</string>
-          </property>
-         </widget>
-        </item>
-        <item row="9" column="1">
-         <widget class="QComboBox" name="cb_venue_rating">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>16777215</height>
-           </size>
-          </property>
+         <widget class="QPlainTextEdit" name="txt_monitor">
           <property name="font">
            <font>
-            <pointsize>12</pointsize>
+            <family>Ubuntu</family>
+            <pointsize>10</pointsize>
            </font>
           </property>
           <property name="toolTip">
-           <string>Rating (none = no rating)</string>
-          </property>
-          <property name="frame">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="10" column="0">
-         <widget class="QLabel" name="label_27">
-          <property name="text">
-           <string>Discontinued</string>
-          </property>
-         </widget>
-        </item>
-        <item row="10" column="1">
-         <widget class="QCheckBox" name="field_checkbox_venue_is_discontinued">
-          <property name="toolTip">
-           <string>Venue/Event is discontinued</string>
-          </property>
-          <property name="text">
            <string/>
           </property>
          </widget>
-        </item>
-        <item row="11" column="0">
-         <widget class="QLabel" name="label_11">
-          <property name="text">
-           <string>Contact</string>
-          </property>
-         </widget>
-        </item>
-        <item row="11" column="1">
-         <widget class="QLineEdit" name="field_venue_contact"/>
-        </item>
-        <item row="12" column="0">
-         <widget class="QLabel" name="label_12">
-          <property name="text">
-           <string>Phone</string>
-          </property>
-         </widget>
-        </item>
-        <item row="12" column="1">
-         <widget class="QLineEdit" name="field_venue_phone"/>
-        </item>
-        <item row="13" column="0">
-         <widget class="QLabel" name="label_13">
-          <property name="text">
-           <string>Email</string>
-          </property>
-         </widget>
-        </item>
-        <item row="13" column="1">
-         <widget class="QLineEdit" name="field_venue_email"/>
-        </item>
-        <item row="14" column="0">
-         <widget class="QLabel" name="label_10">
-          <property name="text">
-           <string>Venue Info</string>
-          </property>
-         </widget>
-        </item>
-        <item row="14" column="1">
-         <widget class="QPlainTextEdit" name="field_venue_info"/>
-        </item>
-        <item row="16" column="0">
-         <widget class="QLabel" name="tagsLabel_2">
-          <property name="text">
-           <string>Tags</string>
-          </property>
-         </widget>
-        </item>
-        <item row="16" column="1">
-         <widget class="QLineEdit" name="field_venue_tags">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>E.g. #great-host, #black-list</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout_17">
-          <item>
-           <widget class="QLineEdit" name="field_venue_geocoordinates">
-            <property name="toolTip">
-             <string>Lat, Lon (dec). E.g.: 47.994853, 7.843950</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="bt_venue_locate_geocoordinates">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>60</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Locate these Geo-Coordinates on the web</string>
-            </property>
-            <property name="text">
-             <string>Locate</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_9">
-        <item>
-         <widget class="QPushButton" name="bt_save_venue">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>41</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>Save current Venue/Event</string>
-          </property>
-          <property name="text">
-           <string>Save Venue</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="bt_new_venue">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>41</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>Add a new Venue/Event</string>
-          </property>
-          <property name="text">
-           <string>Add New</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="bt_delete_venue">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>41</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>Delete current Venue/Event</string>
-          </property>
-          <property name="text">
-           <string>Delete</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <item>
+          <widget class="QTableWidget" name="table_show">
+           <property name="columnCount">
+            <number>2</number>
+           </property>
+           <attribute name="horizontalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="horizontalHeaderCascadingSectionResizes">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>150</number>
+           </attribute>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <column/>
+           <column/>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="my_button">
+           <property name="text">
+            <string>Test</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="venues_fields">
+      <property name="minimumSize">
+       <size>
+        <width>430</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>430</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::NoFrame</enum>
+      </property>
+      <property name="lineWidth">
+       <number>1</number>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,0,10,0">
+       <property name="spacing">
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_36">
+         <property name="text">
+          <string>VENUES &amp; EVENTS</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lb_homebase">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Homebase
+Bla</string>
+         </property>
+         <property name="text">
+          <string>Homebase City</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QFormLayout" name="formLayout_2">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Venue / Event</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <item>
+            <widget class="QLineEdit" name="field_venue_name">
+             <property name="toolTip">
+              <string>Name of the venue/event</string>
+             </property>
+             <property name="placeholderText">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="bt_venue_search_shows">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>12</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>60</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>Search Shows with this Venue/Event
+(click again to go back to search)</string>
+             </property>
+             <property name="text">
+              <string>Shows</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>City</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="field_venue_city">
+           <property name="toolTip">
+            <string>City of the venue/event</string>
+           </property>
+           <property name="placeholderText">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Country</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="field_venue_country">
+           <property name="toolTip">
+            <string>Country of the venue/event</string>
+           </property>
+           <property name="placeholderText">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Address</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <property name="sizeConstraint">
+            <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+           </property>
+           <item>
+            <widget class="QPlainTextEdit" name="field_venue_address">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>60</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>Address of the venue/event</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout">
+             <item>
+              <widget class="QPushButton" name="bt_venue_locate">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>60</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>Locate this address on the web</string>
+               </property>
+               <property name="text">
+                <string>Locate</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="bt_venue_route">
+               <property name="minimumSize">
+                <size>
+                 <width>60</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>60</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>Show directions to this address on the web</string>
+               </property>
+               <property name="text">
+                <string>Route</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_32">
+           <property name="text">
+            <string>Geo-Coordinates</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="label_28">
+           <property name="text">
+            <string>Is an Event</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QCheckBox" name="field_checkbox_venue_is_event">
+           <property name="toolTip">
+            <string>This is an Event (festival, open-Air, congress, ...)</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="label_14">
+           <property name="text">
+            <string>Event Dates</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <item>
+            <widget class="QDateEdit" name="field_venue_start_dateedit">
+             <property name="toolTip">
+              <string>Start date</string>
+             </property>
+             <property name="minimumDate">
+              <date>
+               <year>1752</year>
+               <month>9</month>
+               <day>14</day>
+              </date>
+             </property>
+             <property name="displayFormat">
+              <string>yyyy-MM-dd</string>
+             </property>
+             <property name="calendarPopup">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDateEdit" name="field_venue_end_dateedit">
+             <property name="toolTip">
+              <string>End date</string>
+             </property>
+             <property name="displayFormat">
+              <string>yyyy-MM-dd</string>
+             </property>
+             <property name="calendarPopup">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="7" column="0">
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>Website</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLineEdit" name="field_venue_website">
+             <property name="toolTip">
+              <string>Website of the venue/event</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="bt_website">
+             <property name="maximumSize">
+              <size>
+               <width>60</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>Open this website</string>
+             </property>
+             <property name="text">
+              <string>Open</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="8" column="0">
+          <widget class="QLabel" name="label_33">
+           <property name="text">
+            <string>Genres</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="1">
+          <widget class="QLineEdit" name="field_venue_genres">
+           <property name="toolTip">
+            <string>Genres, styles</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="0">
+          <widget class="QLabel" name="label_35">
+           <property name="text">
+            <string>Rating</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="1">
+          <widget class="QComboBox" name="cb_venue_rating">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="toolTip">
+            <string>Rating (none = no rating)</string>
+           </property>
+           <property name="frame">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="0">
+          <widget class="QLabel" name="label_27">
+           <property name="text">
+            <string>Discontinued</string>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="1">
+          <widget class="QCheckBox" name="field_checkbox_venue_is_discontinued">
+           <property name="toolTip">
+            <string>Venue/Event is discontinued and/or doesn't exist anymore</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="0">
+          <widget class="QLabel" name="label_11">
+           <property name="text">
+            <string>Contact</string>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="1">
+          <widget class="QLineEdit" name="field_venue_contact">
+           <property name="toolTip">
+            <string>Contact person of this venue/event</string>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="0">
+          <widget class="QLabel" name="label_12">
+           <property name="text">
+            <string>Phone</string>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="1">
+          <widget class="QLineEdit" name="field_venue_phone">
+           <property name="toolTip">
+            <string>Phone number of the contact person</string>
+           </property>
+          </widget>
+         </item>
+         <item row="13" column="0">
+          <widget class="QLabel" name="label_13">
+           <property name="text">
+            <string>Email</string>
+           </property>
+          </widget>
+         </item>
+         <item row="13" column="1">
+          <widget class="QLineEdit" name="field_venue_email">
+           <property name="toolTip">
+            <string>Email address of the contact person</string>
+           </property>
+          </widget>
+         </item>
+         <item row="14" column="0">
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>Venue Info</string>
+           </property>
+          </widget>
+         </item>
+         <item row="14" column="1">
+          <widget class="QPlainTextEdit" name="field_venue_info"/>
+         </item>
+         <item row="16" column="0">
+          <widget class="QLabel" name="tagsLabel_2">
+           <property name="text">
+            <string>Tags</string>
+           </property>
+          </widget>
+         </item>
+         <item row="16" column="1">
+          <widget class="QLineEdit" name="field_venue_tags">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>E.g. #great-host, #black-list</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_17">
+           <item>
+            <widget class="QLineEdit" name="field_venue_geocoordinates">
+             <property name="toolTip">
+              <string>Latitude, longitude (dec). E.g.: 47.994853, 7.843950</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="bt_venue_locate_geocoordinates">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>60</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>Locate these Geo-Coordinates on the web</string>
+             </property>
+             <property name="text">
+              <string>Locate</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_9">
+         <item>
+          <widget class="QPushButton" name="bt_save_venue">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>41</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Save current Venue/Event</string>
+           </property>
+           <property name="text">
+            <string>Save Venue</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bt_new_venue">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>41</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Add a new Venue/Event</string>
+           </property>
+           <property name="text">
+            <string>Add New</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bt_delete_venue">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>41</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Delete current Venue/Event</string>
+           </property>
+           <property name="text">
+            <string>Delete</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -1319,7 +1554,7 @@ Bla</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1660</width>
+     <width>1700</width>
      <height>20</height>
     </rect>
    </property>
@@ -1336,7 +1571,6 @@ Bla</string>
      <string>Export</string>
     </property>
     <addaction name="actionUpcoming_Shows"/>
-    <addaction name="separator"/>
     <addaction name="actionCalendars"/>
    </widget>
    <widget class="QMenu" name="menuFolders">

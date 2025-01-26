@@ -1,4 +1,4 @@
-Date,City,Venue,Country,VenueID,Artists,Contact,Phone,Email,TechContact,TechPhone,TechEmail,Info,Fee,TravelFee,Currency,ArrivalTime,SoundcheckTime,OpeningTime,ShowTime,FoodDrinks,Accomodation,Breakfast,Print,PrintAddress,Tags,Status,StatusText
+Date,City,Venue,Country,VenueID,Artists,Contact,Phone,Email,TechContact,TechPhone,TechEmail,Info,Fee,TravelCosts,Currency,ArrivalTime,TechCheckTime,OpeningTime,ShowTime,FoodDrinks,Accomodation,Breakfast,Print,PrintAddress,Tags,Status,StatusText
 2000-01-01,My City,My Venue,My Country,1,My Artist,Contact Person,,email@contact-person.com,,,,"Some information about this PLAYED show.
 
 * Use the Venue List on the right to change the venue assigned to this show (and hit Save Show)

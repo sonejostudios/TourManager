@@ -1,5 +1,5 @@
-from PySide6.QtWidgets import QDialog, QDialogButtonBox
-#from PySide6.QtCore import QDate
+from PySide6.QtWidgets import QDialog, QDialogButtonBox, QCalendarWidget
+from PySide6.QtCore import QDate, Qt, QLocale
 
 
 # import mainwindow.py as module and it's main class
@@ -16,10 +16,15 @@ class AddShowDialog(QDialog):
         self.setWindowTitle(how + " Show")
         self.setFixedSize(self.size())
 
-
         #self.ui_dialog.dateEdit.setDate(QDate.currentDate()) # set today
-
         self.ui_dialog.dateEdit.setDate(date) # set selected date
+
+
+        # set calendar widgets with week numbers and monday as first day of week
+        self.calendar_show = QCalendarWidget(self)
+        self.calendar_show.setFirstDayOfWeek(Qt.Monday)
+        self.calendar_show.setVerticalHeaderFormat(QCalendarWidget.ISOWeekNumbers)
+        self.ui_dialog.dateEdit.setCalendarWidget(self.calendar_show)
 
 
 

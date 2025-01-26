@@ -1,6 +1,6 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QStyleFactory, QTableWidgetItem, QHeaderView, QMessageBox, QListWidgetItem, QCalendarWidget
-from PySide6.QtCore import QDate, Qt
-from PySide6.QtGui import QBrush, QIcon
+from PySide6.QtWidgets import QApplication, QMainWindow, QStyleFactory, QTableWidgetItem, QHeaderView, QMessageBox, QListWidgetItem, QCalendarWidget, QDialog
+from PySide6.QtCore import QDate, Qt, QLocale
+from PySide6.QtGui import QBrush, QIcon, QGuiApplication
 
 # system modules
 import os
@@ -46,13 +46,17 @@ pd.set_option('display.width', 2000)
 
 
 # todo:
+# rework notes to save only when app is closing
+# links menu with custom links set up in  config.ini (e.g. planning document, own website)
 # multi user merge (needs save only on quit)
 # delete themes since it is not working with pyinstaller?
 # stats amount of shows/year
 # monitor nice tables (needs monofont)
 # config editor
-# movable gui walls
-# move "work in progress" after "played"
+# add field for distance to homebase? (with automatic travel costs)
+# add search history and tags list
+# logs?
+
 
 # config: startbak as option or remove it
 # add venue fields: latest booking request date?
@@ -63,8 +67,8 @@ pd.set_option('display.width', 2000)
 
 
 
-VERSION = "0.1.12"
-DATE = "2025-01-09"
+VERSION = "0.1.14"
+DATE = "2025-01-26"
 
 DB_SHOWS = "shows.csv"
 DB_VENUES = "venues.csv"
@@ -91,11 +95,6 @@ class MainWindow(QMainWindow):
         print(QStyleFactory.keys()) # qt styles
         self.setWindowTitle("TourManager " + VERSION)
         self.setWindowIcon(QIcon("icon.png"))
-
-        # set ui sizes
-        field_width = 300
-        self.ui.field_show_tags.setMinimumWidth(field_width)
-        self.ui.field_venue_tags.setMinimumWidth(field_width)
 
 
         # load config
@@ -136,6 +135,7 @@ class MainWindow(QMainWindow):
         # set is_event checkbox
         gui_actions.check_venue_is_event(self.ui)
 
+
         #set special values to dateedit (needed to show empty dateedit widgets - it replaces invalid dates)
         self.ui.field_show_dateedit.setSpecialValueText(" ")
         self.ui.field_venue_start_dateedit.setSpecialValueText(" ")
@@ -144,13 +144,19 @@ class MainWindow(QMainWindow):
         # set calendar widgets with week numbers and monday as first day of week
         self.calendar_show = QCalendarWidget(self)
         self.calendar_show.setFirstDayOfWeek(Qt.Monday)
+        self.calendar_show.setVerticalHeaderFormat(QCalendarWidget.ISOWeekNumbers)
         self.ui.field_show_dateedit.setCalendarWidget(self.calendar_show)
+
         self.calendar_event_start = QCalendarWidget(self)
         self.calendar_event_start.setFirstDayOfWeek(Qt.Monday)
+        self.calendar_event_start.setVerticalHeaderFormat(QCalendarWidget.ISOWeekNumbers)
         self.ui.field_venue_start_dateedit.setCalendarWidget(self.calendar_event_start)
+
         self.calendar_event_end = QCalendarWidget(self)
         self.calendar_event_end.setFirstDayOfWeek(Qt.Monday)
+        self.calendar_event_end.setVerticalHeaderFormat(QCalendarWidget.ISOWeekNumbers)
         self.ui.field_venue_end_dateedit.setCalendarWidget(self.calendar_event_end)
+
 
         # pre-defined variables
         self.search_text = ""
@@ -190,6 +196,9 @@ class MainWindow(QMainWindow):
 
         self.ui.bt_show_folder.clicked.connect(lambda: gui_actions.open_or_create_show_folder(self.ui, self.selected_show, self.df_venues, self.config_workdir))
 
+        self.ui.field_show_fee.valueChanged.connect(lambda: gui_actions.update_show_fee_sum(self.ui))
+        self.ui.field_show_travel_costs.valueChanged.connect(lambda: gui_actions.update_show_fee_sum(self.ui))
+
         self.ui.bt_save_show.clicked.connect(self.on_save_show)
         self.ui.bt_delete_show.clicked.connect(self.delete_show)
         self.ui.bt_new_show.clicked.connect(lambda: self.on_new_show("New"))
@@ -211,6 +220,7 @@ class MainWindow(QMainWindow):
         self.ui.cb_monitor.activated.connect(lambda: monitor.fill_monitor(self))
         self.ui.bt_map.clicked.connect(self.open_map)
         self.ui.bt_calculator.clicked.connect(self.open_calculator)
+        self.ui.bt_copy_monitor.clicked.connect(self.copy_monitor_text)
 
 
         # menu signals
@@ -229,8 +239,6 @@ class MainWindow(QMainWindow):
         self.ui.actionTravel_Costs_Calculator.triggered.connect(self.open_calculator)
 
         self.ui.actionAbout.triggered.connect(self.on_about)
-
-
 
 
 
@@ -261,14 +269,14 @@ class MainWindow(QMainWindow):
         if os.path.exists(CONFIG_FILE) == False:
             self.config["defaults"] = {"homebase_city": "Homebase City (please setup config.ini)", "homebase_geocoordinates": "0.0, 0.0", "artists": "My Artist", "currency": "EUR", "distance_unit": "km", "travel_unit_price": "0.30"}
             self.config["paths"] = {"working_directory": ""}
-            self.config["settings"] = {"auto_export_shows": "0", "auto_export_calendars": "0", "theme": "none #auto #dark #light", "map_provider": "osm #gmaps"}
+            self.config["settings"] = {"auto_export_shows": "0", "auto_export_calendars": "0", "theme": "none #auto #dark #light", "map_provider": "osm #gmaps", "calc_text_decimal_separator": ","}
             with open(CONFIG_FILE, "w") as configfile:
                 self.config.write(configfile)
 
             QMessageBox.warning(self, "TourManager Configuration",
                                 "It is the first time you are starting TourManager!\n\n"
                                 "1. A configuration file (config.ini) was generated, please set it up as wanted.\n\n"
-                                "2. You must copy shows.csv and venues.csv into the working folder. Otherwise TourManager will not start.\n\n"
+                                "2. You must copy shows.csv and venues.csv into the working folder. Otherwise, TourManager will not start.\n\n"
                                 "3. When all this is setup, please start TourManager again!",
                                 QMessageBox.Ok, QMessageBox.Ok)
             sys.exit()
@@ -292,6 +300,7 @@ class MainWindow(QMainWindow):
         self.config_auto_export_calendars = self.config.get("settings", "auto_export_calendars")
         self.config_theme = self.config.get("settings", "theme")
         self.config_map_provider = self.config.get("settings", "map_provider")
+        self.config_calc_dec_sep = self.config.get("settings", "calc_text_decimal_separator")
 
 
         # apply config
@@ -395,7 +404,7 @@ class MainWindow(QMainWindow):
 
     def on_search_shows(self): # search shows
 
-        self.show_search_flag = True # ->>> Flag!
+        self.show_search_flag = True # -> Flag!
 
         # get status filter and its id
         state_id = STATUS.index(self.ui.cb_show_status_filter.currentText())
@@ -420,13 +429,14 @@ class MainWindow(QMainWindow):
         # populate widget list
         self.populate_show_list(self.df_shows_in_list)
 
-        # fill monitor
-        monitor.fill_monitor(self)
+        # fill monitor (only if notes are not opened)
+        if self.notes_opened == False:
+            monitor.fill_monitor(self)
 
         # clear fields
         gui_actions.clear_show_fields(self.ui)
 
-        self.show_search_flag = False # ->>> Flag!
+        self.show_search_flag = False # -> Flag!
 
 
 
@@ -902,6 +912,16 @@ class MainWindow(QMainWindow):
     def open_calculator(self):
         self.calc_dialog = calc.CalcDialog(self)
         self.calc_dialog.show()
+
+        self.ui.bt_calculator.setEnabled(False)
+        self.ui.actionTravel_Costs_Calculator.setEnabled(False)
+
+
+    def copy_monitor_text(self):
+        self.clipboard = QGuiApplication.clipboard()
+        self.clipboard.setText(self.ui.txt_monitor.toPlainText())
+        self.ui.statusbar.showMessage("Monitor content copied to clipboard!", 3000)
+
 
 
     def on_about(self):
