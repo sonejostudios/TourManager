@@ -141,7 +141,7 @@ calc_text_decimal_separator = ,
 	* auto_export_calendars = If 1, the calendars will be exported as .ics on application closing
 	* theme = Enter `dark`, `light` or `auto` (follows OS color theme) to use pyqtdarktheme. For some unknown reasons, it doesn't work with the released binaries.
 	* map_provider =  Enter `gmaps` if you want to use google maps instead of open street map
-    * calc_text_decimal_separator = Set the decimal separator for the Travel Costs Calculator's text.
+    * calc_text_decimal_separator = Set the decimal separator of the Travel Costs Calculator's text.
 
 
 
