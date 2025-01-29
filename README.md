@@ -124,7 +124,7 @@ auto_export_calendars = 0
 theme = none #auto #dark #light
 map_provider = osm #gmaps
 calc_text_decimal_separator = ,
-custom_links = [("TourManager Web", "https://github.com/sonejostudios/TourManager"), ("|",""), ("App Icon", "icon.png"), ("App Folder", "./")]
+custom_links = [("TourManager Web", "https://github.com/sonejostudios/TourManager"), ("|",""), ("App Notes", "Notes.txt"), ("App Folder", ".")]
 ```
 * Defaults:
 	* homebase_city = Enter your city or where you want to start your trip
