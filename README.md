@@ -143,7 +143,7 @@ custom_links = [("TourManager Web", "https://github.com/sonejostudios/TourManage
 	* theme = Enter `dark`, `light` or `auto` (follows OS color theme) to use pyqtdarktheme. For some unknown reasons, it doesn't work with the released binaries.
 	* map_provider =  Enter `gmaps` if you want to use google maps instead of open street map
     * calc_text_decimal_separator = Set the decimal separator of the Travel Costs Calculator's text.
-    * custom_links = Here you can add your own links to the menu. It can be web links, files and folders. Use the python's list syntax with tuples containing the title and the url/path, like this: [("title", "url"), ("title", "path")]. Use ("|", "") to add a separator.
+    * custom_links = Here you can add your own links to the menu. It can be web links, files and folders. Use the python's list syntax with tuples containing the title and the url/path, like this: `[("title", "url"), ("title", "path")]`. Use `("|", "")` to add a separator.
 
 
 
