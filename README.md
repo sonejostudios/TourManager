@@ -124,6 +124,7 @@ auto_export_calendars = 0
 theme = none #auto #dark #light
 map_provider = osm #gmaps
 calc_text_decimal_separator = ,
+custom_links = [("TourManager Web", "https://github.com/sonejostudios/TourManager"), ("|",""), ("App Icon", "icon.png"), ("App Folder", "./")]
 ```
 * Defaults:
 	* homebase_city = Enter your city or where you want to start your trip
@@ -142,6 +143,7 @@ calc_text_decimal_separator = ,
 	* theme = Enter `dark`, `light` or `auto` (follows OS color theme) to use pyqtdarktheme. For some unknown reasons, it doesn't work with the released binaries.
 	* map_provider =  Enter `gmaps` if you want to use google maps instead of open street map
     * calc_text_decimal_separator = Set the decimal separator of the Travel Costs Calculator's text.
+    * custom_links = Here you can add your own links to the menu. It can be web links, files and folders. Use the python's list syntax with tuples containing the title and the url/path, like this: [("title", "url"), ("title", "path")]. Use ("|", "") to add a separator.
 
 
 
