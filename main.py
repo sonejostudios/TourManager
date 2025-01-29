@@ -279,7 +279,7 @@ class MainWindow(QMainWindow):
                                        "theme": "none #auto #dark #light",
                                        "map_provider": "osm #gmaps",
                                        "calc_text_decimal_separator": ",",
-                                       "custom_links": '[("TourManager Web", "https://github.com/sonejostudios/TourManager"), ("|",""), ("App Icon", "icon.png"), ("App Folder", "./")]'}
+                                       "custom_links": '[("TourManager Web", "https://github.com/sonejostudios/TourManager"), ("|",""), ("App Notes", "Notes.txt"), ("App Folder", ".")]'}
             with open(CONFIG_FILE, "w") as configfile:
                 self.config.write(configfile)
 
