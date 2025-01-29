@@ -472,9 +472,9 @@ class Ui_MainWindow(object):
         self.splitter.setOrientation(Qt.Orientation.Vertical)
         self.splitter.setHandleWidth(6)
         self.splitter.setChildrenCollapsible(False)
-        self.widget = QWidget(self.splitter)
-        self.widget.setObjectName(u"widget")
-        self.horizontalLayout_15 = QHBoxLayout(self.widget)
+        self.layoutWidget = QWidget(self.splitter)
+        self.layoutWidget.setObjectName(u"layoutWidget")
+        self.horizontalLayout_15 = QHBoxLayout(self.layoutWidget)
         self.horizontalLayout_15.setSpacing(6)
         self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
         self.horizontalLayout_15.setContentsMargins(0, 0, 0, 0)
@@ -482,7 +482,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.horizontalLayout_12 = QHBoxLayout()
         self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
-        self.lineEdit_search_shows = QLineEdit(self.widget)
+        self.lineEdit_search_shows = QLineEdit(self.layoutWidget)
         self.lineEdit_search_shows.setObjectName(u"lineEdit_search_shows")
         self.lineEdit_search_shows.setMinimumSize(QSize(160, 31))
         self.lineEdit_search_shows.setFrame(True)
@@ -490,13 +490,13 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_12.addWidget(self.lineEdit_search_shows)
 
-        self.cb_show_status_filter = QComboBox(self.widget)
+        self.cb_show_status_filter = QComboBox(self.layoutWidget)
         self.cb_show_status_filter.setObjectName(u"cb_show_status_filter")
         self.cb_show_status_filter.setMinimumSize(QSize(160, 31))
 
         self.horizontalLayout_12.addWidget(self.cb_show_status_filter)
 
-        self.label_show_amount = QLabel(self.widget)
+        self.label_show_amount = QLabel(self.layoutWidget)
         self.label_show_amount.setObjectName(u"label_show_amount")
         self.label_show_amount.setMinimumSize(QSize(31, 0))
         self.label_show_amount.setAlignment(Qt.AlignmentFlag.AlignBottom|Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing)
@@ -506,20 +506,20 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_12)
 
-        self.list_show = QListWidget(self.widget)
+        self.list_show = QListWidget(self.layoutWidget)
         self.list_show.setObjectName(u"list_show")
 
         self.verticalLayout_3.addWidget(self.list_show)
 
         self.horizontalLayout_18 = QHBoxLayout()
         self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
-        self.cb_monitor = QComboBox(self.widget)
+        self.cb_monitor = QComboBox(self.layoutWidget)
         self.cb_monitor.setObjectName(u"cb_monitor")
         self.cb_monitor.setMinimumSize(QSize(0, 31))
 
         self.horizontalLayout_18.addWidget(self.cb_monitor)
 
-        self.bt_copy_monitor = QPushButton(self.widget)
+        self.bt_copy_monitor = QPushButton(self.layoutWidget)
         self.bt_copy_monitor.setObjectName(u"bt_copy_monitor")
         self.bt_copy_monitor.setMinimumSize(QSize(0, 31))
         self.bt_copy_monitor.setMaximumSize(QSize(50, 16777215))
@@ -536,20 +536,20 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.horizontalLayout_13 = QHBoxLayout()
         self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
-        self.lineEdit_search_venues = QLineEdit(self.widget)
+        self.lineEdit_search_venues = QLineEdit(self.layoutWidget)
         self.lineEdit_search_venues.setObjectName(u"lineEdit_search_venues")
         self.lineEdit_search_venues.setMinimumSize(QSize(160, 31))
         self.lineEdit_search_venues.setClearButtonEnabled(True)
 
         self.horizontalLayout_13.addWidget(self.lineEdit_search_venues)
 
-        self.cb_venue_filter = QComboBox(self.widget)
+        self.cb_venue_filter = QComboBox(self.layoutWidget)
         self.cb_venue_filter.setObjectName(u"cb_venue_filter")
         self.cb_venue_filter.setMinimumSize(QSize(160, 31))
 
         self.horizontalLayout_13.addWidget(self.cb_venue_filter)
 
-        self.label_venue_amount = QLabel(self.widget)
+        self.label_venue_amount = QLabel(self.layoutWidget)
         self.label_venue_amount.setObjectName(u"label_venue_amount")
         self.label_venue_amount.setMinimumSize(QSize(31, 0))
         self.label_venue_amount.setAlignment(Qt.AlignmentFlag.AlignBottom|Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing)
@@ -559,20 +559,20 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_13)
 
-        self.list_venue = QListWidget(self.widget)
+        self.list_venue = QListWidget(self.layoutWidget)
         self.list_venue.setObjectName(u"list_venue")
 
         self.verticalLayout_4.addWidget(self.list_venue)
 
         self.horizontalLayout_14 = QHBoxLayout()
         self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
-        self.bt_map = QPushButton(self.widget)
+        self.bt_map = QPushButton(self.layoutWidget)
         self.bt_map.setObjectName(u"bt_map")
         self.bt_map.setMinimumSize(QSize(0, 31))
 
         self.horizontalLayout_14.addWidget(self.bt_map)
 
-        self.bt_calculator = QPushButton(self.widget)
+        self.bt_calculator = QPushButton(self.layoutWidget)
         self.bt_calculator.setObjectName(u"bt_calculator")
         self.bt_calculator.setMinimumSize(QSize(0, 31))
 
@@ -584,7 +584,7 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_15.addLayout(self.verticalLayout_4)
 
-        self.splitter.addWidget(self.widget)
+        self.splitter.addWidget(self.layoutWidget)
         self.txt_monitor = QPlainTextEdit(self.splitter)
         self.txt_monitor.setObjectName(u"txt_monitor")
         font = QFont()
@@ -937,6 +937,8 @@ class Ui_MainWindow(object):
         self.menuInfo.setObjectName(u"menuInfo")
         self.menuTools = QMenu(self.menubar)
         self.menuTools.setObjectName(u"menuTools")
+        self.menuCustom_Links = QMenu(self.menubar)
+        self.menuCustom_Links.setObjectName(u"menuCustom_Links")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -946,6 +948,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuExport.menuAction())
         self.menubar.addAction(self.menuFolders.menuAction())
         self.menubar.addAction(self.menuTools.menuAction())
+        self.menubar.addAction(self.menuCustom_Links.menuAction())
         self.menubar.addAction(self.menuInfo.menuAction())
         self.menuDatabases.addAction(self.actionBackup)
         self.menuDatabases.addSeparator()
@@ -1258,5 +1261,6 @@ class Ui_MainWindow(object):
         self.menuFolders.setTitle(QCoreApplication.translate("MainWindow", u"Folders", None))
         self.menuInfo.setTitle(QCoreApplication.translate("MainWindow", u"Info", None))
         self.menuTools.setTitle(QCoreApplication.translate("MainWindow", u"Tools", None))
+        self.menuCustom_Links.setTitle(QCoreApplication.translate("MainWindow", u"Custom Links", None))
     # retranslateUi
 

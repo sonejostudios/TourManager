@@ -741,7 +741,7 @@ Use the venue list to change it</string>
          <property name="childrenCollapsible">
           <bool>false</bool>
          </property>
-         <widget class="QWidget" name="">
+         <widget class="QWidget" name="layoutWidget">
           <layout class="QHBoxLayout" name="horizontalLayout_15">
            <property name="spacing">
             <number>6</number>
@@ -1595,10 +1595,16 @@ Bla</string>
     <addaction name="actionMap"/>
     <addaction name="actionTravel_Costs_Calculator"/>
    </widget>
+   <widget class="QMenu" name="menuCustom_Links">
+    <property name="title">
+     <string>Custom Links</string>
+    </property>
+   </widget>
    <addaction name="menuDatabases"/>
    <addaction name="menuExport"/>
    <addaction name="menuFolders"/>
    <addaction name="menuTools"/>
+   <addaction name="menuCustom_Links"/>
    <addaction name="menuInfo"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

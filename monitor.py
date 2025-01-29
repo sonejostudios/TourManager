@@ -96,7 +96,7 @@ def set_stats_text(parent):
 
         currency = parent.config_currency
         fee = parent.df_shows_in_list["Fee"]
-        travel_costs = parent.df_shows_in_list["TravelFee"]
+        travel_costs = parent.df_shows_in_list["TravelCosts"]
 
         monitor_text = ("SHOWS: " + str(shows_amount) +
                         "\n\nTIME RANGE: " + humanize.precisedelta(timedelta) +
@@ -135,7 +135,7 @@ def get_monitor_iterated_text(monitor_cb_index, df_shows_in_list, df_venues_in_l
             elif monitor_cb_index == 5:
                 show_str = str(row["Artists"])
             elif monitor_cb_index == 6:
-                fee_list_item = [float(row["Fee"]), float(row["TravelFee"]), row["Date"], row["Venue"], row["Currency"]]
+                fee_list_item = [float(row["Fee"]), float(row["TravelCosts"]), row["Date"], row["Venue"], row["Currency"]]
                 fee_list.append(fee_list_item)
             elif monitor_cb_index == 7:
                 show_str = str(row["Email"])

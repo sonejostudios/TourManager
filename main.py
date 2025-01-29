@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QApplication, QMainWindow, QStyleFactory, QTableWidgetItem, QHeaderView, QMessageBox, QListWidgetItem, QCalendarWidget, QDialog
 from PySide6.QtCore import QDate, Qt, QLocale
-from PySide6.QtGui import QBrush, QIcon, QGuiApplication
+from PySide6.QtGui import QBrush, QIcon, QGuiApplication, QAction
 
 # system modules
 import os
@@ -47,7 +47,6 @@ pd.set_option('display.width', 2000)
 
 # todo:
 # rework notes to save only when app is closing
-# links menu with custom links set up in  config.ini (e.g. planning document, own website)
 # multi user merge (needs save only on quit)
 # delete themes since it is not working with pyinstaller?
 # stats amount of shows/year
@@ -67,8 +66,8 @@ pd.set_option('display.width', 2000)
 
 
 
-VERSION = "0.1.14"
-DATE = "2025-01-26"
+VERSION = "0.1.15"
+DATE = "2025-01-29"
 
 DB_SHOWS = "shows.csv"
 DB_VENUES = "venues.csv"
@@ -160,6 +159,7 @@ class MainWindow(QMainWindow):
 
         # pre-defined variables
         self.search_text = ""
+
 
 
         # select a show and setup everything
@@ -267,9 +267,19 @@ class MainWindow(QMainWindow):
 
         # generate config if config file doesn't exist
         if os.path.exists(CONFIG_FILE) == False:
-            self.config["defaults"] = {"homebase_city": "Homebase City (please setup config.ini)", "homebase_geocoordinates": "0.0, 0.0", "artists": "My Artist", "currency": "EUR", "distance_unit": "km", "travel_unit_price": "0.30"}
+            self.config["defaults"] = {"homebase_city": "Homebase City (please setup config.ini)",
+                                       "homebase_geocoordinates": "0.0, 0.0",
+                                       "artists": "My Artist",
+                                       "currency": "EUR",
+                                       "distance_unit": "km",
+                                       "travel_unit_price": "0.30"}
             self.config["paths"] = {"working_directory": ""}
-            self.config["settings"] = {"auto_export_shows": "0", "auto_export_calendars": "0", "theme": "none #auto #dark #light", "map_provider": "osm #gmaps", "calc_text_decimal_separator": ","}
+            self.config["settings"] = {"auto_export_shows": "0",
+                                       "auto_export_calendars": "0",
+                                       "theme": "none #auto #dark #light",
+                                       "map_provider": "osm #gmaps",
+                                       "calc_text_decimal_separator": ",",
+                                       "custom_links": '[("TourManager Web", "https://github.com/sonejostudios/TourManager"), ("|",""), ("App Icon", "icon.png"), ("App Folder", "./")]'}
             with open(CONFIG_FILE, "w") as configfile:
                 self.config.write(configfile)
 
@@ -301,12 +311,14 @@ class MainWindow(QMainWindow):
         self.config_theme = self.config.get("settings", "theme")
         self.config_map_provider = self.config.get("settings", "map_provider")
         self.config_calc_dec_sep = self.config.get("settings", "calc_text_decimal_separator")
+        self.config_custom_links = self.config.get("settings", "custom_links")
 
 
         # apply config
         self.ui.lb_homebase.setText(self.config_homebase_city)
         homebase_text = "Homebase:\n"+self.config_homebase_city + "\n" + self.config_homebase_geocoordinates
         self.ui.lb_homebase.setToolTip(homebase_text)
+
 
         # apply pyqtdarktheme if installed and configured, otherwise Qt-Fusion (auto) is used (theme = 0)
         if self.config_theme in ["dark", "light", "auto"]:
@@ -323,6 +335,21 @@ class MainWindow(QMainWindow):
                 qdarktheme.setup_theme("light", additional_qss="QComboBox { min-height: 1em; padding: 3px 4px; }") # 3-> light
             else:
                 qdarktheme.setup_theme("auto", additional_qss="QComboBox { min-height: 1em; padding: 3px 4px; }") # 1-> auto
+
+
+
+        # add custom links to menu (or hide menu item if no custome links are provided)
+        if self.config_custom_links != "":
+            print("Add Custom Links:")
+            for item in eval(self.config_custom_links):
+                print(item)
+                if item[0] == "|":
+                    self.ui.menuCustom_Links.addSeparator()
+                else:
+                    action = self.ui.menuCustom_Links.addAction("%s" % item[0])
+                    action.triggered.connect(lambda chk, item=item: self.open_custom_link(item[1]))
+        else:
+            self.ui.menuCustom_Links.deleteLater()
 
 
 
@@ -924,6 +951,16 @@ class MainWindow(QMainWindow):
 
 
 
+    def open_custom_link(self, link):
+        if "http" in link:
+            webbrowser.open(link)
+        else:
+            gui_actions.open_file_or_folder(link)
+
+
+
+
+
     def on_about(self):
         text = ("A tool to easily organize shows and events.<br><br>"
                 "Version: " + VERSION + "<br>"
@@ -1000,6 +1037,12 @@ class MainWindow(QMainWindow):
 
     def test(self):
         print("test!")
+
+
+    def test_arg(self, arg):
+        print(arg)
+
+
 
 
 
