@@ -46,6 +46,7 @@ pd.set_option('display.width', 2000)
 
 
 # todo:
+# first mouse wheel doesn't work
 # rework notes to save only when app is closing
 # multi user merge (needs save only on quit)
 # delete themes since it is not working with pyinstaller?
@@ -66,8 +67,8 @@ pd.set_option('display.width', 2000)
 
 
 
-VERSION = "0.1.15"
-DATE = "2025-01-29"
+VERSION = "0.1.16"
+DATE = "2025-02-01"
 
 DB_SHOWS = "shows.csv"
 DB_VENUES = "venues.csv"
@@ -750,8 +751,9 @@ class MainWindow(QMainWindow):
         # populate widget list
         self.populate_venue_list(self.df_venues_in_list)
 
-        # fill monitor
-        monitor.fill_monitor(self)
+        # fill monitor (only if notes are not opened)
+        if self.notes_opened == False:
+            monitor.fill_monitor(self)
 
         # clear venues fields
         gui_actions.clear_venue_fields(self.ui)
