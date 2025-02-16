@@ -349,7 +349,7 @@ class Ui_MainWindow(object):
 
         self.field_show_currency = QLineEdit(self.shows_fields)
         self.field_show_currency.setObjectName(u"field_show_currency")
-        self.field_show_currency.setMaximumSize(QSize(36, 16777215))
+        self.field_show_currency.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_5.addWidget(self.field_show_currency)
 
@@ -498,7 +498,7 @@ class Ui_MainWindow(object):
 
         self.label_show_amount = QLabel(self.layoutWidget)
         self.label_show_amount.setObjectName(u"label_show_amount")
-        self.label_show_amount.setMinimumSize(QSize(31, 0))
+        self.label_show_amount.setMinimumSize(QSize(33, 0))
         self.label_show_amount.setAlignment(Qt.AlignmentFlag.AlignBottom|Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing)
 
         self.horizontalLayout_12.addWidget(self.label_show_amount)
@@ -551,7 +551,7 @@ class Ui_MainWindow(object):
 
         self.label_venue_amount = QLabel(self.layoutWidget)
         self.label_venue_amount.setObjectName(u"label_venue_amount")
-        self.label_venue_amount.setMinimumSize(QSize(31, 0))
+        self.label_venue_amount.setMinimumSize(QSize(33, 0))
         self.label_venue_amount.setAlignment(Qt.AlignmentFlag.AlignBottom|Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing)
 
         self.horizontalLayout_13.addWidget(self.label_venue_amount)
@@ -587,10 +587,6 @@ class Ui_MainWindow(object):
         self.splitter.addWidget(self.layoutWidget)
         self.txt_monitor = QPlainTextEdit(self.splitter)
         self.txt_monitor.setObjectName(u"txt_monitor")
-        font = QFont()
-        font.setFamilies([u"Ubuntu"])
-        font.setPointSize(10)
-        self.txt_monitor.setFont(font)
         self.splitter.addWidget(self.txt_monitor)
 
         self.lists_monitor_layout.addWidget(self.splitter)
@@ -660,8 +656,13 @@ class Ui_MainWindow(object):
 
         self.bt_venue_search_shows = QPushButton(self.venues_fields)
         self.bt_venue_search_shows.setObjectName(u"bt_venue_search_shows")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.bt_venue_search_shows.sizePolicy().hasHeightForWidth())
+        self.bt_venue_search_shows.setSizePolicy(sizePolicy3)
         self.bt_venue_search_shows.setMinimumSize(QSize(0, 12))
-        self.bt_venue_search_shows.setMaximumSize(QSize(60, 16777215))
+        self.bt_venue_search_shows.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_7.addWidget(self.bt_venue_search_shows)
 
@@ -698,11 +699,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setSizeConstraint(QLayout.SizeConstraint.SetDefaultConstraint)
         self.field_venue_address = QPlainTextEdit(self.venues_fields)
         self.field_venue_address.setObjectName(u"field_venue_address")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.field_venue_address.sizePolicy().hasHeightForWidth())
-        self.field_venue_address.setSizePolicy(sizePolicy3)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.field_venue_address.sizePolicy().hasHeightForWidth())
+        self.field_venue_address.setSizePolicy(sizePolicy4)
+        self.field_venue_address.setMinimumSize(QSize(0, 60))
         self.field_venue_address.setMaximumSize(QSize(16777215, 60))
 
         self.horizontalLayout.addWidget(self.field_venue_address)
@@ -712,14 +714,14 @@ class Ui_MainWindow(object):
         self.bt_venue_locate = QPushButton(self.venues_fields)
         self.bt_venue_locate.setObjectName(u"bt_venue_locate")
         self.bt_venue_locate.setMinimumSize(QSize(0, 0))
-        self.bt_venue_locate.setMaximumSize(QSize(60, 30))
+        self.bt_venue_locate.setMaximumSize(QSize(16777215, 16777215))
 
         self.verticalLayout.addWidget(self.bt_venue_locate)
 
         self.bt_venue_route = QPushButton(self.venues_fields)
         self.bt_venue_route.setObjectName(u"bt_venue_route")
         self.bt_venue_route.setMinimumSize(QSize(60, 0))
-        self.bt_venue_route.setMaximumSize(QSize(60, 30))
+        self.bt_venue_route.setMaximumSize(QSize(16777215, 16777215))
 
         self.verticalLayout.addWidget(self.bt_venue_route)
 
@@ -781,7 +783,7 @@ class Ui_MainWindow(object):
 
         self.bt_website = QPushButton(self.venues_fields)
         self.bt_website.setObjectName(u"bt_website")
-        self.bt_website.setMaximumSize(QSize(60, 16777215))
+        self.bt_website.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_2.addWidget(self.bt_website)
 
@@ -807,9 +809,9 @@ class Ui_MainWindow(object):
         self.cb_venue_rating.setObjectName(u"cb_venue_rating")
         self.cb_venue_rating.setMinimumSize(QSize(0, 0))
         self.cb_venue_rating.setMaximumSize(QSize(16777215, 16777215))
-        font1 = QFont()
-        font1.setPointSize(12)
-        self.cb_venue_rating.setFont(font1)
+        font = QFont()
+        font.setPointSize(12)
+        self.cb_venue_rating.setFont(font)
         self.cb_venue_rating.setFrame(True)
 
         self.formLayout_2.setWidget(9, QFormLayout.FieldRole, self.cb_venue_rating)
@@ -885,7 +887,7 @@ class Ui_MainWindow(object):
         self.bt_venue_locate_geocoordinates = QPushButton(self.venues_fields)
         self.bt_venue_locate_geocoordinates.setObjectName(u"bt_venue_locate_geocoordinates")
         self.bt_venue_locate_geocoordinates.setMinimumSize(QSize(0, 0))
-        self.bt_venue_locate_geocoordinates.setMaximumSize(QSize(60, 30))
+        self.bt_venue_locate_geocoordinates.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_17.addWidget(self.bt_venue_locate_geocoordinates)
 
@@ -1233,6 +1235,7 @@ class Ui_MainWindow(object):
         self.field_venue_email.setToolTip(QCoreApplication.translate("MainWindow", u"Email address of the contact person", None))
 #endif // QT_CONFIG(tooltip)
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Venue Info", None))
+        self.field_venue_info.setPlainText("")
         self.tagsLabel_2.setText(QCoreApplication.translate("MainWindow", u"Tags", None))
 #if QT_CONFIG(tooltip)
         self.field_venue_tags.setToolTip(QCoreApplication.translate("MainWindow", u"E.g. #great-host, #black-list", None))

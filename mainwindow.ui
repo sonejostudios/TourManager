@@ -470,7 +470,7 @@ Use the venue list to change it</string>
           </widget>
          </item>
          <item row="13" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0,0,0,0,0">
            <item>
             <widget class="QDoubleSpinBox" name="field_show_fee">
              <property name="buttonSymbols">
@@ -522,7 +522,7 @@ Use the venue list to change it</string>
             <widget class="QLineEdit" name="field_show_currency">
              <property name="maximumSize">
               <size>
-               <width>36</width>
+               <width>16777215</width>
                <height>16777215</height>
               </size>
              </property>
@@ -789,7 +789,7 @@ Use the venue list to change it</string>
                 <widget class="QLabel" name="label_show_amount">
                  <property name="minimumSize">
                   <size>
-                   <width>31</width>
+                   <width>33</width>
                    <height>0</height>
                   </size>
                  </property>
@@ -892,7 +892,7 @@ Get Information according to Searches and Filters
                 <widget class="QLabel" name="label_venue_amount">
                  <property name="minimumSize">
                   <size>
-                   <width>31</width>
+                   <width>33</width>
                    <height>0</height>
                   </size>
                  </property>
@@ -953,12 +953,6 @@ Get Information according to Searches and Filters
           </layout>
          </widget>
          <widget class="QPlainTextEdit" name="txt_monitor">
-          <property name="font">
-           <font>
-            <family>Ubuntu</family>
-            <pointsize>10</pointsize>
-           </font>
-          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -1080,6 +1074,12 @@ Bla</string>
            </item>
            <item>
             <widget class="QPushButton" name="bt_venue_search_shows">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -1088,7 +1088,7 @@ Bla</string>
              </property>
              <property name="maximumSize">
               <size>
-               <width>60</width>
+               <width>16777215</width>
                <height>16777215</height>
               </size>
              </property>
@@ -1157,6 +1157,12 @@ Bla</string>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>60</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -1180,8 +1186,8 @@ Bla</string>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>60</width>
-                 <height>30</height>
+                 <width>16777215</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="toolTip">
@@ -1202,8 +1208,8 @@ Bla</string>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>60</width>
-                 <height>30</height>
+                 <width>16777215</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="toolTip">
@@ -1306,7 +1312,7 @@ Bla</string>
             <widget class="QPushButton" name="bt_website">
              <property name="maximumSize">
               <size>
-               <width>60</width>
+               <width>16777215</width>
                <height>16777215</height>
               </size>
              </property>
@@ -1435,7 +1441,11 @@ Bla</string>
           </widget>
          </item>
          <item row="14" column="1">
-          <widget class="QPlainTextEdit" name="field_venue_info"/>
+          <widget class="QPlainTextEdit" name="field_venue_info">
+           <property name="plainText">
+            <string/>
+           </property>
+          </widget>
          </item>
          <item row="16" column="0">
           <widget class="QLabel" name="tagsLabel_2">
@@ -1476,8 +1486,8 @@ Bla</string>
              </property>
              <property name="maximumSize">
               <size>
-               <width>60</width>
-               <height>30</height>
+               <width>16777215</width>
+               <height>16777215</height>
               </size>
              </property>
              <property name="toolTip">

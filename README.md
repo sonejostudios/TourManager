@@ -121,29 +121,40 @@ working_directory =
 [settings]
 auto_export_shows = 0
 auto_export_calendars = 0
-theme = none #auto #dark #light
 map_provider = osm #gmaps
 calc_text_decimal_separator = ,
 custom_links = [("TourManager Web", "https://github.com/sonejostudios/TourManager"), ("|",""), ("App Notes", "Notes.txt"), ("App Folder", ".")]
-```
-* Defaults:
-	* homebase_city = Enter your city or where you want to start your trip
-	* homebase_geocoordinates = It's geo-coordinates (in decimal form, e.g. 47.994853, 7.843950 )
-	* artists = Your default artist's name
-	* currency = The default currency code you want to use (e.g. EUR or USD)
-	* distance_unit = the default distance unit (e.g. km)
-	* travel_unit_price = The default price per unit (e.g. 0.30€/km)
 
-* Paths:
+[gui]
+theme = none #auto #dark #light
+font_size = #10
+field_area_width = #430
+start_maximized = 0
+```
+* defaults:
+	* homebase_city = Enter your city or where you want to start your trip.
+	* homebase_geocoordinates = It's geo-coordinates (in decimal form, e.g. 47.994853, 7.843950).
+	* artists = Your default artist's name.
+	* currency = The default currency code you want to use (e.g. EUR or USD).
+	* distance_unit = the default distance unit (e.g. km).
+	* travel_unit_price = The default price per unit (e.g. 0.30€/km).
+
+* paths:
 	* working_directory = Enter the path of your working folder. If empty, the application's folder is used. See chapter "Working Folder".
 
-* Settings:
-	* auto_export_shows = If 1, the upcoming shows will be exported as .html on application closing
-	* auto_export_calendars = If 1, the calendars will be exported as .ics on application closing
-	* theme = Enter `dark`, `light` or `auto` (follows OS color theme) to use pyqtdarktheme. For some unknown reasons, it doesn't work with the released binaries.
-	* map_provider =  Enter `gmaps` if you want to use google maps instead of open street map
+* settings:
+	* auto_export_shows = If 1, the upcoming shows will be exported as .html on application closing.
+	* auto_export_calendars = If 1, the calendars will be exported as .ics on application closing.
+	* map_provider =  Enter `gmaps` if you want to use google maps instead of open street map.
     * calc_text_decimal_separator = Set the decimal separator of the Travel Costs Calculator's text.
-    * custom_links = Here you can add your own links to the menu. It can be web links, files and folders. Use the python's list syntax with tuples containing the title and the url/path, like this: `[("title", "url"), ("title", "path")]`. Use `("|", "")` to add a separator.
+    * custom_links = Here you can add your own links to the menu. It can be web links, files and folders. Use the python's list syntax with tuples containing the title and the url/path, like this: `[("title", "url"), ("title", "path")]`. Use `("|", "")` to add a separator. If empty, the menu will be hidden.
+
+* gui:
+    * theme = Enter `dark`, `light` or `auto` (follows OS color theme) to use pyqtdarktheme. For some unknown reasons, it doesn't work with the released binaries.
+    * font_size = Set the font size. If empty, the default is 10. For some unknown reasons, it doesn't work with pyqtdarktheme's themes.
+    * field_area_width = Set the with of the field areas (left for the shows, right for the venues). Increate it while increasing font size to match the lool'n'feel.
+    * start_maximized = Maximize the window on start.
+
 
 
 
@@ -186,7 +197,7 @@ In the menu `Export`, you can export the upcoming shows as .html file or the cal
 Subscribe to these .ics files with your favorite calendar application (only tested with Thunderbird).
 * `TourManagerShows.ics`: A calendar with all your shows
 * `TourManagerEvents.ics`: A calendar with all events (all venues with start and end dates)
-* `TourManagerEventsForecast.ics`: A calendar with all events postponed 1 year ahead. This can be handy to guess when an event could be even if you don't have the exact date yet.
+* `TourManagerEventsForecast.ics`: A calendar with all events postponed 1 year ahead. This can be handy to guess when an event could happen, even if you don't have the exact date yet.
 
 **How to subscribe to the calendars with Thunderbird:**
 * Select `Paths`in the Monitor (blue section)

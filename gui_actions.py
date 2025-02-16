@@ -148,9 +148,9 @@ def clear_show_fields(ui):
 
     ui.field_show_info.clear()
 
-    ui.field_show_fee.clear() # or set to 0?
-    ui.field_show_travel_costs.clear() # or set to 0?
-    ui.field_show_fee_sum.clear() # or set to 0?
+    ui.field_show_fee.setValue(0)
+    ui.field_show_travel_costs.setValue(0)
+    ui.field_show_fee_sum.setValue(0)
     ui.field_show_currency.clear()
 
     ui.field_show_arrival_time.clear()

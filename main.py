@@ -46,7 +46,8 @@ pd.set_option('display.width', 2000)
 
 
 # todo:
-# first mouse wheel doesn't work
+# change font size
+# first mouse wheel turn doesn't work
 # rework notes to save only when app is closing
 # multi user merge (needs save only on quit)
 # delete themes since it is not working with pyinstaller?
@@ -56,8 +57,8 @@ pd.set_option('display.width', 2000)
 # add field for distance to homebase? (with automatic travel costs)
 # add search history and tags list
 # logs?
-
-
+#
+#
 # config: startbak as option or remove it
 # add venue fields: latest booking request date?
 # change to country codes?
@@ -67,8 +68,8 @@ pd.set_option('display.width', 2000)
 
 
 
-VERSION = "0.1.16"
-DATE = "2025-02-01"
+VERSION = "0.1.17"
+DATE = "2025-02-14"
 
 DB_SHOWS = "shows.csv"
 DB_VENUES = "venues.csv"
@@ -181,8 +182,6 @@ class MainWindow(QMainWindow):
 
 
 
-
-
         # Signals
         self.ui.my_button.clicked.connect(self.test)
         self.ui.lineEdit_search_shows.textChanged.connect(self.on_search_shows)
@@ -264,7 +263,7 @@ class MainWindow(QMainWindow):
 
     def load_config(self):
         # create object
-        self.config = configparser.ConfigParser()
+        self.config = configparser.ConfigParser(comment_prefixes="#", inline_comment_prefixes="#")
 
         # generate config if config file doesn't exist
         if os.path.exists(CONFIG_FILE) == False:
@@ -277,10 +276,14 @@ class MainWindow(QMainWindow):
             self.config["paths"] = {"working_directory": ""}
             self.config["settings"] = {"auto_export_shows": "0",
                                        "auto_export_calendars": "0",
-                                       "theme": "none #auto #dark #light",
                                        "map_provider": "osm #gmaps",
                                        "calc_text_decimal_separator": ",",
                                        "custom_links": '[("TourManager Web", "https://github.com/sonejostudios/TourManager"), ("|",""), ("App Notes", "Notes.txt"), ("App Folder", ".")]'}
+            self.config["gui"] = {"theme": "none #auto #dark #light",
+                                  "font_size": "#10",
+                                  "field_area_width": "#430",
+                                  "start_maximized": "0"}
+
             with open(CONFIG_FILE, "w") as configfile:
                 self.config.write(configfile)
 
@@ -300,7 +303,6 @@ class MainWindow(QMainWindow):
         self.config_homebase_geocoordinates = self.config.get("defaults", "homebase_geocoordinates")
         self.config_artists = self.config.get("defaults", "artists")
         self.config_currency = self.config.get("defaults", "currency")
-
         self.config_distance_unit = self.config.get("defaults", "distance_unit")
         self.config_travel_unit_price = float(self.config.get("defaults", "travel_unit_price"))
 
@@ -309,16 +311,34 @@ class MainWindow(QMainWindow):
 
         self.config_auto_export_shows = self.config.get("settings", "auto_export_shows")
         self.config_auto_export_calendars = self.config.get("settings", "auto_export_calendars")
-        self.config_theme = self.config.get("settings", "theme")
         self.config_map_provider = self.config.get("settings", "map_provider")
         self.config_calc_dec_sep = self.config.get("settings", "calc_text_decimal_separator")
         self.config_custom_links = self.config.get("settings", "custom_links")
 
+        self.config_theme = self.config.get("gui", "theme")
+        self.config_font_size = self.config.get("gui", "font_size")
+        self.config_field_area_width = self.config.get("gui", "field_area_width")
+        self.config_start_maximazied = self.config.get("gui", "start_maximized")
 
-        # apply config
+
+
+        # APPLY CONFIG
         self.ui.lb_homebase.setText(self.config_homebase_city)
         homebase_text = "Homebase:\n"+self.config_homebase_city + "\n" + self.config_homebase_geocoordinates
         self.ui.lb_homebase.setToolTip(homebase_text)
+
+        # add custom links to menu (or hide menu item if no custome links are provided)
+        if self.config_custom_links != "":
+            print("Add Custom Links:")
+            for item in eval(self.config_custom_links):
+                print(item)
+                if item[0] == "|":
+                    self.ui.menuCustom_Links.addSeparator()
+                else:
+                    action = self.ui.menuCustom_Links.addAction("%s" % item[0])
+                    action.triggered.connect(lambda chk, item=item: self.open_custom_link(item[1]))
+        else:
+            self.ui.menuCustom_Links.deleteLater()
 
 
         # apply pyqtdarktheme if installed and configured, otherwise Qt-Fusion (auto) is used (theme = 0)
@@ -338,19 +358,23 @@ class MainWindow(QMainWindow):
                 qdarktheme.setup_theme("auto", additional_qss="QComboBox { min-height: 1em; padding: 3px 4px; }") # 1-> auto
 
 
+        # apply font size, field area with and start maximized
 
-        # add custom links to menu (or hide menu item if no custome links are provided)
-        if self.config_custom_links != "":
-            print("Add Custom Links:")
-            for item in eval(self.config_custom_links):
-                print(item)
-                if item[0] == "|":
-                    self.ui.menuCustom_Links.addSeparator()
-                else:
-                    action = self.ui.menuCustom_Links.addAction("%s" % item[0])
-                    action.triggered.connect(lambda chk, item=item: self.open_custom_link(item[1]))
-        else:
-            self.ui.menuCustom_Links.deleteLater()
+        # set global font size (empty = 10)
+        if self.config_font_size != "":
+            font = self.font()
+            font.setPointSize(int(self.config_font_size))
+            app.instance().setFont(font)
+
+        # set field width (empty = 430)
+        if self.config_field_area_width != "":
+            field_width = int(self.config_field_area_width)
+            self.ui.shows_fields.setFixedWidth(field_width)
+            self.ui.venues_fields.setFixedWidth(field_width)
+
+        # set maximized
+        if self.config_start_maximazied == "1":
+            self.showMaximized()
 
 
 
