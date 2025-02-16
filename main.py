@@ -46,8 +46,6 @@ pd.set_option('display.width', 2000)
 
 
 # todo:
-# change font size
-# first mouse wheel turn doesn't work
 # rework notes to save only when app is closing
 # multi user merge (needs save only on quit)
 # delete themes since it is not working with pyinstaller?
