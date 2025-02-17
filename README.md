@@ -150,11 +150,14 @@ start_maximized = 0
     * custom_links = Here you can add your own links to the menu. It can be web links, files and folders. Use the python's list syntax with tuples containing the title and the url/path, like this: `[("title", "url"), ("title", "path")]`. Use `("|", "")` to add a separator. If empty, the menu will be hidden.
 
 * gui:
-    * theme = Enter `dark`, `light` or `auto` (follows OS color theme) to use pyqtdarktheme. For some unknown reasons, it doesn't work with the released binaries.
+    * theme = Enter `dark`, `light` or `auto` (follows OS color theme) to use pyqtdarktheme.
     * font_size = Set the font size. If empty, the default is 10. For some unknown reasons, it doesn't work with pyqtdarktheme's themes.
-    * field_area_width = Set the with of the field areas (left for the shows, right for the venues). Increate it while increasing font size to match the lool'n'feel.
+    * field_area_width = Set the with of the field areas (left for the shows, right for the venues). Increase it while increasing font size to match the lool'n'feel.
     * start_maximized = Maximize the window on start.
 
+```
+Comments: everything after " #" is ignored (don't forget the white space)
+```
 
 
 
