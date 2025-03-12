@@ -129,6 +129,9 @@ custom_links = [("TourManager Web", "https://github.com/sonejostudios/TourManage
 theme = none #auto #dark #light
 font_size = #10
 field_area_width = #430
+save_window_size = 0
+window_width = 1700
+window_height = 1000
 start_maximized = 0
 ```
 * defaults:
@@ -153,6 +156,9 @@ start_maximized = 0
     * theme = Enter `dark`, `light` or `auto` (follows OS color theme) to use pyqtdarktheme.
     * font_size = Set the font size. If empty, the default is 10.
     * field_area_width = Set the with of the field areas (left for the shows, right for the venues). Increase it while increasing font size to match the lool'n'feel. If empty, the default is 430.
+    * save_window_size = If 1, the window size is saved and restored.
+    * window_width = The width of the window (will be overwritten is save_window_size = 1).
+    * window_height = The height of the window (will be overwritten is save_window_size = 1).
     * start_maximized = Maximize the window on start.
 
 ```
