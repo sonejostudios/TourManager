@@ -281,7 +281,7 @@ class MainWindow(QMainWindow):
             self.config["gui"] = {"theme": "none #auto #dark #light",
                                   "font_size": "#10",
                                   "field_area_width": "#430",
-                                  "save_window_size": "1",
+                                  "save_window_size": "0",
                                   "window_width": "1700",
                                   "window_height": "1000",
                                   "start_maximized": "0"}
