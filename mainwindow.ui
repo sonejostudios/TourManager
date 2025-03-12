@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1700</width>
-    <height>1001</height>
+    <height>1000</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -249,13 +249,6 @@ Use the venue list to change it</string>
           <widget class="QLabel" name="label_17">
            <property name="text">
             <string>Email</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="1">
-          <widget class="QLineEdit" name="field_show_email">
-           <property name="toolTip">
-            <string>Email address of the contact person</string>
            </property>
           </widget>
          </item>
@@ -625,6 +618,27 @@ Use the venue list to change it</string>
             <string>E.g. #release-tour, #black-list</string>
            </property>
           </widget>
+         </item>
+         <item row="6" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_19">
+           <item>
+            <widget class="QLineEdit" name="field_show_email">
+             <property name="toolTip">
+              <string>Email address of the contact person</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cb_show_contact_email_hide">
+             <property name="toolTip">
+              <string>Exclude this email address from the Monitor's email collections</string>
+             </property>
+             <property name="text">
+              <string>Hide</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
@@ -1340,14 +1354,14 @@ Bla</string>
            </property>
           </widget>
          </item>
-         <item row="9" column="0">
+         <item row="10" column="0">
           <widget class="QLabel" name="label_35">
            <property name="text">
             <string>Rating</string>
            </property>
           </widget>
          </item>
-         <item row="9" column="1">
+         <item row="10" column="1">
           <widget class="QComboBox" name="cb_venue_rating">
            <property name="minimumSize">
             <size>
@@ -1374,14 +1388,14 @@ Bla</string>
            </property>
           </widget>
          </item>
-         <item row="10" column="0">
+         <item row="11" column="0">
           <widget class="QLabel" name="label_27">
            <property name="text">
             <string>Discontinued</string>
            </property>
           </widget>
          </item>
-         <item row="10" column="1">
+         <item row="11" column="1">
           <widget class="QCheckBox" name="field_checkbox_venue_is_discontinued">
            <property name="toolTip">
             <string>Venue/Event is discontinued and/or doesn't exist anymore</string>
@@ -1391,70 +1405,63 @@ Bla</string>
            </property>
           </widget>
          </item>
-         <item row="11" column="0">
+         <item row="12" column="0">
           <widget class="QLabel" name="label_11">
            <property name="text">
             <string>Contact</string>
            </property>
           </widget>
          </item>
-         <item row="11" column="1">
+         <item row="12" column="1">
           <widget class="QLineEdit" name="field_venue_contact">
            <property name="toolTip">
             <string>Contact person of this venue/event</string>
            </property>
           </widget>
          </item>
-         <item row="12" column="0">
+         <item row="13" column="0">
           <widget class="QLabel" name="label_12">
            <property name="text">
             <string>Phone</string>
            </property>
           </widget>
          </item>
-         <item row="12" column="1">
+         <item row="13" column="1">
           <widget class="QLineEdit" name="field_venue_phone">
            <property name="toolTip">
             <string>Phone number of the contact person</string>
            </property>
           </widget>
          </item>
-         <item row="13" column="0">
+         <item row="14" column="0">
           <widget class="QLabel" name="label_13">
            <property name="text">
             <string>Email</string>
            </property>
           </widget>
          </item>
-         <item row="13" column="1">
-          <widget class="QLineEdit" name="field_venue_email">
-           <property name="toolTip">
-            <string>Email address of the contact person</string>
-           </property>
-          </widget>
-         </item>
-         <item row="14" column="0">
+         <item row="15" column="0">
           <widget class="QLabel" name="label_10">
            <property name="text">
             <string>Venue Info</string>
            </property>
           </widget>
          </item>
-         <item row="14" column="1">
+         <item row="15" column="1">
           <widget class="QPlainTextEdit" name="field_venue_info">
            <property name="plainText">
             <string/>
            </property>
           </widget>
          </item>
-         <item row="16" column="0">
+         <item row="17" column="0">
           <widget class="QLabel" name="tagsLabel_2">
            <property name="text">
             <string>Tags</string>
            </property>
           </widget>
          </item>
-         <item row="16" column="1">
+         <item row="17" column="1">
           <widget class="QLineEdit" name="field_venue_tags">
            <property name="minimumSize">
             <size>
@@ -1499,6 +1506,41 @@ Bla</string>
             </widget>
            </item>
           </layout>
+         </item>
+         <item row="14" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_20">
+           <item>
+            <widget class="QLineEdit" name="field_venue_email">
+             <property name="toolTip">
+              <string>Email address of the contact person</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cb_venue_contact_email_hide">
+             <property name="toolTip">
+              <string>Exclude this email address from the Monitor's email collections</string>
+             </property>
+             <property name="text">
+              <string>Hide</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="9" column="1">
+          <widget class="QLineEdit" name="field_venue_capacity">
+           <property name="toolTip">
+            <string>Amount of people (spectators, audience)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="0">
+          <widget class="QLabel" name="label_37">
+           <property name="text">
+            <string>Capacity</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>

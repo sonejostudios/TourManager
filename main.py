@@ -46,9 +46,11 @@ pd.set_option('display.width', 2000)
 
 
 # todo:
+# backup notes
+# add "auto create new show" checkbox in "add venue dialog"?
+# disable venue buttons if none is selected - maybe not! cause you can use them as test...
 # rework notes to save only when app is closing
 # multi user merge (needs save only on quit)
-# delete themes since it is not working with pyinstaller?
 # stats amount of shows/year
 # monitor nice tables (needs monofont)
 # config editor
@@ -66,8 +68,8 @@ pd.set_option('display.width', 2000)
 
 
 
-VERSION = "0.1.17"
-DATE = "2025-02-14"
+VERSION = "0.1.19"
+DATE = "2025-03-08"
 
 DB_SHOWS = "shows.csv"
 DB_VENUES = "venues.csv"
@@ -159,7 +161,6 @@ class MainWindow(QMainWindow):
 
         # pre-defined variables
         self.search_text = ""
-
 
 
         # select a show and setup everything
@@ -276,13 +277,16 @@ class MainWindow(QMainWindow):
                                        "auto_export_calendars": "0",
                                        "map_provider": "osm #gmaps",
                                        "calc_text_decimal_separator": ",",
-                                       "custom_links": '[("TourManager Web", "https://github.com/sonejostudios/TourManager"), ("|",""), ("App Notes", "Notes.txt"), ("App Folder", ".")]'}
+                                       "custom_links": '[(r"TourManager Web", r"https://github.com/sonejostudios/TourManager"), (r"|",r""), ("App Notes", r"Notes.txt"), ("App Folder", r".")]'}
             self.config["gui"] = {"theme": "none #auto #dark #light",
                                   "font_size": "#10",
                                   "field_area_width": "#430",
+                                  "save_window_size": "1",
+                                  "window_width": "1700",
+                                  "window_height": "1000",
                                   "start_maximized": "0"}
 
-            with open(CONFIG_FILE, "w") as configfile:
+            with open(CONFIG_FILE, "w", encoding='utf-8') as configfile:
                 self.config.write(configfile)
 
             QMessageBox.warning(self, "TourManager Configuration",
@@ -316,7 +320,10 @@ class MainWindow(QMainWindow):
         self.config_theme = self.config.get("gui", "theme")
         self.config_font_size = self.config.get("gui", "font_size")
         self.config_field_area_width = self.config.get("gui", "field_area_width")
-        self.config_start_maximazied = self.config.get("gui", "start_maximized")
+        self.config_save_window_size = self.config.get("gui", "save_window_size")
+        self.config_window_width = self.config.get("gui", "window_width")
+        self.config_window_height = self.config.get("gui", "window_height")
+        self.config_start_maximizied = self.config.get("gui", "start_maximized")
 
 
 
@@ -339,7 +346,8 @@ class MainWindow(QMainWindow):
             self.ui.menuCustom_Links.deleteLater()
 
 
-        # apply pyqtdarktheme if installed and configured, otherwise Qt-Fusion (auto) is used (theme = 0)
+
+        # apply pyqtdarktheme if installed and configured, otherwise Qt-Fusion (follows OS colors) is used (theme = empty)
         if self.config_theme in ["dark", "light", "auto"]:
             # reset buttons min height to 0 because qdarktheme ignores combobox min height set in wainwindow.ui -> also needed: apply additional_qss to themes
             self.ui.bt_map.setMinimumHeight(0)
@@ -357,12 +365,9 @@ class MainWindow(QMainWindow):
 
 
         # apply font size, field area with and start maximized
-
         # set global font size (empty = 10)
         if self.config_font_size != "":
-            font = self.font()
-            font.setPointSize(int(self.config_font_size))
-            app.instance().setFont(font)
+            self.setStyleSheet(u"font: " + self.config_font_size + "pt;")
 
         # set field width (empty = 430)
         if self.config_field_area_width != "":
@@ -370,8 +375,12 @@ class MainWindow(QMainWindow):
             self.ui.shows_fields.setFixedWidth(field_width)
             self.ui.venues_fields.setFixedWidth(field_width)
 
-        # set maximized
-        if self.config_start_maximazied == "1":
+
+        # window size or maximized
+        if self.config_window_width != "" and self.config_window_height != "":
+            #self.setMinimumSize(200,100) # uncomment to allow smaller sizes
+            self.resize(int(self.config_window_width), int(self.config_window_height))
+        if self.config_start_maximizied == "1":
             self.showMaximized()
 
 
@@ -400,7 +409,7 @@ class MainWindow(QMainWindow):
 
 
     def load_databases(self):
-        # load shows
+        # load SHOWS.CSV
         df_shows_path = os.path.join(self.config_workdir, DB_SHOWS)
         self.df_shows = pd.read_csv(df_shows_path).fillna("")
 
@@ -415,7 +424,7 @@ class MainWindow(QMainWindow):
 
 
 
-        # load venues
+        # load VENUES.CSV
         df_venues_path = os.path.join(self.config_workdir, DB_VENUES)
         self.df_venues = pd.read_csv(df_venues_path, index_col="VenueID").fillna("")#.astype(str)
         self.df_venues["VenueRating"].astype(str)
@@ -466,6 +475,8 @@ class MainWindow(QMainWindow):
         else:
             self.df_shows_state_filtered = self.df_shows
 
+
+
         # filter by keyword
         # search all rows with search entry inside state filtered df
         text = self.ui.lineEdit_search_shows.text()
@@ -478,6 +489,9 @@ class MainWindow(QMainWindow):
 
         # populate widget list
         self.populate_show_list(self.df_shows_in_list)
+
+        # scroll list to the newest shows
+        self.ui.list_show.scrollToBottom()
 
         # fill monitor (only if notes are not opened)
         if self.notes_opened == False:
@@ -1003,7 +1017,6 @@ class MainWindow(QMainWindow):
 
 
     def closeEvent(self, event):
-        print("Bye bye.")
 
         # trigger monitor combo box to save monitor notes
         self.ui.cb_monitor.setCurrentIndex(1)
@@ -1012,15 +1025,27 @@ class MainWindow(QMainWindow):
         # remove LOCKED file
         lock_file = os.path.join(self.config_workdir, LOCK_FILE)
         if os.path.exists(lock_file):
+            print("LOCKED file deleted")
             os.remove(lock_file)
 
         # auto export upcoming shows to html file if configured
         if self.config_auto_export_shows == "1":
+            print("Upcoming shows exported")
             exports.export_upcoming_shows(self.df_shows, self.df_venues, self.config_workdir, self.ui)
 
         # auto export calendars if configured
         if self.config_auto_export_calendars == "1":
+            print("Calendars exported")
             exports.export_all_calendars(self.df_shows, self.df_venues, self.config_workdir, self.ui, SHOW_STATUS)
+
+
+        # write window size into config
+        if self.config_save_window_size == "1":
+            print("Window size saved")
+            self.config.set("gui", "window_width", str(self.geometry().width()))
+            self.config.set("gui", "window_height", str(self.geometry().height()))
+            with open(CONFIG_FILE, "w", encoding='utf-8') as configfile:
+                self.config.write(configfile)
 
 
         # ask for saving before closing
@@ -1034,6 +1059,10 @@ class MainWindow(QMainWindow):
     #     else:
     #         print("go back to app")
     #         event.ignore()
+
+
+        # bye bye
+        print("Bye bye.")
 
 
 

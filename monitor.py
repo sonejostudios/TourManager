@@ -27,13 +27,13 @@ def fill_monitor(parent):
 
     # create note file if it doesn't exist
     if not os.path.isfile(notes_path):
-        with open(notes_path, "w") as file:
+        with open(notes_path, "w", encoding='utf-8') as file:
             file.write("Welcome to TourManager!")
 
 
     # open notes
     if monitor_cb_index == 0:
-        with open(notes_path, "r+") as file:
+        with open(notes_path, "r+", encoding='utf-8') as file:
             parent.ui.txt_monitor.setPlainText(file.read())
         parent.notes_opened = True
 
@@ -63,7 +63,7 @@ def fill_monitor(parent):
 def save_notes(parent, notes_path):
     # save notes only if opened before
     if parent.notes_opened == True:
-        with open(notes_path, "w") as file:
+        with open(notes_path, "w", encoding='utf-8') as file:
             file.write(parent.ui.txt_monitor.toPlainText())
         parent.notes_opened = False
 
@@ -138,7 +138,8 @@ def get_monitor_iterated_text(monitor_cb_index, df_shows_in_list, df_venues_in_l
                 fee_list_item = [float(row["Fee"]), float(row["TravelCosts"]), row["Date"], row["Venue"], row["Currency"]]
                 fee_list.append(fee_list_item)
             elif monitor_cb_index == 7:
-                show_str = str(row["Email"])
+                if bool(row["EmailHide"]) == False:
+                    show_str = str(row["Email"])
             elif monitor_cb_index == 9:
                 show_str = str(row["Tags"])
 
@@ -151,7 +152,8 @@ def get_monitor_iterated_text(monitor_cb_index, df_shows_in_list, df_venues_in_l
     if monitor_cb_index in [8,10]:
         for index, row in df_venues_in_list.iterrows():
             if monitor_cb_index == 8:
-                venue_str = str(row["VenueEmail"])
+                if bool(row["VenueEmailHide"]) == False:
+                    venue_str = str(row["VenueEmail"])
             elif monitor_cb_index == 10:
                 venue_str = str(row["VenueTags"])
 

@@ -21,11 +21,13 @@ def fill_show_fields(ui, selected_show):
 
     show_status = selected_show["Status"]
     ui.cb_show_status.setCurrentIndex(show_status)
+    ui.cb_show_status.setEnabled(True)
     ui.field_show_artists.setText(str(selected_show["Artists"]))
 
     ui.field_show_contact.setText(str(selected_show["Contact"]))
     ui.field_show_phone.setText(str(selected_show["Phone"]))
     ui.field_show_email.setText(str(selected_show["Email"]))
+    ui.cb_show_contact_email_hide.setChecked(bool(selected_show["EmailHide"]))
 
     ui.field_show_tech_contact.setText(str(selected_show["TechContact"]))
     ui.field_show_tech_phone.setText(str(selected_show["TechPhone"]))
@@ -84,7 +86,9 @@ def fill_venue_fields(ui, df_venues, venue_id):
 
     ui.field_venue_website.setText(str(df_venues.loc[venue_id]["VenueWebsite"]))
     ui.field_venue_genres.setText(str(df_venues.loc[venue_id]["VenueGenres"]))
+    ui.field_venue_capacity.setText(str(df_venues.loc[venue_id]["VenueCapacity"]))
 
+    ui.cb_venue_rating.setEnabled(True)
     if df_venues.loc[venue_id]["VenueRating"] != "":
         ui.cb_venue_rating.setCurrentIndex(int(df_venues.loc[venue_id]["VenueRating"]))
     else:
@@ -94,6 +98,7 @@ def fill_venue_fields(ui, df_venues, venue_id):
     ui.field_venue_contact.setText(str(df_venues.loc[venue_id]["VenueContact"]))
     ui.field_venue_phone.setText(str(df_venues.loc[venue_id]["VenuePhone"]))
     ui.field_venue_email.setText(str(df_venues.loc[venue_id]["VenueEmail"]))
+    ui.cb_venue_contact_email_hide.setChecked(bool(df_venues.loc[venue_id]["VenueEmailHide"]))
     ui.field_venue_info.setPlainText(str(df_venues.loc[venue_id]["VenueInfo"]))
     ui.field_venue_tags.setText(str(df_venues.loc[venue_id]["VenueTags"]))
     
@@ -136,6 +141,7 @@ def clear_show_fields(ui):
 
     ui.field_show_id.clear()
     #ui.field_venue_id.clear() # do not clear venue id because it is needed for saving
+    ui.cb_show_status.setEnabled(False)
     ui.field_show_artists.clear()
 
     ui.field_show_contact.clear()
@@ -145,6 +151,7 @@ def clear_show_fields(ui):
     ui.field_show_tech_contact.clear()
     ui.field_show_tech_phone.clear()
     ui.field_show_tech_email.clear()
+    ui.cb_show_contact_email_hide.setChecked(False)
 
     ui.field_show_info.clear()
 
@@ -191,11 +198,14 @@ def clear_venue_fields(ui):
 
     ui.field_venue_website.clear()
     ui.field_venue_genres.clear()
+    ui.field_venue_capacity.clear()
     ui.cb_venue_rating.setCurrentIndex(0)
+    ui.cb_venue_rating.setEnabled(False)
     ui.field_checkbox_venue_is_discontinued.setChecked(False)
     ui.field_venue_contact.clear()
     ui.field_venue_phone.clear()
     ui.field_venue_email.clear()
+    ui.cb_venue_contact_email_hide.setChecked(False)
     ui.field_venue_info.clear()
     ui.field_venue_tags.clear()
 
@@ -226,6 +236,7 @@ def update_df_shows(ui, df_shows, show_id, copy_venue_info):
     df_shows.loc[show_id, "Contact"] = ui.field_show_contact.text()
     df_shows.loc[show_id, "Phone"] = ui.field_show_phone.text()
     df_shows.loc[show_id, "Email"] = ui.field_show_email.text()
+    df_shows.loc[show_id, "EmailHide"] = int(ui.cb_show_contact_email_hide.isChecked())
 
     df_shows.loc[show_id, "TechContact"] = ui.field_show_tech_contact.text()
     df_shows.loc[show_id, "TechPhone"] = ui.field_show_tech_phone.text()
@@ -272,6 +283,8 @@ def update_df_venues(ui, df_venues, venue_id):
 
     df_venues.loc[venue_id, "VenueWebsite"] = ui.field_venue_website.text()
     df_venues.loc[venue_id, "VenueGenres"] = ui.field_venue_genres.text()
+    df_venues.loc[venue_id, "VenueCapacity"] = ui.field_venue_capacity.text()
+
 
     df_venues.loc[venue_id, "VenueRating"] = str(ui.cb_venue_rating.currentIndex()) if ui.cb_venue_rating.currentIndex() != 0 else ""
 
@@ -279,6 +292,7 @@ def update_df_venues(ui, df_venues, venue_id):
     df_venues.loc[venue_id, "VenueContact"] = ui.field_venue_contact.text()
     df_venues.loc[venue_id, "VenuePhone"] = ui.field_venue_phone.text()
     df_venues.loc[venue_id, "VenueEmail"] = ui.field_venue_email.text()
+    df_venues.loc[venue_id, "VenueEmailHide"] = int(ui.cb_venue_contact_email_hide.isChecked())
     df_venues.loc[venue_id, "VenueInfo"] = ui.field_venue_info.toPlainText()
     df_venues.loc[venue_id, "VenueTags"] = ui.field_venue_tags.text()
 

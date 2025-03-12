@@ -1,12 +1,12 @@
-VenueName,VenueCity,VenueCountry,VenueAddress,VenueGeoCoordinates,VenueIsEvent,VenueStartDate,VenueEndDate,VenueWebsite,VenueGenres,VenueRating,VenueIsDiscontinued,VenueContact,VenuePhone,VenueEmail,VenueInfo,VenueTags,VenueID
-My Venue,My City,My Country,,"1.0, 1.0",0.0,,,https://github.com/sonejostudios/TourManager,,5,0.0,Venue Contact Person,,venue.contact@my-venue.com,"Some information about this Venue.
+VenueName,VenueCity,VenueCountry,VenueAddress,VenueGeoCoordinates,VenueIsEvent,VenueStartDate,VenueEndDate,VenueWebsite,VenueGenres,VenueCapacity,VenueRating,VenueIsDiscontinued,VenueContact,VenuePhone,VenueEmail,VenueEmailHide,VenueInfo,VenueTags,VenueID
+My Venue,My City,My Country,,"1.0, 1.0",0.0,,,https://github.com/sonejostudios/TourManager,,,5,0.0,Venue Contact Person,,venue.contact@my-venue.com,,"Some information about this Venue.
 
 * Add an ""Address"" to locate and get the route from your homebase
 * Add ""Geo-Coordinates"" (latitude, longitude) to show a marker on the map (here ""1.0, 1.0"")
 * Check ""Discontinued"" if the venue doesn't exist anymore",#my_venue_tag,1
-My Event,My Other City,My Country,,"2.0, 2.0",1.0,2000-01-01,2000-01-02,,,,0.0,Event Contact Person,,event.contact@my-event.com,"An Event like a Venue, but within a period of time.  
+My Event,My Other City,My Country,,"2.0, 2.0",1.0,2000-01-01,2000-01-02,,,,,0.0,Event Contact Person,,event.contact@my-event.com,,"An Event like a Venue, but within a period of time.  
 
 * Check ""Is an Event""
 * Set ""Start Date"" and ""End Date""","#my_venue_tag, #my_event_tag",2
-My Discontinued Venue,My City,My Other Country,,"3.0, 3.0",0.0,,,,,1.0,1.0,,,,"This Venue was discontinued, it doesn't exist anymore (greyed out).
+My Discontinued Venue,My City,My Other Country,,"3.0, 3.0",0.0,,,,,,1.0,1.0,,,,,"This Venue was discontinued, it doesn't exist anymore (greyed out).
 This Venue is not used in the Show List.",#another_venue_tag,3

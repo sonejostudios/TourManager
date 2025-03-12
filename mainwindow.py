@@ -29,7 +29,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1700, 1001)
+        MainWindow.resize(1700, 1000)
         self.actionBackup = QAction(MainWindow)
         self.actionBackup.setObjectName(u"actionBackup")
         self.actionQuit = QAction(MainWindow)
@@ -176,11 +176,6 @@ class Ui_MainWindow(object):
         self.label_17.setObjectName(u"label_17")
 
         self.formLayout.setWidget(6, QFormLayout.LabelRole, self.label_17)
-
-        self.field_show_email = QLineEdit(self.shows_fields)
-        self.field_show_email.setObjectName(u"field_show_email")
-
-        self.formLayout.setWidget(6, QFormLayout.FieldRole, self.field_show_email)
 
         self.label_18 = QLabel(self.shows_fields)
         self.label_18.setObjectName(u"label_18")
@@ -417,6 +412,21 @@ class Ui_MainWindow(object):
         self.field_show_tags.setMinimumSize(QSize(0, 0))
 
         self.formLayout.setWidget(18, QFormLayout.FieldRole, self.field_show_tags)
+
+        self.horizontalLayout_19 = QHBoxLayout()
+        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
+        self.field_show_email = QLineEdit(self.shows_fields)
+        self.field_show_email.setObjectName(u"field_show_email")
+
+        self.horizontalLayout_19.addWidget(self.field_show_email)
+
+        self.cb_show_contact_email_hide = QCheckBox(self.shows_fields)
+        self.cb_show_contact_email_hide.setObjectName(u"cb_show_contact_email_hide")
+
+        self.horizontalLayout_19.addWidget(self.cb_show_contact_email_hide)
+
+
+        self.formLayout.setLayout(6, QFormLayout.FieldRole, self.horizontalLayout_19)
 
 
         self.verticalLayout_2.addLayout(self.formLayout)
@@ -803,7 +813,7 @@ class Ui_MainWindow(object):
         self.label_35 = QLabel(self.venues_fields)
         self.label_35.setObjectName(u"label_35")
 
-        self.formLayout_2.setWidget(9, QFormLayout.LabelRole, self.label_35)
+        self.formLayout_2.setWidget(10, QFormLayout.LabelRole, self.label_35)
 
         self.cb_venue_rating = QComboBox(self.venues_fields)
         self.cb_venue_rating.setObjectName(u"cb_venue_rating")
@@ -814,68 +824,63 @@ class Ui_MainWindow(object):
         self.cb_venue_rating.setFont(font)
         self.cb_venue_rating.setFrame(True)
 
-        self.formLayout_2.setWidget(9, QFormLayout.FieldRole, self.cb_venue_rating)
+        self.formLayout_2.setWidget(10, QFormLayout.FieldRole, self.cb_venue_rating)
 
         self.label_27 = QLabel(self.venues_fields)
         self.label_27.setObjectName(u"label_27")
 
-        self.formLayout_2.setWidget(10, QFormLayout.LabelRole, self.label_27)
+        self.formLayout_2.setWidget(11, QFormLayout.LabelRole, self.label_27)
 
         self.field_checkbox_venue_is_discontinued = QCheckBox(self.venues_fields)
         self.field_checkbox_venue_is_discontinued.setObjectName(u"field_checkbox_venue_is_discontinued")
 
-        self.formLayout_2.setWidget(10, QFormLayout.FieldRole, self.field_checkbox_venue_is_discontinued)
+        self.formLayout_2.setWidget(11, QFormLayout.FieldRole, self.field_checkbox_venue_is_discontinued)
 
         self.label_11 = QLabel(self.venues_fields)
         self.label_11.setObjectName(u"label_11")
 
-        self.formLayout_2.setWidget(11, QFormLayout.LabelRole, self.label_11)
+        self.formLayout_2.setWidget(12, QFormLayout.LabelRole, self.label_11)
 
         self.field_venue_contact = QLineEdit(self.venues_fields)
         self.field_venue_contact.setObjectName(u"field_venue_contact")
 
-        self.formLayout_2.setWidget(11, QFormLayout.FieldRole, self.field_venue_contact)
+        self.formLayout_2.setWidget(12, QFormLayout.FieldRole, self.field_venue_contact)
 
         self.label_12 = QLabel(self.venues_fields)
         self.label_12.setObjectName(u"label_12")
 
-        self.formLayout_2.setWidget(12, QFormLayout.LabelRole, self.label_12)
+        self.formLayout_2.setWidget(13, QFormLayout.LabelRole, self.label_12)
 
         self.field_venue_phone = QLineEdit(self.venues_fields)
         self.field_venue_phone.setObjectName(u"field_venue_phone")
 
-        self.formLayout_2.setWidget(12, QFormLayout.FieldRole, self.field_venue_phone)
+        self.formLayout_2.setWidget(13, QFormLayout.FieldRole, self.field_venue_phone)
 
         self.label_13 = QLabel(self.venues_fields)
         self.label_13.setObjectName(u"label_13")
 
-        self.formLayout_2.setWidget(13, QFormLayout.LabelRole, self.label_13)
-
-        self.field_venue_email = QLineEdit(self.venues_fields)
-        self.field_venue_email.setObjectName(u"field_venue_email")
-
-        self.formLayout_2.setWidget(13, QFormLayout.FieldRole, self.field_venue_email)
+        self.formLayout_2.setWidget(14, QFormLayout.LabelRole, self.label_13)
 
         self.label_10 = QLabel(self.venues_fields)
         self.label_10.setObjectName(u"label_10")
 
-        self.formLayout_2.setWidget(14, QFormLayout.LabelRole, self.label_10)
+        self.formLayout_2.setWidget(15, QFormLayout.LabelRole, self.label_10)
 
         self.field_venue_info = QPlainTextEdit(self.venues_fields)
         self.field_venue_info.setObjectName(u"field_venue_info")
 
-        self.formLayout_2.setWidget(14, QFormLayout.FieldRole, self.field_venue_info)
+        self.formLayout_2.setWidget(15, QFormLayout.FieldRole, self.field_venue_info)
 
         self.tagsLabel_2 = QLabel(self.venues_fields)
         self.tagsLabel_2.setObjectName(u"tagsLabel_2")
 
-        self.formLayout_2.setWidget(16, QFormLayout.LabelRole, self.tagsLabel_2)
+        self.formLayout_2.setWidget(17, QFormLayout.LabelRole, self.tagsLabel_2)
 
         self.field_venue_tags = QLineEdit(self.venues_fields)
         self.field_venue_tags.setObjectName(u"field_venue_tags")
         self.field_venue_tags.setMinimumSize(QSize(0, 0))
 
-        self.formLayout_2.setWidget(16, QFormLayout.FieldRole, self.field_venue_tags)
+        self.formLayout_2.setWidget(17, QFormLayout.FieldRole, self.field_venue_tags)
 
         self.horizontalLayout_17 = QHBoxLayout()
         self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
@@ -893,6 +898,31 @@ class Ui_MainWindow(object):
 
 
         self.formLayout_2.setLayout(4, QFormLayout.FieldRole, self.horizontalLayout_17)
+
+        self.horizontalLayout_20 = QHBoxLayout()
+        self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
+        self.field_venue_email = QLineEdit(self.venues_fields)
+        self.field_venue_email.setObjectName(u"field_venue_email")
+
+        self.horizontalLayout_20.addWidget(self.field_venue_email)
+
+        self.cb_venue_contact_email_hide = QCheckBox(self.venues_fields)
+        self.cb_venue_contact_email_hide.setObjectName(u"cb_venue_contact_email_hide")
+
+        self.horizontalLayout_20.addWidget(self.cb_venue_contact_email_hide)
+
+
+        self.formLayout_2.setLayout(14, QFormLayout.FieldRole, self.horizontalLayout_20)
+
+        self.field_venue_capacity = QLineEdit(self.venues_fields)
+        self.field_venue_capacity.setObjectName(u"field_venue_capacity")
+
+        self.formLayout_2.setWidget(9, QFormLayout.FieldRole, self.field_venue_capacity)
+
+        self.label_37 = QLabel(self.venues_fields)
+        self.label_37.setObjectName(u"label_37")
+
+        self.formLayout_2.setWidget(9, QFormLayout.LabelRole, self.label_37)
 
 
         self.verticalLayout_6.addLayout(self.formLayout_2)
@@ -1022,9 +1052,6 @@ class Ui_MainWindow(object):
         self.field_show_phone.setToolTip(QCoreApplication.translate("MainWindow", u"Phone number of the contact person", None))
 #endif // QT_CONFIG(tooltip)
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"Email", None))
-#if QT_CONFIG(tooltip)
-        self.field_show_email.setToolTip(QCoreApplication.translate("MainWindow", u"Email address of the contact person", None))
-#endif // QT_CONFIG(tooltip)
         self.label_18.setText(QCoreApplication.translate("MainWindow", u"Technician", None))
 #if QT_CONFIG(tooltip)
         self.field_show_tech_contact.setToolTip(QCoreApplication.translate("MainWindow", u"Name of the main technician", None))
@@ -1089,6 +1116,13 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(tooltip)
         self.field_show_tags.setToolTip(QCoreApplication.translate("MainWindow", u"E.g. #release-tour, #black-list", None))
 #endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(tooltip)
+        self.field_show_email.setToolTip(QCoreApplication.translate("MainWindow", u"Email address of the contact person", None))
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(tooltip)
+        self.cb_show_contact_email_hide.setToolTip(QCoreApplication.translate("MainWindow", u"Exclude this email address from the Monitor's email collections", None))
+#endif // QT_CONFIG(tooltip)
+        self.cb_show_contact_email_hide.setText(QCoreApplication.translate("MainWindow", u"Hide", None))
 #if QT_CONFIG(tooltip)
         self.bt_save_show.setToolTip(QCoreApplication.translate("MainWindow", u"Save current Show", None))
 #endif // QT_CONFIG(tooltip)
@@ -1231,9 +1265,6 @@ class Ui_MainWindow(object):
         self.field_venue_phone.setToolTip(QCoreApplication.translate("MainWindow", u"Phone number of the contact person", None))
 #endif // QT_CONFIG(tooltip)
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Email", None))
-#if QT_CONFIG(tooltip)
-        self.field_venue_email.setToolTip(QCoreApplication.translate("MainWindow", u"Email address of the contact person", None))
-#endif // QT_CONFIG(tooltip)
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Venue Info", None))
         self.field_venue_info.setPlainText("")
         self.tagsLabel_2.setText(QCoreApplication.translate("MainWindow", u"Tags", None))
@@ -1247,6 +1278,17 @@ class Ui_MainWindow(object):
         self.bt_venue_locate_geocoordinates.setToolTip(QCoreApplication.translate("MainWindow", u"Locate these Geo-Coordinates on the web", None))
 #endif // QT_CONFIG(tooltip)
         self.bt_venue_locate_geocoordinates.setText(QCoreApplication.translate("MainWindow", u"Locate", None))
+#if QT_CONFIG(tooltip)
+        self.field_venue_email.setToolTip(QCoreApplication.translate("MainWindow", u"Email address of the contact person", None))
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(tooltip)
+        self.cb_venue_contact_email_hide.setToolTip(QCoreApplication.translate("MainWindow", u"Exclude this email address from the Monitor's email collections", None))
+#endif // QT_CONFIG(tooltip)
+        self.cb_venue_contact_email_hide.setText(QCoreApplication.translate("MainWindow", u"Hide", None))
+#if QT_CONFIG(tooltip)
+        self.field_venue_capacity.setToolTip(QCoreApplication.translate("MainWindow", u"Amount of people (spectators, audience)", None))
+#endif // QT_CONFIG(tooltip)
+        self.label_37.setText(QCoreApplication.translate("MainWindow", u"Capacity", None))
 #if QT_CONFIG(tooltip)
         self.bt_save_venue.setToolTip(QCoreApplication.translate("MainWindow", u"Save current Venue/Event", None))
 #endif // QT_CONFIG(tooltip)
