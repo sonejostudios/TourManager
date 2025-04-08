@@ -216,7 +216,7 @@ Subscribe to these .ics files with your favorite calendar application (only test
 
 **How to subscribe to the calendars on Android:**
 * You will need an app to import the ICS-files into the android calendars. It works really smoothly with the open source app `ICSx5`, which can be found on [GooglePlay](https://play.google.com/store/apps/details?id=at.bitfire.icsdroid&pcampaignid=web_share) and [F-Droid](https://f-droid.org/packages/at.bitfire.icsdroid/)
-* Open `ICSx5` and add a new file subscription, pointing to the ICS-file of your cloup provider (works well with DropBox). 
+* Open `ICSx5` and add a new file subscription, pointing to the ICS-file of your cloud provider (works well with DropBox). 
 
 
 
