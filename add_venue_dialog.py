@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'add_venue_dialog.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.7.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -15,15 +15,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractButton, QApplication, QDialog, QDialogButtonBox,
-    QFormLayout, QLabel, QLineEdit, QSizePolicy,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QAbstractButton, QApplication, QCheckBox, QComboBox,
+    QDialog, QDialogButtonBox, QFormLayout, QLabel,
+    QLineEdit, QSizePolicy, QVBoxLayout, QWidget)
 
 class Ui_AddVenueDialog(object):
     def setupUi(self, AddVenueDialog):
         if not AddVenueDialog.objectName():
             AddVenueDialog.setObjectName(u"AddVenueDialog")
-        AddVenueDialog.resize(240, 128)
+        AddVenueDialog.resize(286, 155)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -49,18 +49,32 @@ class Ui_AddVenueDialog(object):
 
         self.formLayout.setWidget(1, QFormLayout.LabelRole, self.cityLabel)
 
-        self.field_venue_city = QLineEdit(AddVenueDialog)
-        self.field_venue_city.setObjectName(u"field_venue_city")
-
-        self.formLayout.setWidget(1, QFormLayout.FieldRole, self.field_venue_city)
-
         self.countryLabel = QLabel(AddVenueDialog)
         self.countryLabel.setObjectName(u"countryLabel")
 
         self.formLayout.setWidget(2, QFormLayout.LabelRole, self.countryLabel)
 
-        self.field_venue_country = QLineEdit(AddVenueDialog)
+        self.cb_create_new_show = QCheckBox(AddVenueDialog)
+        self.cb_create_new_show.setObjectName(u"cb_create_new_show")
+
+        self.formLayout.setWidget(3, QFormLayout.FieldRole, self.cb_create_new_show)
+
+        self.label = QLabel(AddVenueDialog)
+        self.label.setObjectName(u"label")
+
+        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.label)
+
+        self.field_venue_city = QComboBox(AddVenueDialog)
+        self.field_venue_city.setObjectName(u"field_venue_city")
+        self.field_venue_city.setEditable(True)
+        self.field_venue_city.setMaxVisibleItems(20)
+
+        self.formLayout.setWidget(1, QFormLayout.FieldRole, self.field_venue_city)
+
+        self.field_venue_country = QComboBox(AddVenueDialog)
         self.field_venue_country.setObjectName(u"field_venue_country")
+        self.field_venue_country.setEditable(True)
+        self.field_venue_country.setMaxVisibleItems(20)
 
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.field_venue_country)
 
@@ -85,7 +99,15 @@ class Ui_AddVenueDialog(object):
     def retranslateUi(self, AddVenueDialog):
         AddVenueDialog.setWindowTitle(QCoreApplication.translate("AddVenueDialog", u"Add New Venue", None))
         self.nameLabel.setText(QCoreApplication.translate("AddVenueDialog", u"Name", None))
+#if QT_CONFIG(tooltip)
+        self.field_venue_name.setToolTip(QCoreApplication.translate("AddVenueDialog", u"The venue's name", None))
+#endif // QT_CONFIG(tooltip)
         self.cityLabel.setText(QCoreApplication.translate("AddVenueDialog", u"City", None))
         self.countryLabel.setText(QCoreApplication.translate("AddVenueDialog", u"Country", None))
+#if QT_CONFIG(tooltip)
+        self.cb_create_new_show.setToolTip(QCoreApplication.translate("AddVenueDialog", u"Create a new show automatically", None))
+#endif // QT_CONFIG(tooltip)
+        self.cb_create_new_show.setText("")
+        self.label.setText(QCoreApplication.translate("AddVenueDialog", u"Create New Show", None))
     # retranslateUi
 

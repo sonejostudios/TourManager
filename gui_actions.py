@@ -1,28 +1,38 @@
+from PySide6.QtWidgets import QCompleter
 from PySide6.QtCore import QDate
+
 
 import os
 import platform
 import subprocess
+import datetime
 
 
-
-
-
-def fill_show_fields(ui, selected_show):
+def fill_show_fields(ui, selected_show, df_shows):
     # get data from show.csv
-    ui.field_show_dateedit.setEnabled(True)
-    ui.field_show_dateedit.setDate(QDate.fromString(str(selected_show["Date"]), "yyyy-MM-dd"))
+    date = QDate.fromString(str(selected_show["Date"]), "yyyy-MM-dd")
+    ui.field_show_dateedit.setDate(date)
+    ui.lb_show_weekday.setText(get_weekday_name(date))
 
-    ui.field_show_id.setText(str(int(selected_show["ShowID"])))
+
+    ui.field_show_show_id.setText(str(int(selected_show["ShowID"])))
 
     # fill venue id from shows.csv
-    ui.field_venue_id.setText(str(int(selected_show["VenueID"])))
+    ui.field_show_venue_id.setText(str(int(selected_show["VenueID"])))
 
+    # fill venue text from df_shows
+    venue_name = str(selected_show["Venue"])
+    venue_city = str(selected_show["City"])
+    ui.field_show_venue_text.setText(venue_city + " - " + venue_name)
 
+    # booking status
     show_status = selected_show["Status"]
     ui.cb_show_status.setCurrentIndex(show_status)
-    ui.cb_show_status.setEnabled(True)
-    ui.field_show_artists.setText(str(selected_show["Artists"]))
+
+    # artist cb
+    ui.field_show_artists.clear()
+    ui.field_show_artists.addItems(sorted(set(df_shows["Artists"].tolist()), key=str.casefold))
+    ui.field_show_artists.setCurrentText(str(selected_show["Artists"]))
 
     ui.field_show_contact.setText(str(selected_show["Contact"]))
     ui.field_show_phone.setText(str(selected_show["Phone"]))
@@ -40,7 +50,11 @@ def fill_show_fields(ui, selected_show):
     ui.field_show_fee.setValue(float(fee))
     ui.field_show_travel_costs.setValue(float(travel_costs))
     ui.field_show_fee_sum.setValue(float(fee + travel_costs))
-    ui.field_show_currency.setText(str(selected_show["Currency"]))
+
+    # currency cb
+    ui.field_show_currency.clear()
+    ui.field_show_currency.addItems(sorted(set(df_shows["Currency"].tolist()), key=str.casefold))
+    ui.field_show_currency.setCurrentText(str(selected_show["Currency"]))
 
     ui.field_show_arrival_time.setText(str(selected_show["ArrivalTime"]))
     ui.field_show_soundcheck_time.setText(str(selected_show["TechCheckTime"]))
@@ -53,36 +67,57 @@ def fill_show_fields(ui, selected_show):
 
     ui.field_show_print.setText(str(selected_show["Print"]))
     ui.field_show_print_address.setPlainText(str(selected_show["PrintAddress"]))
-    ui.field_show_tags.setText(str(selected_show["Tags"]))
+
+    #tags
+    ui.field_show_cb_tags.setCurrentText(str(selected_show["Tags"]))
+
+
+    # enable all fields
+    ui.show_fields.setEnabled(True)
     
     
-    
+
+def assign_venue_to_show(ui, selected_venue):
+    print("assign venue to show")
+    ui.field_show_venue_id.setText(str(selected_venue["VenueID"]))
+    venue_text = str(selected_venue["VenueCity"]) + " - " + str(selected_venue["VenueName"])
+    ui.field_show_venue_text.setText(venue_text)
+
+
+
     
 def fill_venue_fields(ui, df_venues, venue_id):
     #print(venue_id)
     #print(df_venues.loc[venue_id].to_frame().T)
 
-    # fill venue name and city in show fields - from venues.csv
-    venue_name = str(df_venues.loc[venue_id]["VenueName"])
-    venue_city = str(df_venues.loc[venue_id]["VenueCity"])
-    ui.field_venue_text.setText(venue_city + " - " + venue_name)
-
-    # fill venue id
-    ui.field_venue_id.setText(str(int(venue_id)))
-
     # fill venue fields
-    ui.field_venue_name.setText(venue_name)
-    ui.field_venue_city.setText(venue_city)
-    ui.field_venue_country.setText(str(df_venues.loc[venue_id]["VenueCountry"]))
+    ui.field_venue_venue_id.setText(str(df_venues.loc[venue_id]["VenueID"]))
+    ui.field_venue_name.setText(str(df_venues.loc[venue_id]["VenueName"]))
+
+    # city cb
+    ui.field_venue_city.clear()
+    ui.field_venue_city.addItems(sorted(set(df_venues['VenueCity'].tolist()), key=str.casefold))
+    ui.field_venue_city.setCurrentText(str(df_venues.loc[venue_id]["VenueCity"]))
+
+    # country cb
+    ui.field_venue_country.clear()
+    ui.field_venue_country.addItems(sorted(set(df_venues['VenueCountry'].tolist()), key=str.casefold))
+    ui.field_venue_country.setCurrentText(str(df_venues.loc[venue_id]["VenueCountry"]))
+
+
     ui.field_venue_address.setPlainText(str(df_venues.loc[venue_id]["VenueAddress"]))
     ui.field_venue_geocoordinates.setText(str(df_venues.loc[venue_id]["VenueGeoCoordinates"]))
     ui.field_checkbox_venue_is_event.setChecked(bool(df_venues.loc[venue_id]["VenueIsEvent"]))
 
     if ui.field_checkbox_venue_is_event.isChecked():
-        start_date = str(df_venues.loc[venue_id]["VenueStartDate"])
-        ui.field_venue_start_dateedit.setDate(QDate.fromString(start_date, "yyyy-MM-dd"))
-        end_date = str(df_venues.loc[venue_id]["VenueEndDate"])
-        ui.field_venue_end_dateedit.setDate(QDate.fromString(end_date, "yyyy-MM-dd"))
+        start_date = QDate.fromString(str(df_venues.loc[venue_id]["VenueStartDate"]), "yyyy-MM-dd")
+        ui.field_venue_start_dateedit.setDate(start_date)
+
+        end_date = QDate.fromString(str(df_venues.loc[venue_id]["VenueEndDate"]), "yyyy-MM-dd")
+        ui.field_venue_end_dateedit.setDate(end_date)
+        ui.lb_venue_eventstart_weekday.setText(get_weekday_name(start_date))
+        ui.lb_venue_eventend_weekday.setText(get_weekday_name(end_date))
+
 
     ui.field_venue_website.setText(str(df_venues.loc[venue_id]["VenueWebsite"]))
     ui.field_venue_genres.setText(str(df_venues.loc[venue_id]["VenueGenres"]))
@@ -100,7 +135,14 @@ def fill_venue_fields(ui, df_venues, venue_id):
     ui.field_venue_email.setText(str(df_venues.loc[venue_id]["VenueEmail"]))
     ui.cb_venue_contact_email_hide.setChecked(bool(df_venues.loc[venue_id]["VenueEmailHide"]))
     ui.field_venue_info.setPlainText(str(df_venues.loc[venue_id]["VenueInfo"]))
-    ui.field_venue_tags.setText(str(df_venues.loc[venue_id]["VenueTags"]))
+
+    #tags
+    ui.field_venue_cb_tags.setCurrentText(str(df_venues.loc[venue_id]["VenueTags"]))
+
+
+
+    # enable all fields
+    ui.venue_fields.setEnabled(True)
     
 
 
@@ -109,16 +151,25 @@ def check_venue_is_event(ui): # enable/disable event date fields
     if ui.field_checkbox_venue_is_event.isChecked():
         ui.field_venue_start_dateedit.setEnabled(True)
         ui.field_venue_end_dateedit.setEnabled(True)
+
         if ui.field_venue_start_dateedit.specialValueText() == " ":
             ui.field_venue_start_dateedit.setDate(QDate.currentDate())
+            ui.lb_venue_eventstart_weekday.setText(get_weekday_name(ui.field_venue_start_dateedit.date()))
+
         if ui.field_venue_end_dateedit.specialValueText() == " ":
             ui.field_venue_end_dateedit.setDate(QDate.currentDate())
+            ui.lb_venue_eventend_weekday.setText(get_weekday_name(ui.field_venue_end_dateedit.date()))
+
+        ui.lb_venue_event_arrow.setText("<html><head/><body><p>→</p></body></html>")
 
     else:
         ui.field_venue_start_dateedit.setEnabled(False)
         ui.field_venue_end_dateedit.setEnabled(False)
         ui.field_venue_start_dateedit.setDate(QDate.fromString("0001-01-01", "yyyy-MM-dd"))
         ui.field_venue_end_dateedit.setDate(QDate.fromString("0001-01-01", "yyyy-MM-dd"))
+        ui.lb_venue_eventstart_weekday.setText("")
+        ui.lb_venue_eventend_weekday.setText("")
+        ui.lb_venue_event_arrow.setText("")
 
 
 
@@ -126,22 +177,25 @@ def check_venue_is_event(ui): # enable/disable event date fields
 def start_date_changed(ui):
     if ui.field_venue_start_dateedit.date() > ui.field_venue_end_dateedit.date():
         ui.field_venue_end_dateedit.setDate(ui.field_venue_start_dateedit.date())
+    ui.lb_venue_eventstart_weekday.setText(get_weekday_name(ui.field_venue_start_dateedit.date()))
 
 def end_date_changed(ui):
     if ui.field_venue_start_dateedit.date() > ui.field_venue_end_dateedit.date():
         ui.field_venue_start_dateedit.setDate(ui.field_venue_end_dateedit.date())
+    ui.lb_venue_eventend_weekday.setText(get_weekday_name(ui.field_venue_end_dateedit.date()))
         
     
     
 
 def clear_show_fields(ui):
     # show
-    ui.field_show_dateedit.setEnabled(False)
     ui.field_show_dateedit.setDate(QDate.fromString("0001-01-01", "yyyy-MM-dd"))
+    ui.lb_show_weekday.setText("")
 
-    ui.field_show_id.clear()
+    #ui.field_show_show_id.clear() # not needed because widget is hidden
     #ui.field_venue_id.clear() # do not clear venue id because it is needed for saving
-    ui.cb_show_status.setEnabled(False)
+
+    ui.field_show_venue_text.clear()
     ui.field_show_artists.clear()
 
     ui.field_show_contact.clear()
@@ -171,21 +225,23 @@ def clear_show_fields(ui):
 
     ui.field_show_print.clear()
     ui.field_show_print_address.clear()
-    ui.field_show_tags.clear()
+    ui.field_show_cb_tags.clearEditText()
 
-    # disable folder button
-    ui.bt_show_folder.setEnabled(False)
+    # disable all fields
+    ui.show_fields.setEnabled(False)
 
-    # disable save, delete and duplicate buttons
+    # disable buttons
     ui.bt_save_show.setEnabled(False)
     ui.bt_delete_show.setEnabled(False)
     ui.bt_duplicate_show.setEnabled(False)
-    
+
+
     
 
 
 def clear_venue_fields(ui):
     #venue
+    ui.field_venue_venue_id.clear()
     ui.field_venue_name.clear()
     ui.field_venue_city.clear()
     ui.field_venue_country.clear()
@@ -195,19 +251,23 @@ def clear_venue_fields(ui):
 
     ui.field_venue_start_dateedit.setDate(QDate.fromString("0001-01-01", "yyyy-MM-dd"))
     ui.field_venue_end_dateedit.setDate(QDate.fromString("0001-01-01", "yyyy-MM-dd"))
+    ui.lb_venue_eventstart_weekday.setText("")
+    ui.lb_venue_eventend_weekday.setText("")
 
     ui.field_venue_website.clear()
     ui.field_venue_genres.clear()
     ui.field_venue_capacity.clear()
     ui.cb_venue_rating.setCurrentIndex(0)
-    ui.cb_venue_rating.setEnabled(False)
     ui.field_checkbox_venue_is_discontinued.setChecked(False)
     ui.field_venue_contact.clear()
     ui.field_venue_phone.clear()
     ui.field_venue_email.clear()
     ui.cb_venue_contact_email_hide.setChecked(False)
     ui.field_venue_info.clear()
-    ui.field_venue_tags.clear()
+    ui.field_venue_cb_tags.clearEditText()
+
+    # disable all fields
+    ui.venue_fields.setEnabled(False)
 
     # disable save and delete buttons
     ui.bt_save_venue.setEnabled(False)
@@ -215,23 +275,29 @@ def clear_venue_fields(ui):
 
 
 
+
+
+
 # copy fields to df_shows
-def update_df_shows(ui, df_shows, show_id, copy_venue_info):
+def update_df_shows(ui, df_shows, show_id, copy_venue_info, df_venues):
 
     # Save (copy) Venue, City and Country into df_shows (for reference and also NEEDED for the show SEARCH function!) - but only if venue exists
     if copy_venue_info == True:
-        df_shows.loc[show_id, "Venue"] = ui.field_venue_name.text()
-        df_shows.loc[show_id, "City"] = ui.field_venue_city.text()
-        df_shows.loc[show_id, "Country"] = ui.field_venue_country.text()
+        venue_id = int(ui.field_show_venue_id.text())
+        df_shows.loc[show_id, "Venue"] = str(df_venues.loc[venue_id]["VenueName"])
+        df_shows.loc[show_id, "City"] = str(df_venues.loc[venue_id]["VenueCity"])
+        df_shows.loc[show_id, "Country"] = str(df_venues.loc[venue_id]["VenueCountry"])
 
 
     # Save all show fields (except ShowID because it is new generated on each loading)
     df_shows.loc[show_id, "Date"] = ui.field_show_dateedit.date().toString("yyyy-MM-dd")
 
-    df_shows.loc[show_id, "VenueID"] = int(ui.field_venue_id.text())
+    df_shows.loc[show_id, "VenueID"] = int(ui.field_show_venue_id.text())
+
     df_shows.loc[show_id, "Status"] = int(ui.cb_show_status.currentIndex()) # status index
     df_shows.loc[show_id, "StatusText"] = ui.cb_show_status.currentText() # save status text for csv readability - not used in app
-    df_shows.loc[show_id, "Artists"] = ui.field_show_artists.text()
+
+    df_shows.loc[show_id, "Artists"] = ui.field_show_artists.currentText() #cb
 
     df_shows.loc[show_id, "Contact"] = ui.field_show_contact.text()
     df_shows.loc[show_id, "Phone"] = ui.field_show_phone.text()
@@ -246,7 +312,8 @@ def update_df_shows(ui, df_shows, show_id, copy_venue_info):
 
     df_shows.loc[show_id, "Fee"] = float(ui.field_show_fee.value())
     df_shows.loc[show_id, "TravelCosts"] = float(ui.field_show_travel_costs.value())
-    df_shows.loc[show_id, "Currency"] = ui.field_show_currency.text()
+
+    df_shows.loc[show_id, "Currency"] = ui.field_show_currency.currentText() #cb
 
     df_shows.loc[show_id, "ArrivalTime"] = ui.field_show_arrival_time.text()
     df_shows.loc[show_id, "TechCheckTime"] = ui.field_show_soundcheck_time.text()
@@ -259,7 +326,10 @@ def update_df_shows(ui, df_shows, show_id, copy_venue_info):
 
     df_shows.loc[show_id, "Print"] = ui.field_show_print.text()
     df_shows.loc[show_id, "PrintAddress"] = ui.field_show_print_address.toPlainText()
-    df_shows.loc[show_id, "Tags"] = ui.field_show_tags.text()
+
+    #df_shows.loc[show_id, "Tags"] = ui.field_show_tags.text()
+    df_shows.loc[show_id, "Tags"] = ui.field_show_cb_tags.currentText()
+
     
 
 
@@ -267,8 +337,10 @@ def update_df_shows(ui, df_shows, show_id, copy_venue_info):
 # copy fields to df_venues
 def update_df_venues(ui, df_venues, venue_id):
     df_venues.loc[venue_id, "VenueName"] = ui.field_venue_name.text()
-    df_venues.loc[venue_id, "VenueCity"] = ui.field_venue_city.text()
-    df_venues.loc[venue_id, "VenueCountry"] = ui.field_venue_country.text()
+
+    df_venues.loc[venue_id, "VenueCity"] = ui.field_venue_city.currentText() #cb
+    df_venues.loc[venue_id, "VenueCountry"] = ui.field_venue_country.currentText() #cb
+
     df_venues.loc[venue_id, "VenueAddress"] = ui.field_venue_address.toPlainText()
     df_venues.loc[venue_id, "VenueGeoCoordinates"] = ui.field_venue_geocoordinates.text()
     df_venues.loc[venue_id, "VenueIsEvent"] = int(ui.field_checkbox_venue_is_event.isChecked())
@@ -294,9 +366,12 @@ def update_df_venues(ui, df_venues, venue_id):
     df_venues.loc[venue_id, "VenueEmail"] = ui.field_venue_email.text()
     df_venues.loc[venue_id, "VenueEmailHide"] = int(ui.cb_venue_contact_email_hide.isChecked())
     df_venues.loc[venue_id, "VenueInfo"] = ui.field_venue_info.toPlainText()
-    df_venues.loc[venue_id, "VenueTags"] = ui.field_venue_tags.text()
 
-    df_venues.loc[venue_id, "VenueID"] = venue_id
+    #df_venues.loc[venue_id, "VenueTags"] = ui.field_venue_tags.text()
+    df_venues.loc[venue_id, "VenueTags"] = ui.field_venue_cb_tags.currentText()
+
+
+    df_venues.loc[venue_id, "VenueID"] = venue_id # why?
 
 
 
@@ -347,5 +422,13 @@ def open_file_or_folder(path): # cross-platform file and folder opener
 
 def update_show_fee_sum(ui):
     ui.field_show_fee_sum.setValue(float(ui.field_show_fee.value()) + float(ui.field_show_travel_costs.value()))
+
+
+def get_weekday_name(qdate):
+    weekday_int = QDate.dayOfWeek(qdate)
+    days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    weekday_name = str(days[weekday_int - 1])
+    return weekday_name
+
 
 

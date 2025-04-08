@@ -95,6 +95,7 @@ pip install PySide6 pandas folium ics tabulate humanize pyqtdarktheme-fork
 
 5. Important:
 * After filling in the fields (shows and venues), always hit `Save Show` or `Save Venue`, otherwise, your modifications will not be saved.
+* If you want to change the venue for one show, choose a new venue and press `Assign Venue` in the show fields. Then, of course, `Save Show` to save everything in the selected show.
 
 6. Play around:
 * Search the show list and apply booking status filters
@@ -161,10 +162,6 @@ start_maximized = 0
     * window_height = The height of the window (will be overwritten is save_window_size = 1).
     * start_maximized = Maximize the window on start.
 
-```
-Comments: everything after " #" is ignored (don't forget the white space)
-```
-
 
 
 ## Working Folder vs Application Folder:
@@ -218,8 +215,9 @@ Subscribe to these .ics files with your favorite calendar application (only test
 * Press `Find Calendars`
 * If everything works as expected, Thunderbird will find the calendar. Then press `Subscribe`
 
-
-
+**How to subscribe to the calendars on Android:**
+* You will need an app to import the ICS-files into the android calendars. It works really smoothly with the open source app `ICSx5`, which can be found on [GooglePlay](https://play.google.com/store/apps/details?id=at.bitfire.icsdroid&pcampaignid=web_share) and [F-Droid](https://f-droid.org/packages/at.bitfire.icsdroid/)
+* Open `ICSx5` and add a new file subscription, pointing to the ICS-file of your cloup provider (works well with DropBox). 
 
 
 

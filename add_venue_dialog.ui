@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>240</width>
-    <height>128</height>
+    <width>286</width>
+    <height>155</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -36,7 +36,11 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="field_venue_name"/>
+      <widget class="QLineEdit" name="field_venue_name">
+       <property name="toolTip">
+        <string>The venue's name</string>
+       </property>
+      </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="cityLabel">
@@ -45,9 +49,6 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="field_venue_city"/>
-     </item>
      <item row="2" column="0">
       <widget class="QLabel" name="countryLabel">
        <property name="text">
@@ -55,8 +56,42 @@
        </property>
       </widget>
      </item>
+     <item row="3" column="1">
+      <widget class="QCheckBox" name="cb_create_new_show">
+       <property name="toolTip">
+        <string>Create a new show automatically</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Create New Show</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QComboBox" name="field_venue_city">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="maxVisibleItems">
+        <number>20</number>
+       </property>
+      </widget>
+     </item>
      <item row="2" column="1">
-      <widget class="QLineEdit" name="field_venue_country"/>
+      <widget class="QComboBox" name="field_venue_country">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="maxVisibleItems">
+        <number>20</number>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

@@ -194,8 +194,8 @@ def get_monitor_iterated_text(monitor_cb_index, df_shows_in_list, df_venues_in_l
         for i in tag_list:
             sublist = i.split()
             for j in sublist:
-                final_tag_list.append(j.replace(",", ""))
-        final_tag_list = sorted(set(final_tag_list), key=str.lower)
+                final_tag_list.append(j.replace(",", "").strip())
+        final_tag_list = sorted(set(final_tag_list), key=str.casefold)
         monitor_text = ""
         for i in final_tag_list:
             monitor_text += i + "\n"

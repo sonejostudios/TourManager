@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>255</width>
-    <height>73</height>
+    <width>241</width>
+    <height>94</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -28,6 +28,13 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Show Date</string>
+       </property>
+      </widget>
+     </item>
      <item row="0" column="1">
       <widget class="QDateEdit" name="dateEdit">
        <property name="displayFormat">
@@ -38,10 +45,17 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Show Date</string>
+        <string>Venue</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="lb_venue_name">
+       <property name="text">
+        <string>None</string>
        </property>
       </widget>
      </item>

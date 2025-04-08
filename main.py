@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QStyleFactory, QTableWidgetItem, QHeaderView, QMessageBox, QListWidgetItem, QCalendarWidget, QDialog
+from PySide6.QtWidgets import QApplication, QMainWindow, QStyleFactory, QTableWidgetItem, QHeaderView, QMessageBox, QListWidgetItem, QCalendarWidget, QDialog, QMenu, QInputDialog, QCompleter
 from PySide6.QtCore import QDate, Qt, QLocale
 from PySide6.QtGui import QBrush, QIcon, QGuiApplication, QAction
 
@@ -31,6 +31,9 @@ import exports
 # Arguments: mainwindow.ui -o mainwindow.py
 # Folder: $ProjectFileDir$
 
+# navigate back: ctrl+alt+pageup
+
+
 pd.set_option('display.max_columns', 22)
 #pd.set_option('display.max_rows', 10)
 pd.set_option('display.width', 2000)
@@ -46,16 +49,16 @@ pd.set_option('display.width', 2000)
 
 
 # todo:
+# monitor tags: not needed anymore? or use generate_tag_list function instead?
+# search history -> difficult because signal is sent for each change
+
 # backup notes
-# add "auto create new show" checkbox in "add venue dialog"?
-# disable venue buttons if none is selected - maybe not! cause you can use them as test...
 # rework notes to save only when app is closing
 # multi user merge (needs save only on quit)
 # stats amount of shows/year
 # monitor nice tables (needs monofont)
 # config editor
 # add field for distance to homebase? (with automatic travel costs)
-# add search history and tags list
 # logs?
 #
 #
@@ -68,8 +71,8 @@ pd.set_option('display.width', 2000)
 
 
 
-VERSION = "0.1.19"
-DATE = "2025-03-08"
+VERSION = "0.1.20"
+DATE = ("2025-04-08")
 
 DB_SHOWS = "shows.csv"
 DB_VENUES = "venues.csv"
@@ -136,6 +139,14 @@ class MainWindow(QMainWindow):
         # set is_event checkbox
         gui_actions.check_venue_is_event(self.ui)
 
+        # disable mouse wheel for tag cb fields
+        self.ui.field_venue_cb_tags.wheelEvent = lambda event: None
+        self.ui.field_show_cb_tags.wheelEvent = lambda event: None
+
+        # generate tag lists (show need to be selected)
+        self.generate_shows_tag_list()
+        self.generate_venues_tag_list()
+
 
         #set special values to dateedit (needed to show empty dateedit widgets - it replaces invalid dates)
         self.ui.field_show_dateedit.setSpecialValueText(" ")
@@ -161,22 +172,33 @@ class MainWindow(QMainWindow):
 
         # pre-defined variables
         self.search_text = ""
+        self.tmp_tags = ""
 
 
         # select a show and setup everything
-        #self.ui.list_show.setCurrentRow(0) # select first show
-        self.ui.list_show.setCurrentRow(self.ui.list_show.count()-1) # select latest show
+        items = self.ui.list_show.findItems(self.config_selected_show, Qt.MatchContains)
+        if self.config_selected_show != "" and self.config_start_with_selected_show == "1" and len(items) > 0: # select previously selected show (by name, because showID can change)
+            self.ui.list_show.setCurrentItem(items[0])
+        else:
+            #self.ui.list_show.setCurrentRow(0) # select first show
+            self.ui.list_show.setCurrentRow(self.ui.list_show.count()-1) # select last show in list
         self.select_show()
         self.select_venue()
         gui_actions.check_venue_is_event(self.ui)
+        self.select_venue() # needed again after gui_actions.check_venue_is_event
         self.ui.list_show.setFocus()
 
 
         # hide unused widgets
-        self.ui.table_show.hide()
         self.ui.my_button.hide()
-        self.ui.field_show_id.hide()
-        self.ui.field_venue_id.hide()
+        self.ui.table_show.hide()
+        self.ui.field_show_show_id.hide()
+        self.ui.field_show_venue_id.hide()
+        self.ui.field_venue_venue_id.hide()
+
+        # hide unfinished stuff
+
+
 
 
 
@@ -184,14 +206,20 @@ class MainWindow(QMainWindow):
         # Signals
         self.ui.my_button.clicked.connect(self.test)
         self.ui.lineEdit_search_shows.textChanged.connect(self.on_search_shows)
+        #self.ui.lineEdit_search_shows.editingFinished.connect(self.test) #-> can be used for search history
 
         self.ui.bt_venue_search_shows.clicked.connect(self.on_venue_search_show)
         self.ui.lineEdit_search_venues.textChanged.connect(self.on_search_venues)
         self.ui.cb_venue_filter.activated.connect(self.on_search_venues)
 
+        self.ui.bt_assign_venue_to_show.clicked.connect(lambda: gui_actions.assign_venue_to_show(self.ui, self.selected_venue))
+        self.ui.list_venue.doubleClicked.connect(lambda: gui_actions.assign_venue_to_show(self.ui, self.selected_venue))
+
         self.ui.cb_show_status_filter.activated.connect(self.on_search_shows)
         self.ui.list_show.currentRowChanged.connect(self.select_show)
         self.ui.list_venue.currentRowChanged.connect(self.select_venue)
+
+        self.ui.field_show_dateedit.dateChanged.connect(lambda qdate: self.ui.lb_show_weekday.setText(gui_actions.get_weekday_name(qdate)))
 
         self.ui.bt_show_folder.clicked.connect(lambda: gui_actions.open_or_create_show_folder(self.ui, self.selected_show, self.df_venues, self.config_workdir))
 
@@ -219,14 +247,21 @@ class MainWindow(QMainWindow):
         self.ui.cb_monitor.activated.connect(lambda: monitor.fill_monitor(self))
         self.ui.bt_map.clicked.connect(self.open_map)
         self.ui.bt_calculator.clicked.connect(self.open_calculator)
-        self.ui.bt_copy_monitor.clicked.connect(self.copy_monitor_text)
+        #self.ui.bt_copy_monitor.clicked.connect(self.copy_monitor_text)
+
+        self.ui.field_show_cb_tags.textActivated.connect(lambda sel: self.add_tag(sel, self.ui.field_show_cb_tags))
+        self.ui.field_show_cb_tags.highlighted.connect(lambda sel: self.save_tmp_tags_from_field(sel, self.ui.field_show_cb_tags))
+        self.ui.field_venue_cb_tags.textActivated.connect(lambda sel: self.add_tag(sel, self.ui.field_venue_cb_tags))
+        self.ui.field_venue_cb_tags.highlighted.connect(lambda sel: self.save_tmp_tags_from_field(sel, self.ui.field_venue_cb_tags))
+
+
 
 
         # menu signals
         self.ui.actionBackup.triggered.connect(lambda: self.backup_db("dated"))
         self.ui.actionQuit.triggered.connect(app.quit)
 
-        self.ui.actionUpcoming_Shows.triggered.connect(lambda: exports.export_upcoming_shows(self.df_shows, self.df_venues, self.config_workdir, self.ui))
+        self.ui.actionFuture_Shows.triggered.connect(lambda: exports.export_shows_to_html(self.df_shows, self.df_venues, self.config_workdir, self.ui))
         self.ui.actionCalendars.triggered.connect(lambda: exports.export_all_calendars(self.df_shows, self.df_venues, self.config_workdir, self.ui, SHOW_STATUS))
 
         self.ui.actionOpen_Working_Folder.triggered.connect(lambda: gui_actions.open_file_or_folder(os.path.abspath(self.config_workdir)))
@@ -242,23 +277,28 @@ class MainWindow(QMainWindow):
 
 
 
+        # toolbuttons menus
+        self.monitor_menu = QMenu()
+        self.monitor_menu.addAction("Copy monitor", lambda: self.copy_monitor_text("full"))
+        self.monitor_menu.addAction("Copy selection", lambda: self.copy_monitor_text("selection"))
+        self.monitor_menu.addSeparator()
+        self.monitor_menu.addAction("Search selection in shows", lambda: self.search_selected_text("shows"))
+        self.monitor_menu.addAction("Search selection in venues", lambda: self.search_selected_text("venues"))
+        self.monitor_menu.addAction("Search selection in both", lambda: self.search_selected_text("both"))
+        self.ui.tbt_monitor_menu.setMenu(self.monitor_menu)
+
+
+
+
+
+
+
+
+
+
 
 
     # --------------------------------------------- CHECKS, CONFIG & DATABASES ---------------------------------------------
-
-    def check_lock(self): # check if app is locked or not, if yes shut it down, if no create lock file
-        print("check lock")
-        lock_file = os.path.join(self.config_workdir, LOCK_FILE)
-        if os.path.exists(lock_file):
-            QMessageBox.warning(self, "TourManager Error", "TourManager is locked because another user is using it right now.\nPlease wait util it is unlocked to start it again.", QMessageBox.Ok, QMessageBox.Ok)
-            print("app is locked")
-            sys.exit()
-        else:
-            with open(lock_file, 'w') as file:
-                file.write(str(datetime.datetime.now()) + '\n\nThis file locks TourManager to prevent multi-user usage.\n'
-                           'It will be deleted as soon as the app is closed.')
-
-
 
     def load_config(self):
         # create object
@@ -277,11 +317,13 @@ class MainWindow(QMainWindow):
                                        "auto_export_calendars": "0",
                                        "map_provider": "osm #gmaps",
                                        "calc_text_decimal_separator": ",",
-                                       "custom_links": '[(r"TourManager Web", r"https://github.com/sonejostudios/TourManager"), (r"|",r""), ("App Notes", r"Notes.txt"), ("App Folder", r".")]'}
+                                       "custom_links": '[(r"TourManager Web", r"https://github.com/sonejostudios/TourManager"), (r"|",r""), ("App Notes", r"Notes.txt"), ("App Folder", r".")]',
+                                       "selected_show": "",
+                                       "start_with_selected_show": "1"}
             self.config["gui"] = {"theme": "none #auto #dark #light",
                                   "font_size": "#10",
                                   "field_area_width": "#430",
-                                  "save_window_size": "0",
+                                  "save_window_size": "1",
                                   "window_width": "1700",
                                   "window_height": "1000",
                                   "start_maximized": "0"}
@@ -316,6 +358,8 @@ class MainWindow(QMainWindow):
         self.config_map_provider = self.config.get("settings", "map_provider")
         self.config_calc_dec_sep = self.config.get("settings", "calc_text_decimal_separator")
         self.config_custom_links = self.config.get("settings", "custom_links")
+        self.config_selected_show = self.config.get("settings", "selected_show")
+        self.config_start_with_selected_show = self.config.get("settings", "start_with_selected_show")
 
         self.config_theme = self.config.get("gui", "theme")
         self.config_font_size = self.config.get("gui", "font_size")
@@ -328,9 +372,15 @@ class MainWindow(QMainWindow):
 
 
         # APPLY CONFIG
+        # homebase
         self.ui.lb_homebase.setText(self.config_homebase_city)
         homebase_text = "Homebase:\n"+self.config_homebase_city + "\n" + self.config_homebase_geocoordinates
         self.ui.lb_homebase.setToolTip(homebase_text)
+        #self.ui.lb_venues_title.setToolTip(homebase_text)
+        #self.ui.lb_shows_title.setToolTip(homebase_text)
+        self.ui.bt_venue_route.setToolTip("Show directions from " + self.config_homebase_city + " to this address on the web")
+        #self.ui.statusbar.showMessage(self.config_homebase_city, 3000)
+
 
         # add custom links to menu (or hide menu item if no custome links are provided)
         if self.config_custom_links != "":
@@ -372,8 +422,8 @@ class MainWindow(QMainWindow):
         # set field width (empty = 430)
         if self.config_field_area_width != "":
             field_width = int(self.config_field_area_width)
-            self.ui.shows_fields.setFixedWidth(field_width)
-            self.ui.venues_fields.setFixedWidth(field_width)
+            self.ui.shows_panel.setFixedWidth(field_width)
+            self.ui.venues_panel.setFixedWidth(field_width)
 
 
         # window size or maximized
@@ -383,6 +433,21 @@ class MainWindow(QMainWindow):
         if self.config_start_maximizied == "1":
             self.showMaximized()
 
+
+
+
+
+    def check_lock(self): # check if app is locked or not, if yes shut it down, if no create lock file
+        print("check lock")
+        lock_file = os.path.join(self.config_workdir, LOCK_FILE)
+        if os.path.exists(lock_file):
+            print("App is LOCKED")
+            QMessageBox.warning(self, "TourManager Error", "TourManager is locked because another user is using it right now.\nPlease wait util it is unlocked to start it again.", QMessageBox.Ok, QMessageBox.Ok)
+            sys.exit()
+        else:
+            with open(lock_file, 'w') as file:
+                file.write(str(datetime.datetime.now()) + '\n\nThis file locks TourManager to prevent multi-user usage.\n'
+                           'It will be deleted as soon as the app is closed.')
 
 
 
@@ -529,7 +594,7 @@ class MainWindow(QMainWindow):
                 self.show_show_in_table(self.selected_show)
 
                 # get data from show.csv and fill fields
-                gui_actions.fill_show_fields(self.ui, self.selected_show)
+                gui_actions.fill_show_fields(self.ui, self.selected_show, self.df_shows)
 
                 # check if folder exists and enable folder button
                 gui_actions.check_show_folder_exists(self.ui, self.selected_show, self.df_venues, self.config_workdir)
@@ -544,6 +609,7 @@ class MainWindow(QMainWindow):
                 # IF venueID in df_venue, try to select venue in venue_list (this triggers fill_venue_fields).
                 # Otherwise, unselect venue in list and fill venue_text with data from df_shows
                 venue_id = self.selected_show["VenueID"]
+                show_id = self.selected_show["ShowID"]
 
                 if venue_id in self.df_venues["VenueID"]:
                     # select venue
@@ -551,10 +617,10 @@ class MainWindow(QMainWindow):
                     self.ui.list_venue.setCurrentRow(wanted_row)
 
                     # COPY venue name, city and country from df_venues into df_shows - to keep them always updated!
-                    show_id = self.selected_show["ShowID"]
                     self.df_shows.at[show_id, "Venue"] = self.df_venues.loc[venue_id]["VenueName"]
                     self.df_shows.at[show_id, "City"] = self.df_venues.loc[venue_id]["VenueCity"]
                     self.df_shows.at[show_id, "Country"] = self.df_venues.loc[venue_id]["VenueCountry"]
+
 
 
                 else:
@@ -562,8 +628,11 @@ class MainWindow(QMainWindow):
                     self.ui.list_venue.clearSelection()
                     gui_actions.clear_venue_fields(self.ui)
                     venue_text = str(self.selected_show["City"]) + " - " + str(self.selected_show["Venue"]) + " (DELETED)" # from df_shows
-                    self.ui.field_venue_text.setText(venue_text)
-                    self.ui.field_venue_id.setText(str(int(venue_id)))
+                    self.ui.field_show_venue_text.setText(venue_text)
+
+                    # set venue id in df_shows to -1 (= no venue id because venue was deleted)
+                    self.df_shows.at[show_id, "VenueID"] = -1
+
 
 
 
@@ -571,8 +640,14 @@ class MainWindow(QMainWindow):
 
     def on_new_show(self, how): # new or duplicate show button
 
+        if self.ui.field_venue_venue_id.text() == "" and how == "New":
+            QMessageBox.information(self, "Create New Show","You need to select a venue to create a new show.\nPlease select one.")
+            return
+
         # create and open new show dialog
-        self.add_show_dialog = add_show.AddShowDialog(self, how, self.ui.field_show_dateedit.date())
+        venue_text = str(self.selected_venue["VenueCity"]) + " - " + str(self.selected_venue["VenueName"])
+        wanted_date = self.ui.field_show_dateedit.date() if self.ui.field_show_dateedit.isEnabled() else QDate.currentDate()
+        self.add_show_dialog = add_show.AddShowDialog(self, how, wanted_date, venue_text)
         ok = self.add_show_dialog.exec()
 
         if ok == 1:
@@ -581,9 +656,14 @@ class MainWindow(QMainWindow):
             # clear fields if button "new show" was clicked
             if how == "New":
                 gui_actions.clear_show_fields(self.ui)
-                self.ui.field_show_artists.setText(self.config_artists)
-                self.ui.field_show_currency.setText(self.config_currency)
+                self.ui.field_show_artists.setEditText(self.config_artists)
+                self.ui.field_show_currency.setEditText(self.config_currency)
                 self.ui.cb_show_status.setCurrentIndex(2) # set status to "work in progress"
+
+                # copy venue id to create new show with selected venue
+                wanted_venue_id = self.ui.field_venue_venue_id.text()
+                if wanted_venue_id != "":
+                    self.ui.field_show_venue_id.setText(wanted_venue_id)
 
 
             # save show string for UPCOMING SELECTION
@@ -609,6 +689,9 @@ class MainWindow(QMainWindow):
     def on_save_show(self): # save show button
         self.save_show(self.selected_show["ShowID"])
 
+        # update tag list
+        self.generate_shows_tag_list()
+
         # notify
         self.ui.statusbar.showMessage("Current Show saved!", 3000)
 
@@ -621,7 +704,7 @@ class MainWindow(QMainWindow):
         copy_venue_info = True if self.selected_show["VenueID"] in self.df_venues["VenueID"] else False
 
         # update df_shows
-        gui_actions.update_df_shows(self.ui, self.df_shows, show_id, copy_venue_info)
+        gui_actions.update_df_shows(self.ui, self.df_shows, show_id, copy_venue_info, self.df_venues)
 
         # SORT df_shows (by date AND city to avoid bugs with duplicate dates) -> maybe use showtime instead
         self.df_shows = self.df_shows.sort_values(by=["Date", "City"], ascending=True).reset_index(drop=True)
@@ -794,6 +877,9 @@ class MainWindow(QMainWindow):
         # clear venues fields
         gui_actions.clear_venue_fields(self.ui)
 
+        # disable venue assign button
+        self.ui.bt_assign_venue_to_show.setEnabled(False)
+
         #print(self.df_venues_in_list)
 
 
@@ -819,22 +905,25 @@ class MainWindow(QMainWindow):
                 # print(self.df_venues.loc[venue_id].to_frame().T)
                 gui_actions.fill_venue_fields(self.ui, self.df_venues, venue_id)
 
+                # enable venue assign button
+                self.ui.bt_assign_venue_to_show.setEnabled(True)
+
 
 
 
     def on_new_venue(self): # new venue buttons
-        self.add_venue_dialog = add_venue.AddVenueDialog(self, self.ui.field_venue_city.text(), self.ui.field_venue_country.text())
+        self.add_venue_dialog = add_venue.AddVenueDialog(self, self.ui.field_venue_city.currentText(), self.ui.field_venue_country.currentText())
         ok = self.add_venue_dialog.exec()
         if ok == 1:
-            venue_name, venue_city, venue_country = self.add_venue_dialog.on_ok() # get values from dialog
+            venue_name, venue_city, venue_country, new_show = self.add_venue_dialog.on_ok() # get values from dialog
 
             # clear fields
             gui_actions.clear_venue_fields(self.ui)
 
             # fill fields from dialog
             self.ui.field_venue_name.setText(venue_name)
-            self.ui.field_venue_city.setText(venue_city)
-            self.ui.field_venue_country.setText(venue_country)
+            self.ui.field_venue_city.setCurrentText(venue_city)
+            self.ui.field_venue_country.setCurrentText(venue_country)
 
             # create new venue
             last_item_index = self.df_venues.index[-1]  # take last row's index
@@ -845,14 +934,21 @@ class MainWindow(QMainWindow):
             wanted_row = self.df_venues_in_list.loc[self.df_venues_in_list['VenueID'] == new_venue_id].index[0]
             self.ui.list_venue.setCurrentRow(wanted_row)
 
+            # trigger new show dialog if wanted
+            if new_show == True:
+                self.on_new_show("New")
+
 
 
 
 
 
     def on_save_venue(self): # save venue button
-        venue_id = int(self.ui.field_venue_id.text())
+        venue_id = int(self.ui.field_venue_venue_id.text())
         self.save_venue(venue_id)
+
+        # update tag list
+        self.generate_venues_tag_list()
 
         # notify
         self.ui.statusbar.showMessage("Current Venue saved!", 3000)
@@ -922,8 +1018,45 @@ class MainWindow(QMainWindow):
 
 
 
-# --------------------------------------------- OTHER ---------------------------------------------
+# --------------------------------------------- TAGS ---------------------------------------------
+    def generate_shows_tag_list(self):
+        field_text = self.ui.field_show_cb_tags.currentText()
+        self.ui.field_show_cb_tags.clear()
+        shows_taglist = self.generate_tag_list(self.df_shows["Tags"])
+        self.ui.field_show_cb_tags.addItems(shows_taglist)
+        self.ui.field_show_cb_tags.setCurrentText(field_text) # needs to be re-set because of cb.clear()
 
+    def generate_venues_tag_list(self):
+        field_text = self.ui.field_venue_cb_tags.currentText()
+        self.ui.field_venue_cb_tags.clear()
+        venues_taglist = self.generate_tag_list(self.df_venues["VenueTags"])
+        self.ui.field_venue_cb_tags.addItems(venues_taglist)
+        self.ui.field_venue_cb_tags.setCurrentText(field_text) # needs to be re-set because of cb.clear()
+
+
+    def generate_tag_list(self, df_tags_serie): # generate final tag list out of df serie
+        tags_set = set(df_tags_serie.to_list()) # remove duplicates
+        tags_listoflist = [i.split(" ") for i in tags_set] # split items with many tags
+        tags_flat_list = [x for xs in tags_listoflist for x in xs] # flatten list
+        tags_flat_list_cleaned = [i.replace(",", "") for i in tags_flat_list] # remove commas
+        flat_list_sorted = sorted(set(list(filter(None, tags_flat_list_cleaned))), key=str.casefold) # remove emtpy, duplicates and sort
+        return flat_list_sorted
+
+    def add_tag(self, selected_tag, ui_tags_field):
+        ui_tags_field.clearEditText()
+        if selected_tag not in self.tmp_tags:
+            self.tmp_tags += " " + str(selected_tag)
+        ui_tags_field.setEditText(self.tmp_tags)
+
+    def save_tmp_tags_from_field(self, selected_tag, ui_tags_field): # dirty way to save field before adding new tag (using item highlighted signal)
+        self.tmp_tags = ui_tags_field.currentText()
+
+
+
+
+
+
+# --------------------------------------------- OTHER ---------------------------------------------
     def on_venue_search_show(self):
         # search selected venue, click again to search previous search keyword
         venue_name = self.ui.field_venue_name.text()
@@ -982,10 +1115,39 @@ class MainWindow(QMainWindow):
         self.ui.actionTravel_Costs_Calculator.setEnabled(False)
 
 
-    def copy_monitor_text(self):
+
+    def copy_monitor_text(self, what):
         self.clipboard = QGuiApplication.clipboard()
-        self.clipboard.setText(self.ui.txt_monitor.toPlainText())
-        self.ui.statusbar.showMessage("Monitor content copied to clipboard!", 3000)
+        if what == "selection":
+            sel = self.ui.txt_monitor.textCursor().selectedText()
+            if sel != "":
+                self.clipboard.setText(sel)
+                notify = "Text selection copied to clipboard!"
+            else:
+                notify = "Please select some text first."
+        else:
+            self.clipboard.setText(self.ui.txt_monitor.toPlainText())
+            notify = "Monitor content copied to clipboard!"
+        self.ui.statusbar.showMessage(notify, 3000)
+
+
+
+    def search_selected_text(self, where):
+        sel = self.ui.txt_monitor.textCursor().selectedText().strip()
+        if sel == "":
+            notify = "Please select some text first."
+            self.ui.statusbar.showMessage(notify, 3000)
+        else:
+            if where == "shows":
+                self.ui.lineEdit_search_shows.setText(sel)
+            elif where == "venues":
+                self.ui.lineEdit_search_venues.setText(sel)
+            else:
+                self.ui.lineEdit_search_shows.setText(sel)
+                self.ui.lineEdit_search_venues.setText(sel)
+
+
+
 
 
 
@@ -1028,10 +1190,10 @@ class MainWindow(QMainWindow):
             print("LOCKED file deleted")
             os.remove(lock_file)
 
-        # auto export upcoming shows to html file if configured
+        # auto export futureshows to html file if configured
         if self.config_auto_export_shows == "1":
-            print("Upcoming shows exported")
-            exports.export_upcoming_shows(self.df_shows, self.df_venues, self.config_workdir, self.ui)
+            print("Future shows exported")
+            exports.export_shows_to_html(self.df_shows, self.df_venues, self.config_workdir, self.ui)
 
         # auto export calendars if configured
         if self.config_auto_export_calendars == "1":
@@ -1039,13 +1201,30 @@ class MainWindow(QMainWindow):
             exports.export_all_calendars(self.df_shows, self.df_venues, self.config_workdir, self.ui, SHOW_STATUS)
 
 
+        # save selected show if wanted on app start
+        if self.config_start_with_selected_show == "1" and self.ui.list_show.currentItem() != None:
+            selected_show = self.ui.list_show.currentItem().text()
+            print("Save selected show:", selected_show)
+            self.config.set("settings", "selected_show", selected_show)
+
+
+
         # write window size into config
         if self.config_save_window_size == "1":
             print("Window size saved")
-            self.config.set("gui", "window_width", str(self.geometry().width()))
-            self.config.set("gui", "window_height", str(self.geometry().height()))
-            with open(CONFIG_FILE, "w", encoding='utf-8') as configfile:
-                self.config.write(configfile)
+
+            if self.isMaximized():
+                self.config.set("gui", "start_maximized", "1")
+            else:
+                self.config.set("gui", "window_width", str(self.geometry().width()))
+                self.config.set("gui", "window_height", str(self.geometry().height()))
+                self.config.set("gui", "start_maximized", "0")
+
+
+        # write config file
+        with open(CONFIG_FILE, "w", encoding='utf-8') as configfile:
+            self.config.write(configfile)
+
 
 
         # ask for saving before closing
@@ -1092,13 +1271,9 @@ class MainWindow(QMainWindow):
         print("test!")
 
 
+
     def test_arg(self, arg):
         print(arg)
-
-
-
-
-
 
 
 

@@ -6,39 +6,43 @@ import pandas as pd
 from ics import Calendar, Event
 
 
+# --------------------------------------------- HTML FILES ---------------------------------------------
 
-
-
-
-
-
-def export_upcoming_shows(df_shows, df_venues, workdir_path, ui):
-    print("Export upcoming shows:")
-    df_upcoming_shows = df_shows.loc[df_shows['Status'] == 0]
+#export all shows into ONE html file:
+def export_shows_to_html(df_shows, df_venues, workdir_path, ui):
+    print("Export future shows:")
+    df_upcoming_shows = df_shows.loc[(df_shows['Status'] == 0) | (df_shows['Status'] == 2)] # get upcoming and work in progress shows
     print(df_upcoming_shows)
 
     # create title
-    output = "UPCOMING SHOWS (" + f"{datetime.datetime.now():%Y-%m-%d}" + ")<br/>"
+    output = "UPCOMING and WORK IN PROGRESS shows (" + f"{datetime.datetime.now():%Y-%m-%d}" + ")<br/>"
 
     # iterate through shows_df and concat venue_df, then append text to output
     for i, row in df_upcoming_shows.iterrows():
         if row["VenueID"] in df_venues.index:
             venue = df_venues.loc[row["VenueID"]]
             df_out = pd.concat([row, venue])
+            df_out = df_out.drop(["VenueID","EmailHide", "Tags", "Status", "ShowID",
+                                        "VenueGeoCoordinates", "VenueIsEvent", "VenueStartDate", "VenueEndDate",
+                                        "VenueGenres", "VenueCapacity", "VenueRating", "VenueIsDiscontinued",
+                                        "VenueEmailHide", "VenueTags", "VenueID"], axis=0)
+
             output += "<br/>" + df_out.to_markdown(index=True, tablefmt="html") + "<br/>"  # also possible: .to_string(index=True)
-            # output += "<br/>" + df_out.to_frame().to_html() + "<br/>"
+            #output += "<br/>" + df_out.to_string(index=True) + "<br/>"
+            #output += "<br/>" + df_out.to_frame().to_html() + "<br/>"
+
 
     # write output to text file
-    export_path = os.path.join(workdir_path, "UpcomingShows.html")
+    export_path = os.path.join(workdir_path, "FutureShows.html")
     with open(export_path, 'w', encoding='utf-8') as file:
         file.write(output)
 
-    ui.statusbar.showMessage("Upcoming Shows exported to HTML-file!", 3000)
+    ui.statusbar.showMessage("Future Shows exported to HTML-file!", 3000)
 
 
 
 
-
+# --------------------------------------------- CALENDARS ---------------------------------------------
 
 
 def export_all_calendars(df_shows, df_venues, workdir_path, ui, show_status_list):
