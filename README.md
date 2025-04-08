@@ -124,6 +124,8 @@ auto_export_calendars = 0
 map_provider = osm #gmaps
 calc_text_decimal_separator = ,
 custom_links = [("TourManager Web", "https://github.com/sonejostudios/TourManager"), ("|",""), ("App Notes", r"Notes.txt"), ("App Folder", r".")]
+selected_show = 
+start_with_selected_show = 1
 
 [gui]
 theme = none #auto #dark #light
@@ -151,6 +153,8 @@ start_maximized = 0
 	* map_provider =  Enter `gmaps` if you want to use google maps instead of open street map.
     * calc_text_decimal_separator = Set the decimal separator of the Travel Costs Calculator's text.
     * custom_links = Here you can add your own links to the menu. It can be web links, files and folders. Use the python's list syntax with tuples containing the title and the url/path, like this: `[("title", "url"), ("title", r"path")]`. Use `("|", "")` to add a separator. If you are using windows, don't forget to mark file and folder paths as raw strings (`r"my\path"`), otherwise backslashes will be misinterpreted as escape sign. If empty, the Custom Links menu will be hidden.
+    * selected_show = if `start_with_selected_show = 1`, this variable is used to save the last selected show.
+    * start_with_selected_show = If 1, start TourManager with the latest selected show.
 
 * gui:
     * theme = Enter `dark`, `light` or `auto` (follows OS color theme) to use pyqtdarktheme.
