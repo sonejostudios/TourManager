@@ -95,7 +95,6 @@ pip install PySide6 pandas folium ics tabulate humanize pyqtdarktheme-fork
 
 5. Important:
 * After filling in the fields (shows and venues), always hit `Save Show` or `Save Venue`, otherwise, your modifications will not be saved.
-* If you want to change the venue for one show, choose a new venue and press `Assign Venue` in the show fields. Then, of course, `Save Show` to save everything in the selected show.
 
 6. Play around:
 * Search the show list and apply booking status filters

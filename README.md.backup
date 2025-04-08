@@ -91,7 +91,7 @@ pip install PySide6 pandas folium ics tabulate humanize pyqtdarktheme-fork
 * Select the new venue and press `Add New` in the show section on the bottom left (red section)
 * Set a date and press ok. The show is created with the selected venue
 * Fill the show fields as wanted: set the booking status, add contacts, create a specific show folder if needed, and hit `Save Show`
-* To change the venue, just select a new one, press `Assign Venue` on the venue list and hit `Save Show`
+* To change the venue, just select a new one in the venue list, press `Assign Venue`(top left) and `Save Show`
 
 5. Important:
 * After filling in the fields (shows and venues), always hit `Save Show` or `Save Venue`, otherwise, your modifications will not be saved.
