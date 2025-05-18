@@ -131,9 +131,9 @@ def get_monitor_iterated_text(monitor_cb_index, df_shows_in_list, df_venues_in_l
             if monitor_cb_index == 3:
                 show_str = str(row["Date"]) + " - " + str(row["City"]) + " - " + str(row["Venue"])
             elif monitor_cb_index == 4:
-                show_str = str(row["Artists"]) + ":\t" + str(row["Date"]) + " - " + str(row["City"]) + " - " + str(row["Venue"])
+                show_str = str(row["Artist"]) + ":\t" + str(row["Date"]) + " - " + str(row["City"]) + " - " + str(row["Venue"])
             elif monitor_cb_index == 5:
-                show_str = str(row["Artists"])
+                show_str = str(row["Artist"])
             elif monitor_cb_index == 6:
                 fee_list_item = [float(row["Fee"]), float(row["TravelCosts"]), row["Date"], row["Venue"], row["Currency"]]
                 fee_list.append(fee_list_item)
@@ -169,7 +169,7 @@ def get_monitor_iterated_text(monitor_cb_index, df_shows_in_list, df_venues_in_l
         artists_list = sorted(set(monitor_text.splitlines()), key=str.lower)
         monitor_text = ""
         for i in artists_list:
-            shows = sum(df_shows_in_list['Artists'] == i)
+            shows = sum(df_shows_in_list['Artist'] == i)
             monitor_text += i + "\t" + str(shows) + "\n"
 
 
