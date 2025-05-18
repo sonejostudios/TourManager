@@ -31,8 +31,8 @@ def fill_show_fields(ui, selected_show, df_shows):
 
     # artist cb
     ui.field_show_artists.clear()
-    ui.field_show_artists.addItems(sorted(set(df_shows["Artists"].tolist()), key=str.casefold))
-    ui.field_show_artists.setCurrentText(str(selected_show["Artists"]))
+    ui.field_show_artists.addItems(sorted(set(df_shows["Artist"].tolist()), key=str.casefold))
+    ui.field_show_artists.setCurrentText(str(selected_show["Artist"]))
 
     ui.field_show_contact.setText(str(selected_show["Contact"]))
     ui.field_show_phone.setText(str(selected_show["Phone"]))
@@ -297,7 +297,7 @@ def update_df_shows(ui, df_shows, show_id, copy_venue_info, df_venues):
     df_shows.loc[show_id, "Status"] = int(ui.cb_show_status.currentIndex()) # status index
     df_shows.loc[show_id, "StatusText"] = ui.cb_show_status.currentText() # save status text for csv readability - not used in app
 
-    df_shows.loc[show_id, "Artists"] = ui.field_show_artists.currentText() #cb
+    df_shows.loc[show_id, "Artist"] = ui.field_show_artists.currentText() #cb
 
     df_shows.loc[show_id, "Contact"] = ui.field_show_contact.text()
     df_shows.loc[show_id, "Phone"] = ui.field_show_phone.text()

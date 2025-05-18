@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1708</width>
+    <width>1814</width>
     <height>1000</height>
    </rect>
   </property>
@@ -215,7 +215,7 @@ Use the venue list to change it</string>
                 </property>
                 <property name="toolTip">
                  <string>Assign the selected venue to the selected show
-(same as double-click on venue)</string>
+(or double-click on venue)</string>
                 </property>
                 <property name="text">
                  <string>Assign Venue</string>
@@ -812,7 +812,13 @@ Use the venue list to change it</string>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_12">
                <item>
-                <widget class="QLineEdit" name="lineEdit_search_shows">
+                <widget class="QComboBox" name="cb_search_shows">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="minimumSize">
                   <size>
                    <width>160</width>
@@ -820,16 +826,16 @@ Use the venue list to change it</string>
                   </size>
                  </property>
                  <property name="toolTip">
-                  <string>Show Search</string>
+                  <string>Show search</string>
                  </property>
-                 <property name="frame">
+                 <property name="editable">
                   <bool>true</bool>
                  </property>
-                 <property name="placeholderText">
-                  <string>Search Shows...</string>
+                 <property name="maxVisibleItems">
+                  <number>22</number>
                  </property>
-                 <property name="clearButtonEnabled">
-                  <bool>true</bool>
+                 <property name="insertPolicy">
+                  <enum>QComboBox::InsertPolicy::NoInsert</enum>
                  </property>
                 </widget>
                </item>
@@ -959,7 +965,7 @@ Get Information according to Searches and Filters
                 </widget>
                </item>
                <item>
-                <widget class="QToolButton" name="tbt_monitor_menu">
+                <widget class="QToolButton" name="bt_monitor_menu">
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
@@ -983,7 +989,13 @@ Get Information according to Searches and Filters
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_13">
                <item>
-                <widget class="QLineEdit" name="lineEdit_search_venues">
+                <widget class="QComboBox" name="cb_search_venues">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="minimumSize">
                   <size>
                    <width>160</width>
@@ -991,13 +1003,16 @@ Get Information according to Searches and Filters
                   </size>
                  </property>
                  <property name="toolTip">
-                  <string>Venue Search</string>
+                  <string>Show search</string>
                  </property>
-                 <property name="placeholderText">
-                  <string>Search Venues...</string>
-                 </property>
-                 <property name="clearButtonEnabled">
+                 <property name="editable">
                   <bool>true</bool>
+                 </property>
+                 <property name="maxVisibleItems">
+                  <number>22</number>
+                 </property>
+                 <property name="insertPolicy">
+                  <enum>QComboBox::InsertPolicy::NoInsert</enum>
                  </property>
                 </widget>
                </item>
@@ -1867,7 +1882,7 @@ Bla</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1708</width>
+     <width>1814</width>
      <height>20</height>
     </rect>
    </property>

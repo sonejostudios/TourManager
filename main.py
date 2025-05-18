@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QStyleFactory, QTableWidgetItem, QHeaderView, QMessageBox, QListWidgetItem, QCalendarWidget, QDialog, QMenu, QInputDialog, QCompleter
+from PySide6.QtWidgets import QApplication, QMainWindow, QStyleFactory, QTableWidgetItem, QHeaderView, QMessageBox, QListWidgetItem, QCalendarWidget, QDialog, QMenu, QInputDialog, QCompleter, QToolButton, QAbstractButton
 from PySide6.QtCore import QDate, Qt, QLocale
 from PySide6.QtGui import QBrush, QIcon, QGuiApplication, QAction
 
@@ -50,17 +50,18 @@ pd.set_option('display.width', 2000)
 
 # todo:
 # monitor tags: not needed anymore? or use generate_tag_list function instead?
-# search history -> difficult because signal is sent for each change
+# config editor
+# alarms (via csv?) -> popups on alarm day to remember things like sending poster or gig request
 
 # backup notes
 # rework notes to save only when app is closing
 # multi user merge (needs save only on quit)
 # stats amount of shows/year
 # monitor nice tables (needs monofont)
-# config editor
+
 # add field for distance to homebase? (with automatic travel costs)
 # logs?
-#
+# print post label for prints
 #
 # config: startbak as option or remove it
 # add venue fields: latest booking request date?
@@ -71,8 +72,8 @@ pd.set_option('display.width', 2000)
 
 
 
-VERSION = "0.1.20"
-DATE = ("2025-04-08")
+VERSION = "0.1.21"
+DATE = ("2025-05-18")
 
 DB_SHOWS = "shows.csv"
 DB_VENUES = "venues.csv"
@@ -170,6 +171,15 @@ class MainWindow(QMainWindow):
         self.ui.field_venue_end_dateedit.setCalendarWidget(self.calendar_event_end)
 
 
+        # setup search history
+        self.search_shows_history = []
+        self.search_venues_history = []
+        self.ui.cb_search_shows.lineEdit().setClearButtonEnabled(True) # add clear button to underlying lineedit
+        self.ui.cb_search_shows.lineEdit().setPlaceholderText("Search Shows...")  # add placeholder text to underlying lineedit
+        self.ui.cb_search_venues.lineEdit().setClearButtonEnabled(True)
+        self.ui.cb_search_venues.lineEdit().setPlaceholderText("Search Venues...")
+
+
         # pre-defined variables
         self.search_text = ""
         self.tmp_tags = ""
@@ -203,19 +213,24 @@ class MainWindow(QMainWindow):
 
 
 
-        # Signals
+        # SIGNALS
         self.ui.my_button.clicked.connect(self.test)
-        self.ui.lineEdit_search_shows.textChanged.connect(self.on_search_shows)
-        #self.ui.lineEdit_search_shows.editingFinished.connect(self.test) #-> can be used for search history
 
-        self.ui.bt_venue_search_shows.clicked.connect(self.on_venue_search_show)
-        self.ui.lineEdit_search_venues.textChanged.connect(self.on_search_venues)
-        self.ui.cb_venue_filter.activated.connect(self.on_search_venues)
+        self.ui.cb_search_shows.editTextChanged.connect(self.on_search_shows)
+        self.ui.cb_search_shows.lineEdit().editingFinished.connect(lambda: self.add_to_search_history("shows"))  # get finished signal from underlying linedit
+        self.ui.cb_search_shows.findChild(QToolButton).pressed.connect(lambda: self.add_to_search_history("shows"))  # -> get signal from clearbutton pressed (because clicked is sent after emptying)
+
+        self.ui.cb_search_venues.editTextChanged.connect(self.on_search_venues)
+        self.ui.cb_search_venues.lineEdit().editingFinished.connect(lambda: self.add_to_search_history("venues"))
+        self.ui.cb_search_venues.findChild(QToolButton).pressed.connect(lambda: self.add_to_search_history("venues"))
+
 
         self.ui.bt_assign_venue_to_show.clicked.connect(lambda: gui_actions.assign_venue_to_show(self.ui, self.selected_venue))
         self.ui.list_venue.doubleClicked.connect(lambda: gui_actions.assign_venue_to_show(self.ui, self.selected_venue))
 
         self.ui.cb_show_status_filter.activated.connect(self.on_search_shows)
+        self.ui.cb_venue_filter.activated.connect(self.on_search_venues)
+
         self.ui.list_show.currentRowChanged.connect(self.select_show)
         self.ui.list_venue.currentRowChanged.connect(self.select_venue)
 
@@ -238,6 +253,8 @@ class MainWindow(QMainWindow):
         self.ui.bt_delete_venue.clicked.connect(self.delete_venue)
         self.ui.bt_new_venue.clicked.connect(self.on_new_venue)
 
+        self.ui.bt_venue_search_shows.clicked.connect(self.on_venue_search_show)
+
         self.ui.bt_venue_locate.clicked.connect(self.on_venue_locate)
         self.ui.bt_venue_route.clicked.connect(self.on_venue_route)
         self.ui.bt_venue_locate_geocoordinates.clicked.connect(self.on_venue_locate_geo_coordinates)
@@ -247,7 +264,6 @@ class MainWindow(QMainWindow):
         self.ui.cb_monitor.activated.connect(lambda: monitor.fill_monitor(self))
         self.ui.bt_map.clicked.connect(self.open_map)
         self.ui.bt_calculator.clicked.connect(self.open_calculator)
-        #self.ui.bt_copy_monitor.clicked.connect(self.copy_monitor_text)
 
         self.ui.field_show_cb_tags.textActivated.connect(lambda sel: self.add_tag(sel, self.ui.field_show_cb_tags))
         self.ui.field_show_cb_tags.highlighted.connect(lambda sel: self.save_tmp_tags_from_field(sel, self.ui.field_show_cb_tags))
@@ -257,7 +273,7 @@ class MainWindow(QMainWindow):
 
 
 
-        # menu signals
+        # MENU signals
         self.ui.actionBackup.triggered.connect(lambda: self.backup_db("dated"))
         self.ui.actionQuit.triggered.connect(app.quit)
 
@@ -275,8 +291,6 @@ class MainWindow(QMainWindow):
         self.ui.actionAbout.triggered.connect(self.on_about)
 
 
-
-
         # toolbuttons menus
         self.monitor_menu = QMenu()
         self.monitor_menu.addAction("Copy monitor", lambda: self.copy_monitor_text("full"))
@@ -285,11 +299,17 @@ class MainWindow(QMainWindow):
         self.monitor_menu.addAction("Search selection in shows", lambda: self.search_selected_text("shows"))
         self.monitor_menu.addAction("Search selection in venues", lambda: self.search_selected_text("venues"))
         self.monitor_menu.addAction("Search selection in both", lambda: self.search_selected_text("both"))
-        self.ui.tbt_monitor_menu.setMenu(self.monitor_menu)
+        self.ui.bt_monitor_menu.setMenu(self.monitor_menu)
+        #self.monitor_menu.aboutToShow.connect(self.test) use this to enable/disable menu entries
 
 
 
 
+        # apply histories (needs to be set after signals)
+        self.search_shows_history = eval(self.config_search_shows_history) if self.config_search_shows_history != "" else []
+        self.add_to_search_history("shows") # setup everything
+        self.search_venues_history = eval(self.config_search_venues_history) if self.config_search_venues_history != "" else []
+        self.add_to_search_history("venues") # setup everything
 
 
 
@@ -308,7 +328,7 @@ class MainWindow(QMainWindow):
         if os.path.exists(CONFIG_FILE) == False:
             self.config["defaults"] = {"homebase_city": "Homebase City (please setup config.ini)",
                                        "homebase_geocoordinates": "0.0, 0.0",
-                                       "artists": "My Artist",
+                                       "artist": "My Artist",
                                        "currency": "EUR",
                                        "distance_unit": "km",
                                        "travel_unit_price": "0.30"}
@@ -327,6 +347,9 @@ class MainWindow(QMainWindow):
                                   "window_width": "1700",
                                   "window_height": "1000",
                                   "start_maximized": "0"}
+            self.config["histories"] = {"search_shows_history": "",
+                                        "search_venues_history": ""}
+
 
             with open(CONFIG_FILE, "w", encoding='utf-8') as configfile:
                 self.config.write(configfile)
@@ -345,7 +368,7 @@ class MainWindow(QMainWindow):
 
         self.config_homebase_city = self.config.get("defaults", "homebase_city")
         self.config_homebase_geocoordinates = self.config.get("defaults", "homebase_geocoordinates")
-        self.config_artists = self.config.get("defaults", "artists")
+        self.config_artist = self.config.get("defaults", "artist")
         self.config_currency = self.config.get("defaults", "currency")
         self.config_distance_unit = self.config.get("defaults", "distance_unit")
         self.config_travel_unit_price = float(self.config.get("defaults", "travel_unit_price"))
@@ -368,6 +391,9 @@ class MainWindow(QMainWindow):
         self.config_window_width = self.config.get("gui", "window_width")
         self.config_window_height = self.config.get("gui", "window_height")
         self.config_start_maximizied = self.config.get("gui", "start_maximized")
+
+        self.config_search_shows_history = self.config.get("histories", "search_shows_history")
+        self.config_search_venues_history = self.config.get("histories", "search_venues_history")
 
 
 
@@ -544,7 +570,7 @@ class MainWindow(QMainWindow):
 
         # filter by keyword
         # search all rows with search entry inside state filtered df
-        text = self.ui.lineEdit_search_shows.text()
+        text = self.ui.cb_search_shows.currentText()
         if text != "":
             # https://stackoverflow.com/questions/38980514/most-concise-way-to-select-rows-where-any-column-contains-a-string-in-pandas-dat
             self.df_shows_in_list = self.df_shows_state_filtered[self.df_shows_state_filtered.apply(lambda r: r.str.contains(text, case=False, regex=False).any(), axis=1)]
@@ -601,13 +627,12 @@ class MainWindow(QMainWindow):
                 self.ui.bt_show_folder.setEnabled(True)
 
                 # show all venues in list (reset all filters and searches)
-                self.ui.lineEdit_search_venues.clear()
+                self.ui.cb_search_venues.setCurrentText("")
                 self.ui.cb_venue_filter.setCurrentIndex(0)
                 self.on_search_venues()
 
 
                 # IF venueID in df_venue, try to select venue in venue_list (this triggers fill_venue_fields).
-                # Otherwise, unselect venue in list and fill venue_text with data from df_shows
                 venue_id = self.selected_show["VenueID"]
                 show_id = self.selected_show["ShowID"]
 
@@ -656,7 +681,7 @@ class MainWindow(QMainWindow):
             # clear fields if button "new show" was clicked
             if how == "New":
                 gui_actions.clear_show_fields(self.ui)
-                self.ui.field_show_artists.setEditText(self.config_artists)
+                self.ui.field_show_artists.setEditText(self.config_artist)
                 self.ui.field_show_currency.setEditText(self.config_currency)
                 self.ui.cb_show_status.setCurrentIndex(2) # set status to "work in progress"
 
@@ -860,7 +885,7 @@ class MainWindow(QMainWindow):
 
         # filter by keyword
         # search all rows with search entry inside state filtered df
-        text = self.ui.lineEdit_search_venues.text()
+        text = self.ui.cb_search_venues.currentText()
         if text != "":
             self.df_venues_in_list = self.df_venues_sorted[self.df_venues_sorted.apply(lambda r: r.str.contains(text, case=False, regex=False).any(), axis=1)]
             self.df_venues_in_list = self.df_venues_in_list.reset_index(drop=True)
@@ -1057,6 +1082,40 @@ class MainWindow(QMainWindow):
 
 
 # --------------------------------------------- OTHER ---------------------------------------------
+    def add_to_search_history(self, which_history):
+        # set history to be processed (shows or venues)
+        if which_history == "shows":
+            search_combobox = self.ui.cb_search_shows
+            search_history_list = self.search_shows_history
+        else:
+            search_combobox = self.ui.cb_search_venues
+            search_history_list = self.search_venues_history
+
+        searched_text = search_combobox.currentText() # get search text
+        search_history_list.insert(0, searched_text) # add new item at the beginning
+
+        search_history_list = [x.strip() for x in search_history_list] # remove spaces
+        search_history_list = list(filter(None, search_history_list)) # remove empty items
+        search_history_list = list(dict.fromkeys(search_history_list)) # remove duplicates and keep order
+
+        if len(search_history_list) > 20: # remove last item if list bigger than 20
+            search_history_list.pop()
+
+        search_history_list.insert(0, "") # add empty item at the beginning
+        #print(search_history_list)
+        current_search = search_combobox.currentText() # needed because of clear()
+        search_combobox.clear()
+        search_combobox.addItems(search_history_list)
+        search_combobox.setEditText(current_search) # needed because of clear()
+
+        # copy list back for saving
+        if which_history == "shows":
+            self.search_shows_history = search_history_list
+        else:
+            self.search_venues_history = search_history_list
+
+
+
     def on_venue_search_show(self):
         # search selected venue, click again to search previous search keyword
         venue_name = self.ui.field_venue_name.text()
@@ -1116,6 +1175,7 @@ class MainWindow(QMainWindow):
 
 
 
+
     def copy_monitor_text(self, what):
         self.clipboard = QGuiApplication.clipboard()
         if what == "selection":
@@ -1124,7 +1184,8 @@ class MainWindow(QMainWindow):
                 self.clipboard.setText(sel)
                 notify = "Text selection copied to clipboard!"
             else:
-                notify = "Please select some text first."
+                notify = ""
+                QMessageBox.information(self, "Copy Selection Error", "Please select some text in the monitor first.")
         else:
             self.clipboard.setText(self.ui.txt_monitor.toPlainText())
             notify = "Monitor content copied to clipboard!"
@@ -1135,16 +1196,17 @@ class MainWindow(QMainWindow):
     def search_selected_text(self, where):
         sel = self.ui.txt_monitor.textCursor().selectedText().strip()
         if sel == "":
-            notify = "Please select some text first."
-            self.ui.statusbar.showMessage(notify, 3000)
+            #notify = "Please select some text first."
+            #self.ui.statusbar.showMessage(notify, 3000)
+            QMessageBox.information(self, "Search Selection Error","Please select some text in the monitor first.")
         else:
             if where == "shows":
-                self.ui.lineEdit_search_shows.setText(sel)
+                self.ui.cb_search_shows.setCurrentText(sel)
             elif where == "venues":
-                self.ui.lineEdit_search_venues.setText(sel)
+                self.ui.cb_search_venues.setCurrentText(sel)
             else:
-                self.ui.lineEdit_search_shows.setText(sel)
-                self.ui.lineEdit_search_venues.setText(sel)
+                self.ui.cb_search_shows.setCurrentText(sel)
+                self.ui.cb_search_venues.setCurrentText(sel)
 
 
 
@@ -1221,6 +1283,12 @@ class MainWindow(QMainWindow):
                 self.config.set("gui", "start_maximized", "0")
 
 
+
+        # write histories
+        self.config.set("histories", "search_shows_history", str(self.search_shows_history))
+        self.config.set("histories", "search_venues_history", str(self.search_venues_history))
+
+
         # write config file
         with open(CONFIG_FILE, "w", encoding='utf-8') as configfile:
             self.config.write(configfile)
@@ -1269,6 +1337,9 @@ class MainWindow(QMainWindow):
 
     def test(self):
         print("test!")
+
+
+
 
 
 
