@@ -4,16 +4,15 @@ import datetime
 import humanize
 
 CB_MONITOR_ITEMS = ["Notes",                                             # 0
-                    "Paths",                                             # 1
-                    "Statistics (Shows)",                                # 2
-                    "Date - City - Venue (Shows)",                       # 3
-                    "Artists: Date - City - Venue (Shows)",              # 4
-                    "Artists & Shows (Shows)",                           # 5
-                    "Fee, Travel Costs, SUM, Date, Venue, Currency (Shows)",   # 6
-                    "Contact Emails (Shows)",                            # 7
-                    "Contact Emails (Venues)",                           # 8
-                    "Tags (Shows)",                                      # 9
-                    "Tags (Venues)"]                                     # 10
+                    "Statistics (Shows)",                                # 1
+                    "Date - City - Venue (Shows)",                       # 2
+                    "Artists: Date - City - Venue (Shows)",              # 3
+                    "Artists & Shows (Shows)",                           # 4
+                    "Fee, Travel Costs, SUM, Date, Venue, Currency (Shows)",   # 5
+                    "Contact Emails (Shows)",                            # 6
+                    "Contact Emails (Venues)",                           # 7
+                    "Tags (Shows)",                                      # 8
+                    "Tags (Venues)"]                                     # 9
 
 
 
@@ -39,18 +38,18 @@ def fill_monitor(parent):
 
 
     # paths
-    elif monitor_cb_index == 1:
-        save_notes(parent, notes_path)
-        set_paths_text(parent)
+    # elif monitor_cb_index == 1:
+    #     save_notes(parent, notes_path)
+    #     set_paths_text(parent)
 
 
     # statistics
-    elif monitor_cb_index == 2:
+    elif monitor_cb_index == 1:
         save_notes(parent, notes_path)
         set_stats_text(parent)
 
 
-    # all iterations (monitor_cb_index == 3, 4, 5, 6, 7, 8, 9, 10)
+    # all iterations (monitor_cb_index == 2, 3, 4, 5, 6, 7, 8, 9)
     else:
         save_notes(parent, notes_path)
         # get text and insert into widget
@@ -126,21 +125,21 @@ def get_monitor_iterated_text(monitor_cb_index, df_shows_in_list, df_venues_in_l
     fee_list = []
 
     # iterate SHOWS (df_shows_in_list)
-    if monitor_cb_index in [3,4,5,6,7,9]:
+    if monitor_cb_index in [2,3,4,5,6,8]:
         for index, row in df_shows_in_list.iterrows():
-            if monitor_cb_index == 3:
+            if monitor_cb_index == 2:
                 show_str = str(row["Date"]) + " - " + str(row["City"]) + " - " + str(row["Venue"])
-            elif monitor_cb_index == 4:
+            elif monitor_cb_index == 3:
                 show_str = str(row["Artist"]) + ":\t" + str(row["Date"]) + " - " + str(row["City"]) + " - " + str(row["Venue"])
-            elif monitor_cb_index == 5:
+            elif monitor_cb_index == 4:
                 show_str = str(row["Artist"])
-            elif monitor_cb_index == 6:
+            elif monitor_cb_index == 5:
                 fee_list_item = [float(row["Fee"]), float(row["TravelCosts"]), row["Date"], row["Venue"], row["Currency"]]
                 fee_list.append(fee_list_item)
-            elif monitor_cb_index == 7:
+            elif monitor_cb_index == 6: # show emails
                 if bool(row["EmailHide"]) == False:
                     show_str = str(row["Email"])
-            elif monitor_cb_index == 9:
+            elif monitor_cb_index == 8: # show tags
                 show_str = str(row["Tags"])
 
             # append to text
@@ -149,12 +148,12 @@ def get_monitor_iterated_text(monitor_cb_index, df_shows_in_list, df_venues_in_l
 
 
     # iterate VENUES (df_venues_in_list)
-    if monitor_cb_index in [8,10]:
+    if monitor_cb_index in [7,9]:
         for index, row in df_venues_in_list.iterrows():
-            if monitor_cb_index == 8:
+            if monitor_cb_index == 7: # venue emails
                 if bool(row["VenueEmailHide"]) == False:
                     venue_str = str(row["VenueEmail"])
-            elif monitor_cb_index == 10:
+            elif monitor_cb_index == 9: # venue tags
                 venue_str = str(row["VenueTags"])
 
             # append to text
@@ -165,7 +164,7 @@ def get_monitor_iterated_text(monitor_cb_index, df_shows_in_list, df_venues_in_l
 
 
     # POST-PROCESSING (if needed)
-    if monitor_cb_index == 5:  # artists and sum of shows
+    if monitor_cb_index == 4:  # artists and sum of shows
         artists_list = sorted(set(monitor_text.splitlines()), key=str.lower)
         monitor_text = ""
         for i in artists_list:
@@ -173,14 +172,14 @@ def get_monitor_iterated_text(monitor_cb_index, df_shows_in_list, df_venues_in_l
             monitor_text += i + "\t" + str(shows) + "\n"
 
 
-    if monitor_cb_index == 6:  # fees and travel costs -> sorted descending
+    if monitor_cb_index == 5:  # fees and travel costs -> sorted descending
         monitor_text = ""
         fee_list = sorted(fee_list, reverse=True)
         for i in fee_list:
             monitor_text += str(i[0]) + "\t" + str(i[1]) + "\t" + str(i[0] + i[1]) + "\t" + str(i[2]) + "\t" + str(i[3]) + " (" + str(i[4]) + ")" + "\n"
 
 
-    if monitor_cb_index in [7, 8]:  # emails only (shows and venues): remove blank lines, duplicates and entries without "@"
+    if monitor_cb_index in [6, 7]:  # emails only (shows and venues): remove blank lines, duplicates and entries without "@"
         email_list = sorted(set(monitor_text.splitlines()), key=str.lower)
         monitor_text = ""
         for i in email_list:
@@ -188,7 +187,7 @@ def get_monitor_iterated_text(monitor_cb_index, df_shows_in_list, df_venues_in_l
                 monitor_text += i + "\n"
 
 
-    if monitor_cb_index in [9, 10]: # tags (shows and venues)
+    if monitor_cb_index in [8, 9]: # tags (shows and venues)
         tag_list = set(monitor_text.splitlines())
         final_tag_list = []
         for i in tag_list:

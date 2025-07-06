@@ -1,6 +1,7 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QStyleFactory, QTableWidgetItem, QHeaderView, QMessageBox, QListWidgetItem, QCalendarWidget, QDialog, QMenu, QInputDialog, QCompleter, QToolButton, QAbstractButton
+
+from PySide6.QtWidgets import QApplication, QMainWindow, QStyleFactory, QTableWidgetItem, QHeaderView, QMessageBox, QListWidgetItem, QCalendarWidget, QDialog, QMenu, QInputDialog, QCompleter, QToolButton, QAbstractButton, QFileDialog
 from PySide6.QtCore import QDate, Qt, QLocale
-from PySide6.QtGui import QBrush, QIcon, QGuiApplication, QAction
+from PySide6.QtGui import QBrush, QIcon, QGuiApplication, QAction, QColor, QPalette
 
 # system modules
 import os
@@ -13,6 +14,7 @@ import configparser
 
 # own modules
 from mainwindow import Ui_MainWindow
+import settings
 import gui_actions
 import monitor
 import map
@@ -20,6 +22,7 @@ import add_venue
 import add_show
 import calc
 import exports
+
 
 
 
@@ -49,8 +52,8 @@ pd.set_option('display.width', 2000)
 
 
 # todo:
-# monitor tags: not needed anymore? or use generate_tag_list function instead?
-# config editor
+# logo in about not shown with pyinstaller -> use qrc
+# monitor tags: not needed anymore?
 # alarms (via csv?) -> popups on alarm day to remember things like sending poster or gig request
 
 # backup notes
@@ -72,8 +75,8 @@ pd.set_option('display.width', 2000)
 
 
 
-VERSION = "0.1.21"
-DATE = ("2025-05-18")
+VERSION = "0.1.22"
+DATE = ("2025-07-06")
 
 DB_SHOWS = "shows.csv"
 DB_VENUES = "venues.csv"
@@ -101,7 +104,6 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("TourManager " + VERSION)
         self.setWindowIcon(QIcon("icon.png"))
 
-
         # load config
         self.load_config()
 
@@ -122,13 +124,15 @@ class MainWindow(QMainWindow):
         self.ui.cb_venue_filter.addItems(VENUE_FILTERS)
         self.ui.cb_venue_rating.addItems(VENUE_RATINGS)
 
-        # load databases and populate lists
+
+        # load DATABASES and populate lists
         self.load_databases()
         self.populate_show_list(self.df_shows_in_list)
         self.populate_venue_list(self.df_venues_sorted)
 
         # flags
         self.show_search_flag = False
+        self.config_needs_restart = False
 
         # monitor
         self.ui.cb_monitor.addItems(monitor.CB_MONITOR_ITEMS)
@@ -174,10 +178,6 @@ class MainWindow(QMainWindow):
         # setup search history
         self.search_shows_history = []
         self.search_venues_history = []
-        self.ui.cb_search_shows.lineEdit().setClearButtonEnabled(True) # add clear button to underlying lineedit
-        self.ui.cb_search_shows.lineEdit().setPlaceholderText("Search Shows...")  # add placeholder text to underlying lineedit
-        self.ui.cb_search_venues.lineEdit().setClearButtonEnabled(True)
-        self.ui.cb_search_venues.lineEdit().setPlaceholderText("Search Venues...")
 
 
         # pre-defined variables
@@ -213,8 +213,10 @@ class MainWindow(QMainWindow):
 
 
 
+
+
         # SIGNALS
-        self.ui.my_button.clicked.connect(self.test)
+        self.ui.my_button.clicked.connect(self.open_settings)
 
         self.ui.cb_search_shows.editTextChanged.connect(self.on_search_shows)
         self.ui.cb_search_shows.lineEdit().editingFinished.connect(lambda: self.add_to_search_history("shows"))  # get finished signal from underlying linedit
@@ -255,6 +257,9 @@ class MainWindow(QMainWindow):
 
         self.ui.bt_venue_search_shows.clicked.connect(self.on_venue_search_show)
 
+
+        self.ui.field_venue_city.activated.connect(lambda: gui_actions.on_select_city(self))
+
         self.ui.bt_venue_locate.clicked.connect(self.on_venue_locate)
         self.ui.bt_venue_route.clicked.connect(self.on_venue_route)
         self.ui.bt_venue_locate_geocoordinates.clicked.connect(self.on_venue_locate_geo_coordinates)
@@ -275,6 +280,7 @@ class MainWindow(QMainWindow):
 
         # MENU signals
         self.ui.actionBackup.triggered.connect(lambda: self.backup_db("dated"))
+        self.ui.actionSettings.triggered.connect(self.open_settings)
         self.ui.actionQuit.triggered.connect(app.quit)
 
         self.ui.actionFuture_Shows.triggered.connect(lambda: exports.export_shows_to_html(self.df_shows, self.df_venues, self.config_workdir, self.ui))
@@ -304,13 +310,11 @@ class MainWindow(QMainWindow):
 
 
 
-
         # apply histories (needs to be set after signals)
         self.search_shows_history = eval(self.config_search_shows_history) if self.config_search_shows_history != "" else []
         self.add_to_search_history("shows") # setup everything
         self.search_venues_history = eval(self.config_search_venues_history) if self.config_search_venues_history != "" else []
         self.add_to_search_history("venues") # setup everything
-
 
 
 
@@ -326,23 +330,23 @@ class MainWindow(QMainWindow):
 
         # generate config if config file doesn't exist
         if os.path.exists(CONFIG_FILE) == False:
-            self.config["defaults"] = {"homebase_city": "Homebase City (please setup config.ini)",
+            self.config["defaults"] = {"homebase_city": "Homebase City (Dummy)",
                                        "homebase_geocoordinates": "0.0, 0.0",
                                        "artist": "My Artist",
                                        "currency": "EUR",
                                        "distance_unit": "km",
                                        "travel_unit_price": "0.30"}
-            self.config["paths"] = {"working_directory": ""}
+            self.config["paths"] = {"working_directory": "."}
             self.config["settings"] = {"auto_export_shows": "0",
                                        "auto_export_calendars": "0",
-                                       "map_provider": "osm #gmaps",
+                                       "map_provider": "osm",
                                        "calc_text_decimal_separator": ",",
                                        "custom_links": '[(r"TourManager Web", r"https://github.com/sonejostudios/TourManager"), (r"|",r""), ("App Notes", r"Notes.txt"), ("App Folder", r".")]',
                                        "selected_show": "",
                                        "start_with_selected_show": "1"}
-            self.config["gui"] = {"theme": "none #auto #dark #light",
-                                  "font_size": "#10",
-                                  "field_area_width": "#430",
+            self.config["gui"] = {"theme": "",
+                                  "font_size": "10",
+                                  "field_area_width": "430",
                                   "save_window_size": "1",
                                   "window_width": "1700",
                                   "window_height": "1000",
@@ -356,7 +360,7 @@ class MainWindow(QMainWindow):
 
             QMessageBox.warning(self, "TourManager Configuration",
                                 "It is the first time you are starting TourManager!\n\n"
-                                "1. A configuration file (config.ini) was generated, please set it up as wanted.\n\n"
+                                "1. A configuration file (config.ini) was generated.\n\n"
                                 "2. You must copy shows.csv and venues.csv into the working folder. Otherwise, TourManager will not start.\n\n"
                                 "3. When all this is setup, please start TourManager again!",
                                 QMessageBox.Ok, QMessageBox.Ok)
@@ -397,6 +401,15 @@ class MainWindow(QMainWindow):
 
 
 
+        # check if working folder exists, if not ask user to select it
+        if os.path.exists(self.config_workdir) == False:
+            QMessageBox.warning(self, "TourManager Error",
+                                "The working folder was not found.\nPlease select an existing working folder containing the databases (shows.csv and venues.csv).",
+                                QMessageBox.Ok, QMessageBox.Ok)
+            self.open_settings(1) # open settings tab "paths"
+
+
+
         # APPLY CONFIG
         # homebase
         self.ui.lb_homebase.setText(self.config_homebase_city)
@@ -410,9 +423,10 @@ class MainWindow(QMainWindow):
 
         # add custom links to menu (or hide menu item if no custome links are provided)
         if self.config_custom_links != "":
-            print("Add Custom Links:")
+            #print("Add Custom Links:")
+            self.ui.menuCustom_Links.clear() # clear menu first to avoid duplicates on config reload
             for item in eval(self.config_custom_links):
-                print(item)
+                #print(item)
                 if item[0] == "|":
                     self.ui.menuCustom_Links.addSeparator()
                 else:
@@ -440,6 +454,8 @@ class MainWindow(QMainWindow):
                 qdarktheme.setup_theme("auto", additional_qss="QComboBox { min-height: 1em; padding: 3px 4px; }") # 1-> auto
 
 
+
+
         # apply font size, field area with and start maximized
         # set global font size (empty = 10)
         if self.config_font_size != "":
@@ -453,11 +469,17 @@ class MainWindow(QMainWindow):
 
 
         # window size or maximized
-        if self.config_window_width != "" and self.config_window_height != "":
-            #self.setMinimumSize(200,100) # uncomment to allow smaller sizes
-            self.resize(int(self.config_window_width), int(self.config_window_height))
         if self.config_start_maximizied == "1":
             self.showMaximized()
+
+        elif self.config_window_width != "" and self.config_window_height != "":
+            #self.setMinimumSize(200,100) # uncomment to allow smaller sizes
+            self.resize(int(self.config_window_width), int(self.config_window_height))
+
+
+
+        # some important gui tuning (not in config)
+        gui_actions.setup_search_comboboxes(self.ui.cb_search_shows, self.ui.cb_search_venues)
 
 
 
@@ -471,9 +493,15 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self, "TourManager Error", "TourManager is locked because another user is using it right now.\nPlease wait util it is unlocked to start it again.", QMessageBox.Ok, QMessageBox.Ok)
             sys.exit()
         else:
-            with open(lock_file, 'w') as file:
-                file.write(str(datetime.datetime.now()) + '\n\nThis file locks TourManager to prevent multi-user usage.\n'
-                           'It will be deleted as soon as the app is closed.')
+            if os.path.exists(self.config_workdir) == False or os.path.exists(os.path.join(self.config_workdir, DB_SHOWS)) == False or os.path.exists(os.path.join(self.config_workdir, DB_SHOWS)) == False:
+                QMessageBox.warning(self, "TourManager Error",
+                                    "The working folder doesn't exist or the databases are missing!\n\nPlease make sure the databases (shows.csv and venues.csv) are inside the working folder.", QMessageBox.Ok, QMessageBox.Ok)
+                sys.exit()  # exit app if workdir not found
+
+            else:
+                with open(lock_file, 'w') as file:
+                    file.write(str(datetime.datetime.now()) + '\n\nThis file locks TourManager to prevent multi-user usage.\n'
+                               'It will be deleted as soon as the app is closed.')
 
 
 
@@ -494,7 +522,7 @@ class MainWindow(QMainWindow):
             shutil.copyfile(os.path.join(self.config_workdir, DB_SHOWS), "./Backups/" + timestamp + "_" + DB_SHOWS)
             shutil.copyfile(os.path.join(self.config_workdir, DB_VENUES), "./Backups/" + timestamp + "_" + DB_VENUES)
 
-            self.ui.statusbar.showMessage("Databases' Backup is done!", 3000)
+            self.ui.statusbar.showMessage("Backup of databases created! (" + timestamp + ")", 3000)
 
 
 
@@ -1119,11 +1147,11 @@ class MainWindow(QMainWindow):
     def on_venue_search_show(self):
         # search selected venue, click again to search previous search keyword
         venue_name = self.ui.field_venue_name.text()
-        if self.ui.lineEdit_search_shows.text() != venue_name:
-            self.search_text = self.ui.lineEdit_search_shows.text()
-            self.ui.lineEdit_search_shows.setText(venue_name)
+        if self.ui.cb_search_shows.currentText() != venue_name:
+            self.search_text = self.ui.cb_search_shows.currentText()
+            self.ui.cb_search_shows.setCurrentText(venue_name)
         else:
-            self.ui.lineEdit_search_shows.setText(self.search_text)
+            self.ui.cb_search_shows.setCurrentText(self.search_text)
 
 
 
@@ -1236,6 +1264,11 @@ class MainWindow(QMainWindow):
 
 
 
+    def remove_lock_file(self):
+        lock_file = os.path.join(self.config_workdir, LOCK_FILE)
+        if os.path.exists(lock_file):
+            print("LOCKED file deleted")
+            os.remove(lock_file)
 
 
 
@@ -1246,53 +1279,12 @@ class MainWindow(QMainWindow):
         self.ui.cb_monitor.setCurrentIndex(1)
         monitor.fill_monitor(self)
 
-        # remove LOCKED file
-        lock_file = os.path.join(self.config_workdir, LOCK_FILE)
-        if os.path.exists(lock_file):
-            print("LOCKED file deleted")
-            os.remove(lock_file)
 
-        # auto export futureshows to html file if configured
-        if self.config_auto_export_shows == "1":
-            print("Future shows exported")
-            exports.export_shows_to_html(self.df_shows, self.df_venues, self.config_workdir, self.ui)
+        # remove lock file
+        self.remove_lock_file()
 
-        # auto export calendars if configured
-        if self.config_auto_export_calendars == "1":
-            print("Calendars exported")
-            exports.export_all_calendars(self.df_shows, self.df_venues, self.config_workdir, self.ui, SHOW_STATUS)
-
-
-        # save selected show if wanted on app start
-        if self.config_start_with_selected_show == "1" and self.ui.list_show.currentItem() != None:
-            selected_show = self.ui.list_show.currentItem().text()
-            print("Save selected show:", selected_show)
-            self.config.set("settings", "selected_show", selected_show)
-
-
-
-        # write window size into config
-        if self.config_save_window_size == "1":
-            print("Window size saved")
-
-            if self.isMaximized():
-                self.config.set("gui", "start_maximized", "1")
-            else:
-                self.config.set("gui", "window_width", str(self.geometry().width()))
-                self.config.set("gui", "window_height", str(self.geometry().height()))
-                self.config.set("gui", "start_maximized", "0")
-
-
-
-        # write histories
-        self.config.set("histories", "search_shows_history", str(self.search_shows_history))
-        self.config.set("histories", "search_venues_history", str(self.search_venues_history))
-
-
-        # write config file
-        with open(CONFIG_FILE, "w", encoding='utf-8') as configfile:
-            self.config.write(configfile)
-
+        # save needed stuff
+        self.save_on_app_quit()
 
 
         # ask for saving before closing
@@ -1314,6 +1306,87 @@ class MainWindow(QMainWindow):
 
 
 
+    def save_on_app_quit(self):
+        # auto export futureshows to html file if configured
+        if self.config_auto_export_shows == "1":
+            print("Future shows exported")
+            exports.export_shows_to_html(self.df_shows, self.df_venues, self.config_workdir, self.ui)
+
+        # auto export calendars if configured
+        if self.config_auto_export_calendars == "1":
+            print("Calendars exported")
+            exports.export_all_calendars(self.df_shows, self.df_venues, self.config_workdir, self.ui, SHOW_STATUS)
+
+        # save selected show if wanted on app start
+        if self.config_start_with_selected_show == "1" and self.ui.list_show.currentItem() != None:
+            selected_show = self.ui.list_show.currentItem().text()
+            print("Save selected show:", selected_show)
+            self.config.set("settings", "selected_show", selected_show)
+
+        # write window size into config
+        if self.config_save_window_size == "1":
+            print("Window size saved")
+
+            if self.isMaximized():
+                self.config.set("gui", "start_maximized", "1")
+            else:
+                self.config.set("gui", "window_width", str(self.geometry().width()))
+                self.config.set("gui", "window_height", str(self.geometry().height()))
+                self.config.set("gui", "start_maximized", "0")
+
+        # write histories
+        self.config.set("histories", "search_shows_history", str(self.search_shows_history))
+        self.config.set("histories", "search_venues_history", str(self.search_venues_history))
+
+
+        # write config file
+        with open(CONFIG_FILE, "w", encoding='utf-8') as configfile:
+            self.config.write(configfile)
+
+
+
+
+
+
+
+    def set_config_needs_restart(self, flag):
+        self.config_needs_restart = flag
+
+
+    def open_settings(self, show_tab):
+        self.settings_dialog = settings.SettingsDialog(CONFIG_FILE, self, show_tab)
+        ok = self.settings_dialog.exec() # modal (blocks main window)
+        #ok = self.settings_dialog.show() # non modal
+
+        # save gui geometry and other stuff (needed because of self.load_config())
+        self.save_on_app_quit()
+
+        if ok == 1: # accepted
+            # force app restart if needed, otherwise reload config
+            if self.config_needs_restart == True:
+                QMessageBox.information(self, "Restart needed", "Please restart TourManager.")
+
+                # try to save and close app
+                try:
+                    self.on_save_show()
+                    self.on_save_venue()
+                except:
+                    pass
+
+                self.remove_lock_file()
+                sys.exit()
+
+            else:
+                # reload gui here to update all widgets
+                self.load_config()
+
+
+
+
+
+
+# --------------------------------------------- DEV ONLY ---------------------------------------------
+
     # only used in dev mode
     def show_show_in_table(self, show):
         # show in table
@@ -1333,14 +1406,8 @@ class MainWindow(QMainWindow):
         table.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
 
 
-
-
     def test(self):
         print("test!")
-
-
-
-
 
 
     def test_arg(self, arg):

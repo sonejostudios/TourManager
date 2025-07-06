@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.3
+## Created by: Qt User Interface Compiler version 6.9.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -52,6 +52,8 @@ class Ui_MainWindow(object):
         self.actionTravel_Costs_Calculator.setObjectName(u"actionTravel_Costs_Calculator")
         self.actionMap = QAction(MainWindow)
         self.actionMap.setObjectName(u"actionMap")
+        self.actionSettings = QAction(MainWindow)
+        self.actionSettings.setObjectName(u"actionSettings")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
@@ -96,7 +98,7 @@ class Ui_MainWindow(object):
         self.label_2 = QLabel(self.show_fields)
         self.label_2.setObjectName(u"label_2")
 
-        self.formLayout.setWidget(0, QFormLayout.LabelRole, self.label_2)
+        self.formLayout.setWidget(0, QFormLayout.ItemRole.LabelRole, self.label_2)
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
@@ -122,12 +124,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.addWidget(self.field_show_show_id)
 
 
-        self.formLayout.setLayout(0, QFormLayout.FieldRole, self.horizontalLayout_3)
+        self.formLayout.setLayout(0, QFormLayout.ItemRole.FieldRole, self.horizontalLayout_3)
 
         self.label_29 = QLabel(self.show_fields)
         self.label_29.setObjectName(u"label_29")
 
-        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.label_29)
+        self.formLayout.setWidget(1, QFormLayout.ItemRole.LabelRole, self.label_29)
 
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
@@ -151,95 +153,95 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.addWidget(self.field_show_venue_id)
 
 
-        self.formLayout.setLayout(1, QFormLayout.FieldRole, self.horizontalLayout_4)
+        self.formLayout.setLayout(1, QFormLayout.ItemRole.FieldRole, self.horizontalLayout_4)
 
         self.label_24 = QLabel(self.show_fields)
         self.label_24.setObjectName(u"label_24")
 
-        self.formLayout.setWidget(2, QFormLayout.LabelRole, self.label_24)
+        self.formLayout.setWidget(2, QFormLayout.ItemRole.LabelRole, self.label_24)
 
         self.cb_show_status = QComboBox(self.show_fields)
         self.cb_show_status.setObjectName(u"cb_show_status")
         self.cb_show_status.setMinimumSize(QSize(0, 0))
         self.cb_show_status.setInsertPolicy(QComboBox.InsertPolicy.InsertAtBottom)
 
-        self.formLayout.setWidget(2, QFormLayout.FieldRole, self.cb_show_status)
+        self.formLayout.setWidget(2, QFormLayout.ItemRole.FieldRole, self.cb_show_status)
 
         self.label = QLabel(self.show_fields)
         self.label.setObjectName(u"label")
 
-        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.label)
+        self.formLayout.setWidget(3, QFormLayout.ItemRole.LabelRole, self.label)
 
         self.label_15 = QLabel(self.show_fields)
         self.label_15.setObjectName(u"label_15")
 
-        self.formLayout.setWidget(4, QFormLayout.LabelRole, self.label_15)
+        self.formLayout.setWidget(4, QFormLayout.ItemRole.LabelRole, self.label_15)
 
         self.field_show_contact = QLineEdit(self.show_fields)
         self.field_show_contact.setObjectName(u"field_show_contact")
 
-        self.formLayout.setWidget(4, QFormLayout.FieldRole, self.field_show_contact)
+        self.formLayout.setWidget(4, QFormLayout.ItemRole.FieldRole, self.field_show_contact)
 
         self.label_16 = QLabel(self.show_fields)
         self.label_16.setObjectName(u"label_16")
 
-        self.formLayout.setWidget(5, QFormLayout.LabelRole, self.label_16)
+        self.formLayout.setWidget(5, QFormLayout.ItemRole.LabelRole, self.label_16)
 
         self.field_show_phone = QLineEdit(self.show_fields)
         self.field_show_phone.setObjectName(u"field_show_phone")
 
-        self.formLayout.setWidget(5, QFormLayout.FieldRole, self.field_show_phone)
+        self.formLayout.setWidget(5, QFormLayout.ItemRole.FieldRole, self.field_show_phone)
 
         self.label_17 = QLabel(self.show_fields)
         self.label_17.setObjectName(u"label_17")
 
-        self.formLayout.setWidget(6, QFormLayout.LabelRole, self.label_17)
+        self.formLayout.setWidget(6, QFormLayout.ItemRole.LabelRole, self.label_17)
 
         self.label_18 = QLabel(self.show_fields)
         self.label_18.setObjectName(u"label_18")
 
-        self.formLayout.setWidget(7, QFormLayout.LabelRole, self.label_18)
+        self.formLayout.setWidget(7, QFormLayout.ItemRole.LabelRole, self.label_18)
 
         self.field_show_tech_contact = QLineEdit(self.show_fields)
         self.field_show_tech_contact.setObjectName(u"field_show_tech_contact")
 
-        self.formLayout.setWidget(7, QFormLayout.FieldRole, self.field_show_tech_contact)
+        self.formLayout.setWidget(7, QFormLayout.ItemRole.FieldRole, self.field_show_tech_contact)
 
         self.label_19 = QLabel(self.show_fields)
         self.label_19.setObjectName(u"label_19")
 
-        self.formLayout.setWidget(8, QFormLayout.LabelRole, self.label_19)
+        self.formLayout.setWidget(8, QFormLayout.ItemRole.LabelRole, self.label_19)
 
         self.field_show_tech_phone = QLineEdit(self.show_fields)
         self.field_show_tech_phone.setObjectName(u"field_show_tech_phone")
 
-        self.formLayout.setWidget(8, QFormLayout.FieldRole, self.field_show_tech_phone)
+        self.formLayout.setWidget(8, QFormLayout.ItemRole.FieldRole, self.field_show_tech_phone)
 
         self.label_20 = QLabel(self.show_fields)
         self.label_20.setObjectName(u"label_20")
 
-        self.formLayout.setWidget(9, QFormLayout.LabelRole, self.label_20)
+        self.formLayout.setWidget(9, QFormLayout.ItemRole.LabelRole, self.label_20)
 
         self.field_show_tech_email = QLineEdit(self.show_fields)
         self.field_show_tech_email.setObjectName(u"field_show_tech_email")
 
-        self.formLayout.setWidget(9, QFormLayout.FieldRole, self.field_show_tech_email)
+        self.formLayout.setWidget(9, QFormLayout.ItemRole.FieldRole, self.field_show_tech_email)
 
         self.label_25 = QLabel(self.show_fields)
         self.label_25.setObjectName(u"label_25")
 
-        self.formLayout.setWidget(10, QFormLayout.LabelRole, self.label_25)
+        self.formLayout.setWidget(10, QFormLayout.ItemRole.LabelRole, self.label_25)
 
         self.bt_show_folder = QPushButton(self.show_fields)
         self.bt_show_folder.setObjectName(u"bt_show_folder")
         self.bt_show_folder.setMinimumSize(QSize(0, 0))
 
-        self.formLayout.setWidget(10, QFormLayout.FieldRole, self.bt_show_folder)
+        self.formLayout.setWidget(10, QFormLayout.ItemRole.FieldRole, self.bt_show_folder)
 
         self.arrivalTimeLabel = QLabel(self.show_fields)
         self.arrivalTimeLabel.setObjectName(u"arrivalTimeLabel")
 
-        self.formLayout.setWidget(11, QFormLayout.LabelRole, self.arrivalTimeLabel)
+        self.formLayout.setWidget(11, QFormLayout.ItemRole.LabelRole, self.arrivalTimeLabel)
 
         self.gridLayout = QGridLayout()
         self.gridLayout.setObjectName(u"gridLayout")
@@ -306,12 +308,12 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.field_show_show_time, 3, 2, 1, 1)
 
 
-        self.formLayout.setLayout(11, QFormLayout.FieldRole, self.gridLayout)
+        self.formLayout.setLayout(11, QFormLayout.ItemRole.FieldRole, self.gridLayout)
 
         self.label_23 = QLabel(self.show_fields)
         self.label_23.setObjectName(u"label_23")
 
-        self.formLayout.setWidget(12, QFormLayout.LabelRole, self.label_23)
+        self.formLayout.setWidget(12, QFormLayout.ItemRole.LabelRole, self.label_23)
 
         self.field_show_info = QPlainTextEdit(self.show_fields)
         self.field_show_info.setObjectName(u"field_show_info")
@@ -319,12 +321,12 @@ class Ui_MainWindow(object):
         self.field_show_info.setSizePolicy(sizePolicy)
         self.field_show_info.setMinimumSize(QSize(0, 0))
 
-        self.formLayout.setWidget(12, QFormLayout.FieldRole, self.field_show_info)
+        self.formLayout.setWidget(12, QFormLayout.ItemRole.FieldRole, self.field_show_info)
 
         self.label_21 = QLabel(self.show_fields)
         self.label_21.setObjectName(u"label_21")
 
-        self.formLayout.setWidget(13, QFormLayout.LabelRole, self.label_21)
+        self.formLayout.setWidget(13, QFormLayout.ItemRole.LabelRole, self.label_21)
 
         self.horizontalLayout_5 = QHBoxLayout()
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
@@ -368,22 +370,22 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.addWidget(self.field_show_currency)
 
 
-        self.formLayout.setLayout(13, QFormLayout.FieldRole, self.horizontalLayout_5)
+        self.formLayout.setLayout(13, QFormLayout.ItemRole.FieldRole, self.horizontalLayout_5)
 
         self.accomodationLabel_2 = QLabel(self.show_fields)
         self.accomodationLabel_2.setObjectName(u"accomodationLabel_2")
 
-        self.formLayout.setWidget(14, QFormLayout.LabelRole, self.accomodationLabel_2)
+        self.formLayout.setWidget(14, QFormLayout.ItemRole.LabelRole, self.accomodationLabel_2)
 
         self.field_show_food_drinks = QLineEdit(self.show_fields)
         self.field_show_food_drinks.setObjectName(u"field_show_food_drinks")
 
-        self.formLayout.setWidget(14, QFormLayout.FieldRole, self.field_show_food_drinks)
+        self.formLayout.setWidget(14, QFormLayout.ItemRole.FieldRole, self.field_show_food_drinks)
 
         self.accomodationLabel = QLabel(self.show_fields)
         self.accomodationLabel.setObjectName(u"accomodationLabel")
 
-        self.formLayout.setWidget(15, QFormLayout.LabelRole, self.accomodationLabel)
+        self.formLayout.setWidget(15, QFormLayout.ItemRole.LabelRole, self.accomodationLabel)
 
         self.horizontalLayout_8 = QHBoxLayout()
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
@@ -398,33 +400,33 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8.addWidget(self.field_show_breakfast)
 
 
-        self.formLayout.setLayout(15, QFormLayout.FieldRole, self.horizontalLayout_8)
+        self.formLayout.setLayout(15, QFormLayout.ItemRole.FieldRole, self.horizontalLayout_8)
 
         self.printLabel = QLabel(self.show_fields)
         self.printLabel.setObjectName(u"printLabel")
 
-        self.formLayout.setWidget(16, QFormLayout.LabelRole, self.printLabel)
+        self.formLayout.setWidget(16, QFormLayout.ItemRole.LabelRole, self.printLabel)
 
         self.field_show_print = QLineEdit(self.show_fields)
         self.field_show_print.setObjectName(u"field_show_print")
 
-        self.formLayout.setWidget(16, QFormLayout.FieldRole, self.field_show_print)
+        self.formLayout.setWidget(16, QFormLayout.ItemRole.FieldRole, self.field_show_print)
 
         self.addressForPrintLabel = QLabel(self.show_fields)
         self.addressForPrintLabel.setObjectName(u"addressForPrintLabel")
 
-        self.formLayout.setWidget(17, QFormLayout.LabelRole, self.addressForPrintLabel)
+        self.formLayout.setWidget(17, QFormLayout.ItemRole.LabelRole, self.addressForPrintLabel)
 
         self.field_show_print_address = QPlainTextEdit(self.show_fields)
         self.field_show_print_address.setObjectName(u"field_show_print_address")
         self.field_show_print_address.setMaximumSize(QSize(16777215, 60))
 
-        self.formLayout.setWidget(17, QFormLayout.FieldRole, self.field_show_print_address)
+        self.formLayout.setWidget(17, QFormLayout.ItemRole.FieldRole, self.field_show_print_address)
 
         self.tagsLabel = QLabel(self.show_fields)
         self.tagsLabel.setObjectName(u"tagsLabel")
 
-        self.formLayout.setWidget(19, QFormLayout.LabelRole, self.tagsLabel)
+        self.formLayout.setWidget(19, QFormLayout.ItemRole.LabelRole, self.tagsLabel)
 
         self.horizontalLayout_19 = QHBoxLayout()
         self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
@@ -439,14 +441,14 @@ class Ui_MainWindow(object):
         self.horizontalLayout_19.addWidget(self.cb_show_contact_email_hide)
 
 
-        self.formLayout.setLayout(6, QFormLayout.FieldRole, self.horizontalLayout_19)
+        self.formLayout.setLayout(6, QFormLayout.ItemRole.FieldRole, self.horizontalLayout_19)
 
         self.field_show_artists = QComboBox(self.show_fields)
         self.field_show_artists.setObjectName(u"field_show_artists")
         self.field_show_artists.setEditable(True)
         self.field_show_artists.setMaxVisibleItems(20)
 
-        self.formLayout.setWidget(3, QFormLayout.FieldRole, self.field_show_artists)
+        self.formLayout.setWidget(3, QFormLayout.ItemRole.FieldRole, self.field_show_artists)
 
         self.field_show_cb_tags = QComboBox(self.show_fields)
         self.field_show_cb_tags.setObjectName(u"field_show_cb_tags")
@@ -454,7 +456,7 @@ class Ui_MainWindow(object):
         self.field_show_cb_tags.setEditable(True)
         self.field_show_cb_tags.setMaxVisibleItems(20)
 
-        self.formLayout.setWidget(19, QFormLayout.FieldRole, self.field_show_cb_tags)
+        self.formLayout.setWidget(19, QFormLayout.ItemRole.FieldRole, self.field_show_cb_tags)
 
 
         self.verticalLayout_5.addLayout(self.formLayout)
@@ -741,7 +743,7 @@ class Ui_MainWindow(object):
         self.label_4 = QLabel(self.venue_fields)
         self.label_4.setObjectName(u"label_4")
 
-        self.formLayout_2.setWidget(0, QFormLayout.LabelRole, self.label_4)
+        self.formLayout_2.setWidget(0, QFormLayout.ItemRole.LabelRole, self.label_4)
 
         self.horizontalLayout_7 = QHBoxLayout()
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
@@ -770,22 +772,22 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.addWidget(self.field_venue_venue_id)
 
 
-        self.formLayout_2.setLayout(0, QFormLayout.FieldRole, self.horizontalLayout_7)
+        self.formLayout_2.setLayout(0, QFormLayout.ItemRole.FieldRole, self.horizontalLayout_7)
 
         self.label_3 = QLabel(self.venue_fields)
         self.label_3.setObjectName(u"label_3")
 
-        self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.label_3)
+        self.formLayout_2.setWidget(1, QFormLayout.ItemRole.LabelRole, self.label_3)
 
         self.label_6 = QLabel(self.venue_fields)
         self.label_6.setObjectName(u"label_6")
 
-        self.formLayout_2.setWidget(2, QFormLayout.LabelRole, self.label_6)
+        self.formLayout_2.setWidget(2, QFormLayout.ItemRole.LabelRole, self.label_6)
 
         self.label_7 = QLabel(self.venue_fields)
         self.label_7.setObjectName(u"label_7")
 
-        self.formLayout_2.setWidget(3, QFormLayout.LabelRole, self.label_7)
+        self.formLayout_2.setWidget(3, QFormLayout.ItemRole.LabelRole, self.label_7)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -822,12 +824,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addLayout(self.verticalLayout)
 
 
-        self.formLayout_2.setLayout(3, QFormLayout.FieldRole, self.horizontalLayout)
+        self.formLayout_2.setLayout(3, QFormLayout.ItemRole.FieldRole, self.horizontalLayout)
 
         self.label_32 = QLabel(self.venue_fields)
         self.label_32.setObjectName(u"label_32")
 
-        self.formLayout_2.setWidget(4, QFormLayout.LabelRole, self.label_32)
+        self.formLayout_2.setWidget(4, QFormLayout.ItemRole.LabelRole, self.label_32)
 
         self.horizontalLayout_17 = QHBoxLayout()
         self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
@@ -844,22 +846,22 @@ class Ui_MainWindow(object):
         self.horizontalLayout_17.addWidget(self.bt_venue_locate_geocoordinates)
 
 
-        self.formLayout_2.setLayout(4, QFormLayout.FieldRole, self.horizontalLayout_17)
+        self.formLayout_2.setLayout(4, QFormLayout.ItemRole.FieldRole, self.horizontalLayout_17)
 
         self.label_28 = QLabel(self.venue_fields)
         self.label_28.setObjectName(u"label_28")
 
-        self.formLayout_2.setWidget(5, QFormLayout.LabelRole, self.label_28)
+        self.formLayout_2.setWidget(5, QFormLayout.ItemRole.LabelRole, self.label_28)
 
         self.field_checkbox_venue_is_event = QCheckBox(self.venue_fields)
         self.field_checkbox_venue_is_event.setObjectName(u"field_checkbox_venue_is_event")
 
-        self.formLayout_2.setWidget(5, QFormLayout.FieldRole, self.field_checkbox_venue_is_event)
+        self.formLayout_2.setWidget(5, QFormLayout.ItemRole.FieldRole, self.field_checkbox_venue_is_event)
 
         self.label_14 = QLabel(self.venue_fields)
         self.label_14.setObjectName(u"label_14")
 
-        self.formLayout_2.setWidget(6, QFormLayout.LabelRole, self.label_14)
+        self.formLayout_2.setWidget(6, QFormLayout.ItemRole.LabelRole, self.label_14)
 
         self.horizontalLayout_6 = QHBoxLayout()
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
@@ -902,12 +904,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.addWidget(self.field_venue_end_dateedit)
 
 
-        self.formLayout_2.setLayout(6, QFormLayout.FieldRole, self.horizontalLayout_6)
+        self.formLayout_2.setLayout(6, QFormLayout.ItemRole.FieldRole, self.horizontalLayout_6)
 
         self.label_9 = QLabel(self.venue_fields)
         self.label_9.setObjectName(u"label_9")
 
-        self.formLayout_2.setWidget(7, QFormLayout.LabelRole, self.label_9)
+        self.formLayout_2.setWidget(7, QFormLayout.ItemRole.LabelRole, self.label_9)
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
@@ -923,32 +925,32 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.bt_website)
 
 
-        self.formLayout_2.setLayout(7, QFormLayout.FieldRole, self.horizontalLayout_2)
+        self.formLayout_2.setLayout(7, QFormLayout.ItemRole.FieldRole, self.horizontalLayout_2)
 
         self.label_33 = QLabel(self.venue_fields)
         self.label_33.setObjectName(u"label_33")
 
-        self.formLayout_2.setWidget(8, QFormLayout.LabelRole, self.label_33)
+        self.formLayout_2.setWidget(8, QFormLayout.ItemRole.LabelRole, self.label_33)
 
         self.field_venue_genres = QLineEdit(self.venue_fields)
         self.field_venue_genres.setObjectName(u"field_venue_genres")
 
-        self.formLayout_2.setWidget(8, QFormLayout.FieldRole, self.field_venue_genres)
+        self.formLayout_2.setWidget(8, QFormLayout.ItemRole.FieldRole, self.field_venue_genres)
 
         self.label_37 = QLabel(self.venue_fields)
         self.label_37.setObjectName(u"label_37")
 
-        self.formLayout_2.setWidget(9, QFormLayout.LabelRole, self.label_37)
+        self.formLayout_2.setWidget(9, QFormLayout.ItemRole.LabelRole, self.label_37)
 
         self.field_venue_capacity = QLineEdit(self.venue_fields)
         self.field_venue_capacity.setObjectName(u"field_venue_capacity")
 
-        self.formLayout_2.setWidget(9, QFormLayout.FieldRole, self.field_venue_capacity)
+        self.formLayout_2.setWidget(9, QFormLayout.ItemRole.FieldRole, self.field_venue_capacity)
 
         self.label_35 = QLabel(self.venue_fields)
         self.label_35.setObjectName(u"label_35")
 
-        self.formLayout_2.setWidget(10, QFormLayout.LabelRole, self.label_35)
+        self.formLayout_2.setWidget(10, QFormLayout.ItemRole.LabelRole, self.label_35)
 
         self.cb_venue_rating = QComboBox(self.venue_fields)
         self.cb_venue_rating.setObjectName(u"cb_venue_rating")
@@ -959,42 +961,42 @@ class Ui_MainWindow(object):
         self.cb_venue_rating.setFont(font)
         self.cb_venue_rating.setFrame(True)
 
-        self.formLayout_2.setWidget(10, QFormLayout.FieldRole, self.cb_venue_rating)
+        self.formLayout_2.setWidget(10, QFormLayout.ItemRole.FieldRole, self.cb_venue_rating)
 
         self.label_27 = QLabel(self.venue_fields)
         self.label_27.setObjectName(u"label_27")
 
-        self.formLayout_2.setWidget(11, QFormLayout.LabelRole, self.label_27)
+        self.formLayout_2.setWidget(11, QFormLayout.ItemRole.LabelRole, self.label_27)
 
         self.field_checkbox_venue_is_discontinued = QCheckBox(self.venue_fields)
         self.field_checkbox_venue_is_discontinued.setObjectName(u"field_checkbox_venue_is_discontinued")
 
-        self.formLayout_2.setWidget(11, QFormLayout.FieldRole, self.field_checkbox_venue_is_discontinued)
+        self.formLayout_2.setWidget(11, QFormLayout.ItemRole.FieldRole, self.field_checkbox_venue_is_discontinued)
 
         self.label_11 = QLabel(self.venue_fields)
         self.label_11.setObjectName(u"label_11")
 
-        self.formLayout_2.setWidget(12, QFormLayout.LabelRole, self.label_11)
+        self.formLayout_2.setWidget(12, QFormLayout.ItemRole.LabelRole, self.label_11)
 
         self.field_venue_contact = QLineEdit(self.venue_fields)
         self.field_venue_contact.setObjectName(u"field_venue_contact")
 
-        self.formLayout_2.setWidget(12, QFormLayout.FieldRole, self.field_venue_contact)
+        self.formLayout_2.setWidget(12, QFormLayout.ItemRole.FieldRole, self.field_venue_contact)
 
         self.label_12 = QLabel(self.venue_fields)
         self.label_12.setObjectName(u"label_12")
 
-        self.formLayout_2.setWidget(13, QFormLayout.LabelRole, self.label_12)
+        self.formLayout_2.setWidget(13, QFormLayout.ItemRole.LabelRole, self.label_12)
 
         self.field_venue_phone = QLineEdit(self.venue_fields)
         self.field_venue_phone.setObjectName(u"field_venue_phone")
 
-        self.formLayout_2.setWidget(13, QFormLayout.FieldRole, self.field_venue_phone)
+        self.formLayout_2.setWidget(13, QFormLayout.ItemRole.FieldRole, self.field_venue_phone)
 
         self.label_13 = QLabel(self.venue_fields)
         self.label_13.setObjectName(u"label_13")
 
-        self.formLayout_2.setWidget(14, QFormLayout.LabelRole, self.label_13)
+        self.formLayout_2.setWidget(14, QFormLayout.ItemRole.LabelRole, self.label_13)
 
         self.horizontalLayout_20 = QHBoxLayout()
         self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
@@ -1009,36 +1011,36 @@ class Ui_MainWindow(object):
         self.horizontalLayout_20.addWidget(self.cb_venue_contact_email_hide)
 
 
-        self.formLayout_2.setLayout(14, QFormLayout.FieldRole, self.horizontalLayout_20)
+        self.formLayout_2.setLayout(14, QFormLayout.ItemRole.FieldRole, self.horizontalLayout_20)
 
         self.label_10 = QLabel(self.venue_fields)
         self.label_10.setObjectName(u"label_10")
 
-        self.formLayout_2.setWidget(15, QFormLayout.LabelRole, self.label_10)
+        self.formLayout_2.setWidget(15, QFormLayout.ItemRole.LabelRole, self.label_10)
 
         self.field_venue_info = QPlainTextEdit(self.venue_fields)
         self.field_venue_info.setObjectName(u"field_venue_info")
 
-        self.formLayout_2.setWidget(15, QFormLayout.FieldRole, self.field_venue_info)
+        self.formLayout_2.setWidget(15, QFormLayout.ItemRole.FieldRole, self.field_venue_info)
 
         self.tagsLabel_2 = QLabel(self.venue_fields)
         self.tagsLabel_2.setObjectName(u"tagsLabel_2")
 
-        self.formLayout_2.setWidget(17, QFormLayout.LabelRole, self.tagsLabel_2)
+        self.formLayout_2.setWidget(17, QFormLayout.ItemRole.LabelRole, self.tagsLabel_2)
 
         self.field_venue_country = QComboBox(self.venue_fields)
         self.field_venue_country.setObjectName(u"field_venue_country")
         self.field_venue_country.setEditable(True)
         self.field_venue_country.setMaxVisibleItems(20)
 
-        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.field_venue_country)
+        self.formLayout_2.setWidget(2, QFormLayout.ItemRole.FieldRole, self.field_venue_country)
 
         self.field_venue_city = QComboBox(self.venue_fields)
         self.field_venue_city.setObjectName(u"field_venue_city")
         self.field_venue_city.setEditable(True)
         self.field_venue_city.setMaxVisibleItems(20)
 
-        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.field_venue_city)
+        self.formLayout_2.setWidget(1, QFormLayout.ItemRole.FieldRole, self.field_venue_city)
 
         self.field_venue_cb_tags = QComboBox(self.venue_fields)
         self.field_venue_cb_tags.setObjectName(u"field_venue_cb_tags")
@@ -1046,7 +1048,7 @@ class Ui_MainWindow(object):
         self.field_venue_cb_tags.setEditable(True)
         self.field_venue_cb_tags.setMaxVisibleItems(20)
 
-        self.formLayout_2.setWidget(17, QFormLayout.FieldRole, self.field_venue_cb_tags)
+        self.formLayout_2.setWidget(17, QFormLayout.ItemRole.FieldRole, self.field_venue_cb_tags)
 
 
         self.verticalLayout_7.addLayout(self.formLayout_2)
@@ -1071,8 +1073,6 @@ class Ui_MainWindow(object):
         self.menubar.setGeometry(QRect(0, 0, 1814, 20))
         self.menuDatabases = QMenu(self.menubar)
         self.menuDatabases.setObjectName(u"menuDatabases")
-        self.menuExport = QMenu(self.menubar)
-        self.menuExport.setObjectName(u"menuExport")
         self.menuFolders = QMenu(self.menubar)
         self.menuFolders.setObjectName(u"menuFolders")
         self.menuInfo = QMenu(self.menubar)
@@ -1087,23 +1087,25 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.menubar.addAction(self.menuDatabases.menuAction())
-        self.menubar.addAction(self.menuExport.menuAction())
-        self.menubar.addAction(self.menuFolders.menuAction())
         self.menubar.addAction(self.menuTools.menuAction())
+        self.menubar.addAction(self.menuFolders.menuAction())
         self.menubar.addAction(self.menuCustom_Links.menuAction())
         self.menubar.addAction(self.menuInfo.menuAction())
-        self.menuDatabases.addAction(self.actionBackup)
         self.menuDatabases.addSeparator()
+        self.menuDatabases.addAction(self.actionBackup)
+        self.menuDatabases.addAction(self.actionSettings)
         self.menuDatabases.addAction(self.actionQuit)
-        self.menuExport.addAction(self.actionFuture_Shows)
-        self.menuExport.addAction(self.actionCalendars)
         self.menuFolders.addAction(self.actionOpen_Working_Folder)
         self.menuFolders.addAction(self.actionOpen_Show_Folder)
         self.menuFolders.addAction(self.actionOpen_Backup_Folder)
         self.menuFolders.addAction(self.actionOpen_Root_Folder)
         self.menuInfo.addAction(self.actionAbout)
+        self.menuTools.addSeparator()
         self.menuTools.addAction(self.actionMap)
         self.menuTools.addAction(self.actionTravel_Costs_Calculator)
+        self.menuTools.addSeparator()
+        self.menuTools.addAction(self.actionFuture_Shows)
+        self.menuTools.addAction(self.actionCalendars)
 
         self.retranslateUi(MainWindow)
 
@@ -1114,8 +1116,8 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.actionBackup.setText(QCoreApplication.translate("MainWindow", u"Backup Now", None))
         self.actionQuit.setText(QCoreApplication.translate("MainWindow", u"Quit", None))
-        self.actionFuture_Shows.setText(QCoreApplication.translate("MainWindow", u"Future Shows (.html)", None))
-        self.actionCalendars.setText(QCoreApplication.translate("MainWindow", u"Calendars (.ics)", None))
+        self.actionFuture_Shows.setText(QCoreApplication.translate("MainWindow", u"Export Future Shows", None))
+        self.actionCalendars.setText(QCoreApplication.translate("MainWindow", u"Export Calendars", None))
         self.actionOpen_Working_Folder.setText(QCoreApplication.translate("MainWindow", u"Working Folder", None))
         self.actionOpen_Show_Folder.setText(QCoreApplication.translate("MainWindow", u"Shows", None))
         self.actionOpen_Backup_Folder.setText(QCoreApplication.translate("MainWindow", u"Backups", None))
@@ -1123,6 +1125,7 @@ class Ui_MainWindow(object):
         self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"About", None))
         self.actionTravel_Costs_Calculator.setText(QCoreApplication.translate("MainWindow", u"Travel Costs Calculator", None))
         self.actionMap.setText(QCoreApplication.translate("MainWindow", u"Map", None))
+        self.actionSettings.setText(QCoreApplication.translate("MainWindow", u"Settings", None))
         self.lb_shows_title.setText(QCoreApplication.translate("MainWindow", u"SHOWS", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Date", None))
 #if QT_CONFIG(tooltip)
@@ -1159,6 +1162,7 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(tooltip)
         self.field_show_contact.setToolTip(QCoreApplication.translate("MainWindow", u"Contact person for this show", None))
 #endif // QT_CONFIG(tooltip)
+        self.field_show_contact.setPlaceholderText("")
         self.label_16.setText(QCoreApplication.translate("MainWindow", u"Phone", None))
 #if QT_CONFIG(tooltip)
         self.field_show_phone.setToolTip(QCoreApplication.translate("MainWindow", u"Phone number of the contact person", None))
@@ -1276,7 +1280,10 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(tooltip)
         self.cb_monitor.setToolTip(QCoreApplication.translate("MainWindow", u"Monitor selection\n"
 "Get Information according to Searches and Filters\n"
-"(except Notes and Paths)", None))
+"(except Notes)", None))
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(tooltip)
+        self.bt_monitor_menu.setToolTip(QCoreApplication.translate("MainWindow", u"Monitor actions", None))
 #endif // QT_CONFIG(tooltip)
         self.bt_monitor_menu.setText(QCoreApplication.translate("MainWindow", u"...", None))
 #if QT_CONFIG(tooltip)
@@ -1428,8 +1435,7 @@ class Ui_MainWindow(object):
         self.bt_save_venue.setToolTip(QCoreApplication.translate("MainWindow", u"Save current Venue/Event", None))
 #endif // QT_CONFIG(tooltip)
         self.bt_save_venue.setText(QCoreApplication.translate("MainWindow", u"Save Venue / Event", None))
-        self.menuDatabases.setTitle(QCoreApplication.translate("MainWindow", u"Databases", None))
-        self.menuExport.setTitle(QCoreApplication.translate("MainWindow", u"Export", None))
+        self.menuDatabases.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuFolders.setTitle(QCoreApplication.translate("MainWindow", u"Folders", None))
         self.menuInfo.setTitle(QCoreApplication.translate("MainWindow", u"Info", None))
         self.menuTools.setTitle(QCoreApplication.translate("MainWindow", u"Tools", None))

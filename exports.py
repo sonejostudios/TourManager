@@ -64,7 +64,7 @@ def export_show_calendar(df_shows, workdir_path, show_status_list): # SHOWS
     for i, row in df_shows.iterrows():
         if row["Status"] != 4: # export all shows except CANCELLED
             e = Event()
-            e.summary = row["Artists"] + ": " + row["City"] + " - " + row["Venue"] + " (" + row["Country"] + ")"
+            e.summary = row["Artist"] + ": " + row["City"] + " - " + row["Venue"] + " (" + row["Country"] + ")"
 
             status_text = show_status_list[row["Status"]]
             e.description = ("Show Status: " + status_text +

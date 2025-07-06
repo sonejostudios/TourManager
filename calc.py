@@ -69,8 +69,11 @@ class CalcDialog(QDialog):
 
             # generate text
             text = str(distance * back_and_forth) + " " + self.config_distance_unit + " * " + str(round(price,2)) + " " + self.config_currency + "/" + self.config_distance_unit + " = " + str(result) + " " + self.config_currency
-            if self.config_calc_dec_sep not in ["", "."]: # replace decimal separator
+
+            # replace decimal separator if needed
+            if self.config_calc_dec_sep not in ["", "."]:
                 text = text.replace(".", self.config_calc_dec_sep)
+
             self.ui.travel_costs_text_label.setText(text)
 
             # enable button

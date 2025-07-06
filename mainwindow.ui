@@ -288,6 +288,9 @@ Use the venue list to change it</string>
               <property name="toolTip">
                <string>Contact person for this show</string>
               </property>
+              <property name="placeholderText">
+               <string/>
+              </property>
              </widget>
             </item>
             <item row="5" column="0">
@@ -960,7 +963,7 @@ Use the venue list to change it</string>
                  <property name="toolTip">
                   <string>Monitor selection
 Get Information according to Searches and Filters
-(except Notes and Paths)</string>
+(except Notes)</string>
                  </property>
                 </widget>
                </item>
@@ -971,6 +974,9 @@ Get Information according to Searches and Filters
                    <width>0</width>
                    <height>31</height>
                   </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Monitor actions</string>
                  </property>
                  <property name="text">
                   <string>...</string>
@@ -1888,18 +1894,12 @@ Bla</string>
    </property>
    <widget class="QMenu" name="menuDatabases">
     <property name="title">
-     <string>Databases</string>
+     <string>File</string>
     </property>
-    <addaction name="actionBackup"/>
     <addaction name="separator"/>
+    <addaction name="actionBackup"/>
+    <addaction name="actionSettings"/>
     <addaction name="actionQuit"/>
-   </widget>
-   <widget class="QMenu" name="menuExport">
-    <property name="title">
-     <string>Export</string>
-    </property>
-    <addaction name="actionFuture_Shows"/>
-    <addaction name="actionCalendars"/>
    </widget>
    <widget class="QMenu" name="menuFolders">
     <property name="title">
@@ -1920,8 +1920,12 @@ Bla</string>
     <property name="title">
      <string>Tools</string>
     </property>
+    <addaction name="separator"/>
     <addaction name="actionMap"/>
     <addaction name="actionTravel_Costs_Calculator"/>
+    <addaction name="separator"/>
+    <addaction name="actionFuture_Shows"/>
+    <addaction name="actionCalendars"/>
    </widget>
    <widget class="QMenu" name="menuCustom_Links">
     <property name="title">
@@ -1929,9 +1933,8 @@ Bla</string>
     </property>
    </widget>
    <addaction name="menuDatabases"/>
-   <addaction name="menuExport"/>
-   <addaction name="menuFolders"/>
    <addaction name="menuTools"/>
+   <addaction name="menuFolders"/>
    <addaction name="menuCustom_Links"/>
    <addaction name="menuInfo"/>
   </widget>
@@ -1948,12 +1951,12 @@ Bla</string>
   </action>
   <action name="actionFuture_Shows">
    <property name="text">
-    <string>Future Shows (.html)</string>
+    <string>Export Future Shows</string>
    </property>
   </action>
   <action name="actionCalendars">
    <property name="text">
-    <string>Calendars (.ics)</string>
+    <string>Export Calendars</string>
    </property>
   </action>
   <action name="actionOpen_Working_Folder">
@@ -1989,6 +1992,11 @@ Bla</string>
   <action name="actionMap">
    <property name="text">
     <string>Map</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings</string>
    </property>
   </action>
  </widget>

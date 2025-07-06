@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QCompleter
 from PySide6.QtCore import QDate
+from PySide6.QtGui import QBrush, QIcon, QGuiApplication, QAction, QColor, QPalette
 
 
 import os
@@ -161,6 +162,7 @@ def check_venue_is_event(ui): # enable/disable event date fields
             ui.lb_venue_eventend_weekday.setText(get_weekday_name(ui.field_venue_end_dateedit.date()))
 
         ui.lb_venue_event_arrow.setText("<html><head/><body><p>→</p></body></html>")
+        #ui.lb_venue_event_arrow.setText("→")
 
     else:
         ui.field_venue_start_dateedit.setEnabled(False)
@@ -429,6 +431,37 @@ def get_weekday_name(qdate):
     days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     weekday_name = str(days[weekday_int - 1])
     return weekday_name
+
+
+
+def setup_search_comboboxes(cb_search_shows, cb_search_venues):
+    cb_search_shows.lineEdit().setClearButtonEnabled(True)  # add clear button to underlying lineedit
+    cb_search_shows.lineEdit().setPlaceholderText("Search Shows...")  # add placeholder text to underlying lineedit
+    cb_search_venues.lineEdit().setClearButtonEnabled(True)
+    cb_search_venues.lineEdit().setPlaceholderText("Search Venues...")
+
+    # reset placeholder text color back to grey (because qt6.9 makes it black)
+    w = cb_search_shows.lineEdit()
+    pal = w.palette()
+    pal.setColor(QPalette.PlaceholderText, QColor("grey"))
+    w.setPalette(pal)
+    w = cb_search_venues.lineEdit()
+    pal = w.palette()
+    pal.setColor(QPalette.PlaceholderText, QColor("grey"))
+    w.setPalette(pal)
+
+
+
+def on_select_city(parent): # automatically set venue country on venue city selection
+    city = parent.ui.field_venue_city.currentText()
+    country = parent.df_venues.loc[parent.df_venues['VenueCity'] == city, 'VenueCountry'].iloc[0]
+    if country:
+        parent.ui.field_venue_country.setCurrentText(country)
+
+
+
+
+
 
 
 
