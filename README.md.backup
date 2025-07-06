@@ -105,66 +105,6 @@ pip install PySide6 pandas folium ics tabulate humanize pyqtdarktheme-fork
 * Open the `Travel Costs Calculator` and enter that distance to know the travel costs (yellow section)
 
 
-## Config.ini:
-```
-[defaults]
-homebase_city = Homebase City (please setup config.ini)
-homebase_geocoordinates = 0.0, 0.0
-artists = My Artist
-currency = EUR
-distance_unit = km
-travel_unit_price = 0.30
-
-[paths]
-working_directory = 
-
-[settings]
-auto_export_shows = 0
-auto_export_calendars = 0
-map_provider = osm #gmaps
-calc_text_decimal_separator = ,
-custom_links = [("TourManager Web", "https://github.com/sonejostudios/TourManager"), ("|",""), ("App Notes", r"Notes.txt"), ("App Folder", r".")]
-selected_show = 
-start_with_selected_show = 1
-
-[gui]
-theme = none #auto #dark #light
-font_size = #10
-field_area_width = #430
-save_window_size = 0
-window_width = 1700
-window_height = 1000
-start_maximized = 0
-```
-* defaults:
-	* homebase_city = Enter your city or where you want to start your trip.
-	* homebase_geocoordinates = It's geo-coordinates (in decimal form, e.g. 47.994853, 7.843950).
-	* artists = Your default artist's name.
-	* currency = The default currency code you want to use (e.g. EUR or USD).
-	* distance_unit = the default distance unit (e.g. km).
-	* travel_unit_price = The default price per unit (e.g. 0.30€/km).
-
-* paths:
-	* working_directory = Enter the path of your working folder. If empty, the application's folder is used. See chapter "Working Folder".
-
-* settings:
-	* auto_export_shows = If 1, the upcoming shows will be exported as .html on application closing.
-	* auto_export_calendars = If 1, the calendars will be exported as .ics on application closing.
-	* map_provider =  Enter `gmaps` if you want to use google maps instead of open street map.
-    * calc_text_decimal_separator = Set the decimal separator of the Travel Costs Calculator's text.
-    * custom_links = Here you can add your own links to the menu. It can be web links, files and folders. Use the python's list syntax with tuples containing the title and the url/path, like this: `[("title", "url"), ("title", r"path")]`. Use `("|", "")` to add a separator. If you are using windows, don't forget to mark file and folder paths as raw strings (`r"my\path"`), otherwise backslashes will be misinterpreted as escape sign. If empty, the Custom Links menu will be hidden.
-    * selected_show = if `start_with_selected_show = 1`, this variable is used to save the last selected show
-    * start_with_selected_show = If 1, start TourManager with the latest selected show
-
-* gui:
-    * theme = Enter `dark`, `light` or `auto` (follows OS color theme) to use pyqtdarktheme.
-    * font_size = Set the font size. If empty, the default is 10.
-    * field_area_width = Set the with of the field areas (left for the shows, right for the venues). Increase it while increasing font size to match the lool'n'feel. If empty, the default is 430.
-    * save_window_size = If 1, the window size is saved and restored.
-    * window_width = The width of the window (will be overwritten is save_window_size = 1).
-    * window_height = The height of the window (will be overwritten is save_window_size = 1).
-    * start_maximized = Maximize the window on start.
-
 
 
 ## Working Folder vs Application Folder:
@@ -175,7 +115,7 @@ The following files are stored into the working folder:
 * The show folders (`Shows`)
 * The notes (`Notes.txt`)
 * The exported files:
-	* `UpcomingShows.html`
+	* `FutureShows.html`
 	* `TourManagerShows.ics`
 	* `TourManagerEvents.ics`
 	* `TourManagerEventsForecast.ics`
@@ -199,8 +139,8 @@ As you can see, the shared files are placed in the working folder and the user's
 
 In the menu `Export`, you can export the upcoming shows as .html file or the calendars as .ics files. If set up in `config.ini`, these files are automatically exported on application closing.
 
-**Upcoming Shows:** 
-* `UpcomingShows.html`: Open this file (e.g. from your mobile phone) to have a quick view of the upcoming shows. This is really handy when you are on tour without a computer with TourManager
+**Future Shows:** 
+* `FutureShows.html`: Open this file (e.g. from your mobile phone) to have a quick view of the upcoming (and work in progress) shows. This is really handy when you are on tour without access to TourManager.
 
 **Calendars:** 
 Subscribe to these .ics files with your favorite calendar application (only tested with Thunderbird).
