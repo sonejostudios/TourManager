@@ -1,10 +1,10 @@
 Date,City,Venue,Country,VenueID,Artist,Contact,Phone,Email,EmailHide,TechContact,TechPhone,TechEmail,Info,Fee,TravelCosts,Currency,ArrivalTime,TechCheckTime,OpeningTime,ShowTime,FoodDrinks,Accomodation,Breakfast,Print,PrintAddress,Tags,Status,StatusText
-2000-01-01,My City,My Venue,My Country,1,My Artist,Contact Person,,email@contact-person.com,,,,,"Some information about this PLAYED show.
+2000-01-01,My City,My Venue Example,My Country,1,My Artist,Contact Person,00-0000000,email@contact-person.com,0,Technician,email@technician.com,00-0000000,"Some information about this PLAYED show.
 
 * Use the Venue List on the right to change the venue assigned to this show (and hit Save Show)
 * Create a Show Folder if you need a place to store documents for this show
-* Tagging is a great way to categorize the shows for future searches",0.0,0.0,EUR,,,,,,,,,,#my_show_tag,1,PLAYED
-2000-01-02,My Other City,My Event,My Country,2,My Artist 2,Other Contact Person,,email@other-contact.com,,,,,Some information about this UPCOMING show.,0.0,0.0,EUR,,,,,,,,,,"#my_show_tag, #my_other_show_tag",0,UPCOMING
-2000-01-03,My City,My Venue,My Country,1,My Artist,Other Contact Person,,email@other-contact.com,,,,,"This Show was CANCELLED (greyed out).
-It is also assigned to the first Venue.",0.0,0.0,EUR,,,,,,,,,,#my_other_show_tag,4,CANCELLED
-2000-01-04,My Other City,My Event,My Country,2,My Artist 2,Other Contact Person,,email@other-contact.com,,,,,Some information about this WORK IN PROGRESS show.,0.0,0.0,EUR,,,,,,,,,,"#my_show_tag, #my_other_show_tag",2,WORK IN PROGRESS
+* Tagging is a great way to categorize the shows for future searches",500.0,100.0,EUR,17:00,18:00,21:00,22:00,Yes,"Yes, Hotel",Yes,100 Posters,Where to send print material,#show-tag,1,PLAYED
+2000-01-02,My Other City,My Event,My Country,2,My Artist 2,Other Contact Person,,email@other-contact.com,0,,,,Some information about this UPCOMING show.,0.0,0.0,EUR,,,,,,,,,,#show-tag #another-show-tag,0,UPCOMING
+2000-01-03,My City,My Venue,My Country,1,My Artist,Other Contact Person,,email@other-contact.com,0,,,,"This Show was CANCELLED (greyed out).
+It is also assigned to the first Venue.",0.0,0.0,EUR,,,,,,,,,,#another-show-tag,4,CANCELLED
+2000-01-04,My Other City,My Event,My Country,2,My Artist 2,Other Contact Person,,email@other-contact.com,0,,,,Some information about this WORK IN PROGRESS show.,0.0,0.0,EUR,,,,,,,,,,#show-tag #another-show-tag,2,WORK IN PROGRESS

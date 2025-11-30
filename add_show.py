@@ -1,6 +1,5 @@
-from PySide6.QtWidgets import QDialog, QDialogButtonBox, QCalendarWidget
-from PySide6.QtCore import QDate, Qt, QLocale
-
+from PySide6.QtWidgets import QDialog, QCalendarWidget
+from PySide6.QtCore import Qt
 
 # import mainwindow.py as module and it's main class
 from add_show_dialog import Ui_AddShowDialog

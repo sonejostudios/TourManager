@@ -1,7 +1,4 @@
-import time
-
 from PySide6.QtWidgets import QDialog, QDialogButtonBox
-from PySide6.QtCore import QDate
 from PySide6.QtGui import QGuiApplication
 
 # import mainwindow.py as module and it's main class

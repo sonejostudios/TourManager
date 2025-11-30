@@ -1,17 +1,15 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QStyleFactory, QCalendarWidget, QTableView, QTableWidgetItem, QHeaderView, QMessageBox, QInputDialog, QLineEdit, QListWidgetItem, QDialog, QWidget, QFileDialog, QAbstractItemView
-from PySide6.QtCore import QFile, QDate, QRectF, Qt, QUrl, QDir
-from PySide6.QtGui import QPainter, QColor, QIcon, QFont, QKeySequence, QScreen, QBrush, QGuiApplication, QCursor
+from PySide6.QtWidgets import QTableWidgetItem, QDialog, QFileDialog, QAbstractItemView
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QGuiApplication
+import os
 
 # import settings_dialog.py as module and it's main class
 from settings_dialog import Ui_SettingsDialog
 
-import os
-import pandas as pd
-
 
 
 WORKDIR_TOOLTIP = ("The working folder with the databases, show folders, calendars, and all other relevant files.\n"
-                   "If none, the application's folder will be used\n"
+                   "If none, the application's folder (.) will be used.\n"
                    "For multi-user usage, select a the path to a mirrored cloud folder.\n\n"
                    "WARNING:\nIf no databases can't be found in the working folder, TourManager won't start!") # need a way to start settings even if no database found
 
@@ -53,15 +51,12 @@ class SettingsDialog(QDialog):
         self.ui.table_custom_links.setDragDropMode(QAbstractItemView.DragDropMode.InternalMove)
 
 
-
         # show wanted tab
         if show_tab != None:
             self.ui.tabWidget.setCurrentIndex(show_tab)
 
-
         # hide unwanted widgets
         self.ui.bt_test.hide()
-
 
 
 
@@ -77,7 +72,6 @@ class SettingsDialog(QDialog):
         self.ui.bt_insert_separator.clicked.connect(lambda: self.insert_link("|"))
         self.ui.bt_delete_link.clicked.connect(self.delete_link)
         self.ui.bt_test.clicked.connect(self.get_custom_links_list)
-
 
 
 

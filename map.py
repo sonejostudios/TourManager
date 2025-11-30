@@ -1,10 +1,8 @@
-import pandas as pd
 import folium
 import folium.plugins as plugins
 
 
 def generate_map_with_venues(df_venues_in_list, homebase_city, homebase_geocoordinates):
-    # freiburg = "47.994853, 7.843950"
     geopos_split = homebase_geocoordinates.split(",")
 
     # create map with homebase as center point

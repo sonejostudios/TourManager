@@ -1,7 +1,7 @@
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QStyleFactory, QTableWidgetItem, QHeaderView, QMessageBox, QListWidgetItem, QCalendarWidget, QDialog, QMenu, QInputDialog, QCompleter, QToolButton, QAbstractButton, QFileDialog
-from PySide6.QtCore import QDate, Qt, QLocale
-from PySide6.QtGui import QBrush, QIcon, QGuiApplication, QAction, QColor, QPalette
+from PySide6.QtWidgets import QApplication, QMainWindow, QStyleFactory, QTableWidgetItem, QHeaderView, QMessageBox, QListWidgetItem, QCalendarWidget, QMenu, QToolButton
+from PySide6.QtCore import QDate, Qt
+from PySide6.QtGui import QBrush, QGuiApplication
 
 # system modules
 import os
@@ -24,59 +24,34 @@ import calc
 import exports
 
 
-
-
-
-
-# in PyCharm:
-# in Run Configuration, Run Before Launch, add External Tool
-# Command: pyside2-uic
-# Arguments: mainwindow.ui -o mainwindow.py
-# Folder: $ProjectFileDir$
-
-# navigate back: ctrl+alt+pageup
-
-
+# pandas options
 pd.set_option('display.max_columns', 22)
 #pd.set_option('display.max_rows', 10)
 pd.set_option('display.width', 2000)
 
 
-# pyinstaller:
+# In PyCharm:
+# in Run Configuration, Run Before Launch, add External Tool
+# Command: pyside6-uic
+# Arguments: mainwindow.ui -o mainwindow.py
+# Folder: $ProjectFileDir$
+
+# Compile resources:
+# Command: pyside6-rcc
+# Arguments: images.qrc -o images_rc.py
+
+# Pycharm navigate back: ctrl+alt+pageup
+
+# Pyinstaller:
 # pyinstaller -w -n TourManager --icon=icon.ico --hidden-import=tabulate --hidden-import=pyqtdarktheme-fork main.py
 
-
-# dependencies
+# Dependencies:
 # PySide6 pandas folium ics tabulate humanize pyqtdarktheme-fork
 
 
 
-# todo:
-# logo in about not shown with pyinstaller -> use qrc
-# monitor tags: not needed anymore?
-# alarms (via csv?) -> popups on alarm day to remember things like sending poster or gig request
-
-# backup notes
-# rework notes to save only when app is closing
-# multi user merge (needs save only on quit)
-# stats amount of shows/year
-# monitor nice tables (needs monofont)
-
-# add field for distance to homebase? (with automatic travel costs)
-# logs?
-# print post label for prints
-#
-# config: startbak as option or remove it
-# add venue fields: latest booking request date?
-# change to country codes?
-
-
-
-
-
-
-VERSION = "0.1.22"
-DATE = ("2025-07-06")
+VERSION = "1.0.0"
+DATE = ("2025-11-30")
 
 DB_SHOWS = "shows.csv"
 DB_VENUES = "venues.csv"
@@ -102,7 +77,6 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
         print(QStyleFactory.keys()) # qt styles
         self.setWindowTitle("TourManager " + VERSION)
-        self.setWindowIcon(QIcon("icon.png"))
 
         # load config
         self.load_config()
@@ -198,18 +172,12 @@ class MainWindow(QMainWindow):
         self.select_venue() # needed again after gui_actions.check_venue_is_event
         self.ui.list_show.setFocus()
 
-
         # hide unused widgets
         self.ui.my_button.hide()
         self.ui.table_show.hide()
         self.ui.field_show_show_id.hide()
         self.ui.field_show_venue_id.hide()
         self.ui.field_venue_venue_id.hide()
-
-        # hide unfinished stuff
-
-
-
 
 
 
@@ -322,7 +290,7 @@ class MainWindow(QMainWindow):
 
 
 
-    # --------------------------------------------- CHECKS, CONFIG & DATABASES ---------------------------------------------
+    # ------------------------------------------ CHECKS, CONFIG & DATABASES ------------------------------------------
 
     def load_config(self):
         # create object
@@ -415,10 +383,7 @@ class MainWindow(QMainWindow):
         self.ui.lb_homebase.setText(self.config_homebase_city)
         homebase_text = "Homebase:\n"+self.config_homebase_city + "\n" + self.config_homebase_geocoordinates
         self.ui.lb_homebase.setToolTip(homebase_text)
-        #self.ui.lb_venues_title.setToolTip(homebase_text)
-        #self.ui.lb_shows_title.setToolTip(homebase_text)
         self.ui.bt_venue_route.setToolTip("Show directions from " + self.config_homebase_city + " to this address on the web")
-        #self.ui.statusbar.showMessage(self.config_homebase_city, 3000)
 
 
         # add custom links to menu (or hide menu item if no custome links are provided)
@@ -477,10 +442,8 @@ class MainWindow(QMainWindow):
             self.resize(int(self.config_window_width), int(self.config_window_height))
 
 
-
         # some important gui tuning (not in config)
         gui_actions.setup_search_comboboxes(self.ui.cb_search_shows, self.ui.cb_search_venues)
-
 
 
 
@@ -578,10 +541,7 @@ class MainWindow(QMainWindow):
 
 
 
-
-
     def on_search_shows(self): # search shows
-
         self.show_search_flag = True # -> Flag!
 
         # get status filter and its id
@@ -994,8 +954,6 @@ class MainWindow(QMainWindow):
 
 
 
-
-
     def on_save_venue(self): # save venue button
         venue_id = int(self.ui.field_venue_venue_id.text())
         self.save_venue(venue_id)
@@ -1017,8 +975,6 @@ class MainWindow(QMainWindow):
 
         # save df_venues to file
         self.save_df_venues_to_file()
-
-
 
 
 
@@ -1259,7 +1215,8 @@ class MainWindow(QMainWindow):
                 "License: GPL v.3<br><br>"
                 "<a href='https://github.com/sonejostudios/TourManager'>https://github.com/sonejostudios/TourManager</a><br>")
 
-        about = QMessageBox.about(self, "About",text)
+        about = QMessageBox.about(self, "About", text)
+        #about.setIconPixmap(QPixmap("logo.png"))
 
 
 
@@ -1274,11 +1231,9 @@ class MainWindow(QMainWindow):
 
 
     def closeEvent(self, event):
-
         # trigger monitor combo box to save monitor notes
         self.ui.cb_monitor.setCurrentIndex(1)
         monitor.fill_monitor(self)
-
 
         # remove lock file
         self.remove_lock_file()
@@ -1288,16 +1243,16 @@ class MainWindow(QMainWindow):
 
 
         # ask for saving before closing
-    #     close = QMessageBox.question(self, "QUIT", "Do you want to save the databases?", QMessageBox.Save | QMessageBox.Close | QMessageBox.Cancel, QMessageBox.Save)
-    #     if close == QMessageBox.Save:
-    #         print("save database!")
-    #         event.accept()
-    #     elif close == QMessageBox.Close:
-    #         print("close app without saving database")
-    #         event.accept()
-    #     else:
-    #         print("go back to app")
-    #         event.ignore()
+        # close = QMessageBox.question(self, "QUIT", "Do you want to save the databases?", QMessageBox.Save | QMessageBox.Close | QMessageBox.Cancel, QMessageBox.Save)
+        # if close == QMessageBox.Save:
+        #     print("save database!")
+        #     event.accept()
+        # elif close == QMessageBox.Close:
+        #     print("close app without saving database")
+        #     event.accept()
+        # else:
+        #     print("go back to app")
+        #     event.ignore()
 
 
         # bye bye
@@ -1392,23 +1347,20 @@ class MainWindow(QMainWindow):
         # show in table
         selected_show = show.fillna("").astype(str)
         show_data = list(zip(selected_show.index, selected_show))
-
         table = self.ui.table_show
         table.setRowCount(len(show_data))
         table.setColumnCount(2)
-
         for i, (name, code) in enumerate(show_data):
             item_name = QTableWidgetItem(name)
             item_code = QTableWidgetItem(code)
             table.setItem(i, 0, item_name)
             table.setItem(i, 1, item_code)
-
         table.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+
 
 
     def test(self):
         print("test!")
-
 
     def test_arg(self, arg):
         print(arg)
@@ -1425,14 +1377,6 @@ if __name__ == "__main__":
 
     style = QStyleFactory.create('Fusion')
     app.setStyle(style)
-
-    # import qdarktheme
-    # qdarktheme.setup_theme(custom_colors={"input.background": "#1C1D1F"})
-    # qdarktheme.setup_theme("light")
-
-    # from qt_material import apply_stylesheet
-    # apply_stylesheet(app, theme='dark_lightgreen_tm.xml')
-
 
     window = MainWindow()
     window.show()

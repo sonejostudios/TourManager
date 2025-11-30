@@ -24,12 +24,16 @@ from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QCheckBox, QCombo
     QPushButton, QSizePolicy, QSpacerItem, QSplitter,
     QStatusBar, QTableWidget, QTableWidgetItem, QToolButton,
     QVBoxLayout, QWidget)
+import images_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1814, 1000)
+        icon = QIcon()
+        icon.addFile(u":/TourManagerImages/icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        MainWindow.setWindowIcon(icon)
         self.actionBackup = QAction(MainWindow)
         self.actionBackup.setObjectName(u"actionBackup")
         self.actionQuit = QAction(MainWindow)
@@ -1143,7 +1147,7 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
 #if QT_CONFIG(tooltip)
         self.bt_assign_venue_to_show.setToolTip(QCoreApplication.translate("MainWindow", u"Assign the selected venue to the selected show\n"
-"(or double-click on venue)", None))
+"(same as double-click on venue)", None))
 #endif // QT_CONFIG(tooltip)
         self.bt_assign_venue_to_show.setText(QCoreApplication.translate("MainWindow", u"Assign Venue", None))
 #if QT_CONFIG(tooltip)

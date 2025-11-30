@@ -1,6 +1,5 @@
 from PySide6.QtWidgets import QDialog, QDialogButtonBox
 
-
 # import mainwindow.py as module and it's main class
 from add_venue_dialog import Ui_AddVenueDialog
 

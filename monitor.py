@@ -3,16 +3,15 @@ import sys
 import datetime
 import humanize
 
-CB_MONITOR_ITEMS = ["Notes",                                             # 0
-                    "Statistics (Shows)",                                # 1
-                    "Date - City - Venue (Shows)",                       # 2
-                    "Artists: Date - City - Venue (Shows)",              # 3
-                    "Artists & Shows (Shows)",                           # 4
-                    "Fee, Travel Costs, SUM, Date, Venue, Currency (Shows)",   # 5
-                    "Contact Emails (Shows)",                            # 6
-                    "Contact Emails (Venues)",                           # 7
-                    "Tags (Shows)",                                      # 8
-                    "Tags (Venues)"]                                     # 9
+CB_MONITOR_ITEMS = ["Notes",                                                    # 0
+                    "Statistics (Shows)",                                       # 1
+                    "Date - City - Venue (Shows)",                              # 2
+                    "Artists: Date - City - Venue (Shows)",                     # 3
+                    "Artists & Shows (Shows)",                                  # 4
+                    "Fee, Travel Costs, SUM, Date, Venue, Currency (Shows)",    # 5
+                    "Contact Emails (Shows)",                                   # 6
+                    "Contact Emails (Venues)"]                                  # 7
+
 
 
 
@@ -30,32 +29,25 @@ def fill_monitor(parent):
             file.write("Welcome to TourManager!")
 
 
-    # open notes
+    # open notes (monitor_cb_index == 0)
     if monitor_cb_index == 0:
         with open(notes_path, "r+", encoding='utf-8') as file:
             parent.ui.txt_monitor.setPlainText(file.read())
         parent.notes_opened = True
 
 
-    # paths
-    # elif monitor_cb_index == 1:
-    #     save_notes(parent, notes_path)
-    #     set_paths_text(parent)
-
-
-    # statistics
+    # statistics (monitor_cb_index == 1)
     elif monitor_cb_index == 1:
         save_notes(parent, notes_path)
         set_stats_text(parent)
 
 
-    # all iterations (monitor_cb_index == 2, 3, 4, 5, 6, 7, 8, 9)
+    # all iterations (monitor_cb_index == 2, 3, 4, 5, 6, 7)
     else:
         save_notes(parent, notes_path)
         # get text and insert into widget
         monitor_text = get_monitor_iterated_text(monitor_cb_index, parent.df_shows_in_list, parent.df_venues_in_list)
         parent.ui.txt_monitor.setPlainText(monitor_text)
-
 
 
 
@@ -65,20 +57,6 @@ def save_notes(parent, notes_path):
         with open(notes_path, "w", encoding='utf-8') as file:
             file.write(parent.ui.txt_monitor.toPlainText())
         parent.notes_opened = False
-
-
-
-def set_paths_text(parent):
-    workdir = os.path.abspath(parent.config_workdir)
-    calendar_shows = os.path.abspath(os.path.join(parent.config_workdir, "TourManagerShows.ics"))
-    calendar_events = os.path.abspath(os.path.join(parent.config_workdir, "TourManagerEvents.ics"))
-    calendar_events_forecast = os.path.abspath(os.path.join(parent.config_workdir, "TourManagerEventsForecast.ics"))
-
-    monitor_text = ("Working Directory:\n" + workdir + 
-                    "\n\nShow Calendar:\nfile://" + calendar_shows +
-                    "\n\nEvent Calendar:\nfile://" + calendar_events +
-                    "\n\nEvent Forecast Calendar:\nfile://" + calendar_events_forecast)
-    parent.ui.txt_monitor.setPlainText(monitor_text)
 
 
 
@@ -125,7 +103,7 @@ def get_monitor_iterated_text(monitor_cb_index, df_shows_in_list, df_venues_in_l
     fee_list = []
 
     # iterate SHOWS (df_shows_in_list)
-    if monitor_cb_index in [2,3,4,5,6,8]:
+    if monitor_cb_index in [2,3,4,5,6]:
         for index, row in df_shows_in_list.iterrows():
             if monitor_cb_index == 2:
                 show_str = str(row["Date"]) + " - " + str(row["City"]) + " - " + str(row["Venue"])
@@ -139,22 +117,15 @@ def get_monitor_iterated_text(monitor_cb_index, df_shows_in_list, df_venues_in_l
             elif monitor_cb_index == 6: # show emails
                 if bool(row["EmailHide"]) == False:
                     show_str = str(row["Email"])
-            elif monitor_cb_index == 8: # show tags
-                show_str = str(row["Tags"])
-
             # append to text
             monitor_text += show_str + "\n"
 
-
-
     # iterate VENUES (df_venues_in_list)
-    if monitor_cb_index in [7,9]:
+    if monitor_cb_index in [7]:
         for index, row in df_venues_in_list.iterrows():
             if monitor_cb_index == 7: # venue emails
                 if bool(row["VenueEmailHide"]) == False:
                     venue_str = str(row["VenueEmail"])
-            elif monitor_cb_index == 9: # venue tags
-                venue_str = str(row["VenueTags"])
 
             # append to text
             monitor_text += venue_str + "\n"
@@ -185,20 +156,6 @@ def get_monitor_iterated_text(monitor_cb_index, df_shows_in_list, df_venues_in_l
         for i in email_list:
             if "@" in i:
                 monitor_text += i + "\n"
-
-
-    if monitor_cb_index in [8, 9]: # tags (shows and venues)
-        tag_list = set(monitor_text.splitlines())
-        final_tag_list = []
-        for i in tag_list:
-            sublist = i.split()
-            for j in sublist:
-                final_tag_list.append(j.replace(",", "").strip())
-        final_tag_list = sorted(set(final_tag_list), key=str.casefold)
-        monitor_text = ""
-        for i in final_tag_list:
-            monitor_text += i + "\n"
-
 
 
 

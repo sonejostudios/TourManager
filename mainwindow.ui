@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="images.qrc">
+    <normaloff>:/TourManagerImages/icon.png</normaloff>:/TourManagerImages/icon.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -215,7 +219,7 @@ Use the venue list to change it</string>
                 </property>
                 <property name="toolTip">
                  <string>Assign the selected venue to the selected show
-(or double-click on venue)</string>
+(same as double-click on venue)</string>
                 </property>
                 <property name="text">
                  <string>Assign Venue</string>
@@ -2000,6 +2004,8 @@ Bla</string>
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
  <connections/>
 </ui>
