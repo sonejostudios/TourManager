@@ -163,21 +163,26 @@ Subscribe to these .ics files with your favorite calendar application (only test
 
 
 ## More Screenshots:
-
-![screenshot](https://github.com/sonejostudios/TourManager/blob/main/TourManagerThemes.png "TourManagerThemes")
-
 Two themes are available:
 1. Fusion (default, following the OS' dark/light theme)
 2. PyQtDarkTheme (dark, light, and auto)
+3. 
+![screenshot](https://github.com/sonejostudios/TourManager/blob/main/TourManagerThemes.png "TourManagerThemes")
 
-
-![screenshot](https://github.com/sonejostudios/TourManager/blob/main/TourManagerCalc.png "TourManagerCal")
+---
 
 Travel Cost Calculator: Handy little tool to calculate travel costs and generate a ready-to-paste calculation text.
 
-![screenshot](https://github.com/sonejostudios/TourManager/blob/main/TourManagerSettings.png "TourManagerSettings")
+![screenshot](https://github.com/sonejostudios/TourManager/blob/main/TourManagerCalc.png "TourManagerCal")
+
+
+---
 
 Settings window with Default, View, Paths, Export and Custom Links editor.
+
+![screenshot](https://github.com/sonejostudios/TourManager/blob/main/TourManagerSettings.png "TourManagerSettings")
+
+
 
 
 
