@@ -19,10 +19,10 @@ It will definitely reduce the boring tasks, making the booking processes enjoyab
 
 * Manage your shows
 * Manage your venues and events
-* Map
+* Map (showing locations of venues and events)
 * Travel costs calculator
 * Locate addresses and get directions on OSM or Gmaps (via Web Browser)
-* Generate calendar files for calendar applications
+* Generate calendar files for calendar applications, including one-year forecast
 * Notes
 * Statistics
 * Search shows and venues
@@ -32,11 +32,13 @@ It will definitely reduce the boring tasks, making the booking processes enjoyab
 * Tags
 * Backup
 * Dedicated working folder (can be shared with cloud applications)
+* Settings
+* Custom links (add your links to website and files into the main menu)
+* Themes (dark and light)
 * and many many more...
   
 
 ## Easy Installation (Binaries):
-
 
 **Linux:**
 Grab the [newest release](https://github.com/sonejostudios/TourManager/releases) linux zip file, extract it, cd into folder and run
@@ -72,37 +74,32 @@ pip install PySide6 pandas folium ics tabulate humanize pyqtdarktheme-fork
 
 ![screenshot](https://github.com/sonejostudios/TourManager/blob/main/TourManagerSections.png "TourManagerSections")
 
-1. First, open `config.ini` and set it up as wanted: 
-* Add your homebase city and its geo-coordinates
-* Your default artist name, 
-* Default currency
-* Distance unit
-* Default travel price
 
-2. Start TourManager. You will see a example databases with 3 shows and venues/events. Read the comments to get more information.
+1. Start TourManager. You will see a example databases with 3 shows and venues/events. Read the comments to get more information.
 
-3. Create a new venue:
+2. Create a new venue:
 * Click on `Add New` in the venue section on the bottom right (green section)
 * Enter the venue's name, city and country. The venue is created
 * Fill the venue fields as wanted: add the address, geo-coordinates, website, etc. and hit `Save Venue`
 * If you want, press `Locate` to locate the address, `Route` to calculate the directions, `Map` (yellow section) to show the venues on the map
 
-4. Create a new show:
+3. Create a new show:
 * Select the new venue and press `Add New` in the show section on the bottom left (red section)
-* Set a date and press ok. The show is created with the selected venue
+* Set a date and press OK. The show is created with the selected venue
 * Fill the show fields as wanted: set the booking status, add contacts, create a specific show folder if needed, and hit `Save Show`
 * To change the venue, just select a new one in the venue list, press `Assign Venue`(top left) and `Save Show`
 
-5. Important:
+4. Important:
 * After filling in the fields (shows and venues), always hit `Save Show` or `Save Venue`, otherwise, your modifications will not be saved.
 
-6. Play around:
+5. Play around:
 * Search the show list and apply booking status filters
 * Search the venue list and apply venue filters
 * Explore the Monitor (according to searches and filters!): Notes, Paths, Statistics, Lists, Emails and Tags (blue section)
 * Explore the Map (according to venue searches and venue filters!): Click on the venue's 'markers to show more information (yellow section)
 * Press `Route` to get the distance to your homebase
 * Open the `Travel Costs Calculator` and enter that distance to know the travel costs (yellow section)
+
 
 
 
@@ -120,24 +117,24 @@ The following files are stored into the working folder:
 	* `TourManagerEvents.ics`
 	* `TourManagerEventsForecast.ics`
 
-You can use a shared folder that is synchronized over internet to use TourManager from different computers and users. It works nicely with DropBox but should also work with others like NextCloud, etc. Using the working folder that way, you can have access to the files from everywhere. So you can have a look at the upcoming show on your mobile phone and subscribe the calendars with your calendar application.
+You can use a shared folder that is synchronized over internet to use TourManager from different computers and users. It works nicely with DropBox but should also work with others like NextCloud, etc. Using the working folder that way, you can have access to the files from everywhere. So you can have a look at the upcoming show on your mobile phone and subscribe the calendars with your calendar applications.
 
 
-### Working Folder:
+### Application Folder:
 The following files are stored into the application folder:
 
 * All application files
 * The database backups (`Backups` folder)
 * `config.ini`
 
-As you can see, the shared files are placed in the working folder and the user's configuration files and backups in the application folder.
+As you can see, the shared files are placed in the working folder and the user's configuration files and backups in the application folder. Using a cloud service, this allows to have different configurations for each client while using the same working folder.
 
 
 
 
 ## Exports:
 
-In the menu `Export`, you can export the upcoming shows as .html file or the calendars as .ics files. If set up in `config.ini`, these files are automatically exported on application closing.
+In the menu `Export`, you can export the upcoming shows as .html file or the calendars as .ics files. If set up in the Settings, these files are automatically exported on application closing.
 
 **Future Shows:** 
 * `FutureShows.html`: Open this file (e.g. from your mobile phone) to have a quick view of the upcoming (and work in progress) shows. This is really handy when you are on tour without access to TourManager.
@@ -165,6 +162,22 @@ Subscribe to these .ics files with your favorite calendar application (only test
 
 
 
+## More Screenshots:
+
+![screenshot](https://github.com/sonejostudios/TourManager/blob/main/TourManagerThemes.png "TourManagerThemes")
+
+Two themes are available:
+1. Fusion (default, following the OS' dark/light theme)
+2. PyQtDarkTheme (dark, light, and auto)
+
+
+![screenshot](https://github.com/sonejostudios/TourManager/blob/main/TourManagerCalc.png "TourManagerCal")
+
+Travel Cost Calculator: Handy little tool to calculate travel costs and generate a ready-to-paste calculation text.
+
+![screenshot](https://github.com/sonejostudios/TourManager/blob/main/TourManagerSettings.png "TourManagerSettings")
+
+Settings window with Default, View, Paths, Export and Custom Links editor.
 
 
 
