@@ -90,12 +90,12 @@ pip install PySide6 pandas folium ics tabulate humanize pyqtdarktheme-fork
 * To change the venue, just select a new one in the venue list, press `Assign Venue`(top left) and `Save Show`
 
 4. Important:
-* After filling in the fields (shows and venues), always hit `Save Show` or `Save Venue`, otherwise, your modifications will not be saved.
+* After filling in the fields (shows and venues), always hit `Save Show` or `Save Venue / Event`, otherwise, your modifications will not be saved.
 
 5. Play around:
 * Search the show list and apply booking status filters
 * Search the venue list and apply venue filters
-* Explore the Monitor (according to searches and filters!): Notes, Paths, Statistics, Lists, Emails and Tags (blue section)
+* Explore the Monitor (according to searches and filters!): Notes, Paths, Statistics, Lists and Emails (blue section)
 * Explore the Map (according to venue searches and venue filters!): Click on the venue's 'markers to show more information (yellow section)
 * Press `Route` to get the distance to your homebase
 * Open the `Travel Costs Calculator` and enter that distance to know the travel costs (yellow section)
@@ -117,7 +117,7 @@ The following files are stored into the working folder:
 	* `TourManagerEvents.ics`
 	* `TourManagerEventsForecast.ics`
 
-You can use a shared folder that is synchronized over internet to use TourManager from different computers and users. It works nicely with DropBox but should also work with others like NextCloud, etc. Using the working folder that way, you can have access to the files from everywhere. So you can have a look at the upcoming show on your mobile phone and subscribe the calendars with your calendar applications.
+You can use a shared folder which is synchronized over internet to use TourManager from different computers and users. It works nicely with Dropbox but should also work with others like NextCloud, etc. Using the working folder that way, you can have access to the files from everywhere. So you can have a look at the upcoming shows on your mobile phone and subscribe the calendars with your calendar applications.
 
 
 ### Application Folder:
